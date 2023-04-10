@@ -1,0 +1,58 @@
+@extends('layouts.app', ['title' => 'Reset Password - Si-TIPEL DLH Kab Mojokerto'])
+
+@section('content')
+<div class="col-md-5">
+    <div class="card">
+
+        <div class="card-body">
+            @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+            @endif
+
+            <form method="POST" action="{{ route('password.update') }}">
+                @csrf
+
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
+                <div class="form-group">
+                    <div class="text-center">
+                        <img src="img/si-TIPEL.png" 
+                        class="img-fluid " width="300" alt="si-TIPEL">
+                    </div>
+
+                    <label class="font-weight-bold text-uppercase mt-4 mb-3">Email Address</label>
+                    <input id="email" type="email" class="form-control mb-3 @error('email') is-invalid @enderror"
+                        name="email" value="{{ $request->email ?? old('email') }}" required autocomplete="email" autofocus placeholder="Masukkan Alamat Elamil">
+                    @error('email')
+                    <div class="alert alert-danger mt-2">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold text-uppercase mb-3">Password</label>
+                    <input id="password" type="password" class="form-control mb-3 @error('password') is-invalid @enderror"
+                        name="password" required autocomplete="new-password" placeholder="Masukkan Password Baru">
+                    @error('password')
+                    <div class="alert alert-danger mt-2">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold text-uppercase mb-3">Konfirmasi Password</label>
+                    <input id="password-confirm" type="password" class="form-control mb-3" name="password_confirmation"
+                        required autocomplete="new-password" placeholder="Masukkan Konfirmasi Password Baru">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">RESET PASSWORD</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+@endsection

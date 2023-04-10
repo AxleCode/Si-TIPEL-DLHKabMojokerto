@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "@popperjs/core": "^2.11.6",
+        "axios": "^1.1.2",
+        "bootstrap": "^5.2.3",
+        "laravel-vite-plugin": "^0.7.2",
+        "sass": "^1.56.1",
+        "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "ckeditor4": "^4.20.2",
+        "feather-icons": "^4.29.0",
+        "medium-zoom": "^1.0.8",
+        "sweetalert": "^2.1.2",
+        "sweetalert2": "^11.7.3"
+    }
+}

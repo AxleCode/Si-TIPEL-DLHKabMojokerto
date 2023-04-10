@@ -1,0 +1,150 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Laporan;
+use Illuminate\View\View;
+use App\Models\LaporanImage;
+use Illuminate\Http\Request;
+use App\Models\CategoryAduan;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreLaporanRequest;
+use App\Http\Requests\UpdateLaporanRequest;
+use App\Models\Komentar;
+use App\Models\Status;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
+
+class LaporanController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): View
+    {
+        $category = CategoryAduan::all();
+        $user = Auth::user();
+        $laporan = Laporan::where('user_id', $user->id)
+                  ->orderByDesc('created_at')
+                  ->paginate(6);;
+        $statuses = Status::all();
+        $laporanImages = LaporanImage::whereIn('laporan_id', $laporan->pluck('id'))->get();
+
+        return view('dashboard.laporan.index', compact('category','laporan','statuses','laporanImages'));
+    }
+
+
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): View
+    {
+        $category = CategoryAduan::all();
+        
+
+        return view('dashboard.laporan.create', compact('category'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreLaporanRequest $request)
+    {
+        // Validate the form data
+    $validatedData = $request->validate([
+        'judul' => 'required|max:255',
+        'category' => 'required|exists:category_aduans,id',
+        'body' => 'required',
+        'coordinates' => 'required',
+        'address' => 'required',
+        'imageFile.*' => 'image|max:5000|required', // Max size of each image is 5 MB
+    ]);
+    
+    
+    // Buat Laporan baru
+    $laporan = new Laporan();
+    $laporan->judul = $validatedData['judul'];
+    $laporan->body = $validatedData['body'];
+    $laporan->category_aduan_id = $validatedData['category'];
+    $laporan->user_id = auth()->id(); 
+    $laporan->status = 0; 
+    $laporan->coordinates = $request->input('coordinates');
+    $laporan->address = $request->input('address');
+
+    $laporan->save();
+    
+    // Upload file gambar ke db laporan_images dan menggunakan foreign key laporan
+    if ($request->hasFile('imageFile')) {
+        foreach ($request->file('imageFile') as $file) {
+            $fileName = $file->getClientOriginalName();
+            $filePath = public_path('/laporan_images/');
+            $file->move($filePath, $fileName);
+    
+            // Save the image path to the database
+            $image = new LaporanImage();
+            $image->laporan_id = $laporan->id;
+            $image->image_path = 'laporan_images/'.$fileName;
+            $image->save();
+        }
+    }
+    
+    return redirect()->route('laporan.index')->with('success', 'Laporan berhasil disubmit!');
+        
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Laporan $laporan): View
+    {
+        $laporan->load('user','categoryAduan');
+        $statuses = Status::all();
+        $images = LaporanImage::where('laporan_id', $laporan->id)->get();
+        $komentar = Komentar::with('status')->where('laporan_id', $laporan->id)->orderBy('updated_at', 'desc')->get();
+
+        return view('dashboard.laporan.show', compact('laporan','statuses','images','komentar'));
+    }
+
+
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Laporan $laporan)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateLaporanRequest $request, Laporan $laporan)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Laporan $laporan, Request $request)
+    {
+         // Delete the laporan record from the database
+        $laporan->delete();
+
+        // Delete the laporan images from the disk
+        foreach ($laporan->laporanImages as $image) {
+            unlink(public_path($image->image_path));
+        }        
+
+        // Delete the laporan images from the database
+        $laporan->laporanImages()->delete();
+
+        return redirect()->back()->with('success', 'Laporan berhasil dihapus');
+    }
+}
