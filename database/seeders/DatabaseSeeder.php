@@ -232,14 +232,14 @@ class DatabaseSeeder extends Seeder
         Downloadable::create([
             'name' => 'Tata cara pendaftaran akun si-Tipel',
             'deskripsi' => 'Berisi panduan tata cara pendaftaran akun si-Tipel',
-            'ukuran' => '1MB',
+            'ukuran' => '1.09 MB',
             'file' => 'pendaftaran.pdf',
         ]);
 
         Downloadable::create([
             'name' => 'Tata cara pelaporan aduan',
             'deskripsi' => 'Berisi panduan tata cara pelaporan aduan si-Tipel',
-            'ukuran' => '3.15MB',
+            'ukuran' => '3.15 MB',
             'file' => 'aduan.pdf',
         ]);
 
