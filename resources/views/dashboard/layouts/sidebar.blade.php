@@ -41,8 +41,8 @@
         </a>
       </li>
 
-      <li class="sidebar-item {{ Request::is('/') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/" target="blank">
+      <li class="sidebar-item {{ Request::is('dashboard/downloadable') ? 'active' : '' }}">
+        <a class="sidebar-link" href="/dashboard/downloadable">
           <i class="align-middle" data-feather="download"></i> <span class="align-middle">Downloadable</span>
         </a>
       </li>
@@ -98,8 +98,8 @@
         </a>
       </li>
 
-      <li class="sidebar-item {{ Request::is('dashboard/pengumuman*') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/pengumuman">
+      <li class="sidebar-item {{ Request::is('dashboard/admindownloadable') ? 'active' : '' }}">
+        <a class="sidebar-link" href="/dashboard/admindownloadable">
           <i class="align-middle" data-feather="download-cloud"></i> <span class="align-middle">Setting Downloadable</span>
         </a>
       </li>

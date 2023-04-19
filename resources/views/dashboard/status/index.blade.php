@@ -119,7 +119,7 @@
                                                   
                                                  <!-- Deskripsi -->
                                         <div class="form-outline mb-4 form-floating col-lg-10">
-                                          <input type="text" name="deskripsi" class="mt-2 form-control rounded-top rounded-top @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="Masukkan Deskripsi" required >
+                                          <textarea type="text" name="deskripsi" style="height: 150px;" class="mt-2 form-control rounded-top rounded-top @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="Masukkan Deskripsi" required ></textarea>
                                             <label class="form-label" for="deskripsi">Masukkan Deskripsi</label>
                                             @error('deskripsi')
                                             <div class="invalid-feedback">
@@ -209,7 +209,7 @@
                                             
                                                  <!-- Deskripsi -->
                                                  <div class="form-outline mb-4 form-floating col-lg-10">
-                                                  <input type="text" name="deskripsi" class="mt-2 form-control rounded-top rounded-top @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="" required value="{!! $status->deskripsi !!}">
+                                                  <textarea type="text" name="deskripsi" style="height: 150px;" class=" mt-2 form-control rounded-top rounded-top @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="" required value="{!! $status->deskripsi !!}">{!! $status->deskripsi !!}</textarea>
                                                   <label class="form-label" for="deskripsi">Masukkan Deskripsi</label>
                                                   @error('deskripsi')
                                                   <div class="invalid-feedback">

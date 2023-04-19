@@ -40,36 +40,64 @@
                         
             
                             <div class="p-3 py-5">
-
+                                @if(session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                            </div>
+                            @endif
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">Downloadable </h4>
+                                    <h4 class="text-right">Downloadable Setting</h4>
                                 </div>
 
+                                <div class="">
+                                  <a href="" class="w-30 ms-2 mb-2 btn btn-lg btn-outline-success"> 
+                                    <span data-feather="plus" ></span> Tambah File</a>
+                            </div>
                 
                                 <table class="table table-hover my-0">
                                   <thead>
                                     <tr>
-                                      <th class="col-3">Nama File</th>
-                                      <th class="col-5 ">Deskripsi</th>
-                                      <th class="col-2 text-center">Ukuran</th>
-                                      <th class="col-2 text-center">File</th>
+                                      <th>ID</th>
+                                      <th class="d-none d-xl-table-cell">Nama File</th>
+                                      <th>Format</th>
+                                      <th class="d-none d-md-table-cell">Ukuran</th>
                                     </tr>
                                   </thead>
-                                  @foreach ($downloadable as $download)
+                                  @foreach ($pengumumans as $umum)
 
                                   <tbody>
                                     <tr>
-                                      <td>{{ $download->name }}</td>
-                                      <td>{{ $download->deskripsi }}</td>
-                                      <td class="text-center">{{ $download->ukuran }}</td>
-                                      <td class="text-center">
-                                        @if ($download->file)
-                                        <a href="{{ asset('downloadable/' . $download->file) }}" class="btn btn-sm btn-primary" download> <span data-feather="download"></span>  Download file</a>
-                                      @else
-                                        Tidak ada file
+                                      <td>{{ Str::limit($umum->judul, 40) }}</td>
+                                      <td class="d-none d-xl-table-cell">{{ $umum->updated_at->format('d F Y') }}</td>
+                                      @if ($umum->status == '1')
+                                      
+                                        <td><span class="badge bg-success">Aktif</span></td>
+                                      
+                                      @elseif ($umum->status == '0')
+                                      
+                                        <td><span class="badge bg-warning">Nonaktif</span></td>
+                                      
+                                          
                                       @endif
-                                    </td>
-                                     
+                                      <td class="d-none d-md-table-cell">
+                                        <a href="{{ route('pengumuman.show',$umum->id) }}" class="badge bg-info">
+                                          <span data-feather="eye" ></span> Lihat
+                                         
+                                          </a>
+                                          <a href="{{ route('pengumuman.edit',$umum->id) }}" class="badge bg-warning">
+                                              <span data-feather="edit" ></span> Edit
+                                            
+                                          </a>
+                                          
+                                          <form action="{{ route('pengumuman.destroy', $umum->id) }}" method="POST" class="delete-form d-inline" >
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="badge bg-danger border-0 n" >
+                                              <span data-feather="delete" ></span> Hapus</button>
+                                          </form>
+                                          
+                                          </a>
+                                      </td>
                                     </tr>
                                   </tbody>
 
@@ -78,7 +106,7 @@
                                 
                     </div>
                     <ul class="pagination mt-4 pagination d-flex justify-content-center  align-items-center"> 
-                      {{ $downloadable->links() }}
+                      {{ $pengumumans->links() }}
                       </ul>
                 </div>
             </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminLaporanController;
 use App\Http\Controllers\CategoryAduanController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\AdminPengumumanController;
+use App\Http\Controllers\DownloadableController;
 use App\Models\Downloadable;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -42,7 +43,7 @@ Route::get('/dashboard/profile', function(){
     return view('dashboard.profile.index');
 })->name('index')->middleware('auth', 'verified');
 
-Route::get('/dashboard/downloadable', [Downloadable::class,'user']);
+Route::get('/dashboard/downloadable', [DownloadableController::class,'user'])->middleware('auth', 'verified');;
 
 Route::post('/dashboard/profile',[ProfileController::class,'update'])->name('profile-update')->middleware('auth', 'verified');
 
@@ -55,7 +56,7 @@ Route::group(['middleware' => ['auth', 'IsAdmin']], function () {
     Route::resource('/dashboard/laporanadmin', AdminLaporanController::class);
     Route::resource('/dashboard/kategori', CategoryAduanController::class);
     Route::resource('/dashboard/pengumuman', AdminPengumumanController::class);
-    Route::resource('/dashboard/admindownloadable', Downloadable::class);
+    Route::resource('/dashboard/admindownloadable', DownloadableController::class);
 });
 
 Route::fallback(function () {

@@ -13,21 +13,23 @@ class DownloadableController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
     {
-        //
+        return view('dashboard.downloadable.indexadmin');
     }
 
-    public function user(): Response
+    public function user()
     {
-        //
+        $downloadable = Downloadable::paginate(20);
+        return view('dashboard.downloadable.index', compact('downloadable'));
+
     }
 
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response
+    public function create()
     {
         //
     }
@@ -35,7 +37,7 @@ class DownloadableController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDownloadableRequest $request): RedirectResponse
+    public function store(StoreDownloadableRequest $request)
     {
         //
     }
@@ -43,7 +45,7 @@ class DownloadableController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Downloadable $downloadable): Response
+    public function show(Downloadable $downloadable)
     {
         //
     }
@@ -51,7 +53,7 @@ class DownloadableController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Downloadable $downloadable): Response
+    public function edit(Downloadable $downloadable)
     {
         //
     }
@@ -59,7 +61,7 @@ class DownloadableController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDownloadableRequest $request, Downloadable $downloadable): RedirectResponse
+    public function update(UpdateDownloadableRequest $request, Downloadable $downloadable)
     {
         //
     }
@@ -67,7 +69,7 @@ class DownloadableController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Downloadable $downloadable): RedirectResponse
+    public function destroy(Downloadable $downloadable)
     {
         //
     }
