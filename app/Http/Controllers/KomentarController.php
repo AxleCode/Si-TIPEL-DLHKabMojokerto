@@ -53,16 +53,70 @@ class KomentarController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateKomentarRequest $request, Komentar $komentar)
+    public function update(UpdateKomentarRequest $request, $id)
     {
-        //
+        $komentar = Komentar::find($id);
+
+        // Validate the input data
+        $validatedData = $request->validate([
+            'status' => 'required',
+            'komentar' => 'required',
+            'file' => 'mimes:jpeg,jpg,png,pdf|max:1048'
+        ]);
+
+        // Retrieve the old filename
+        $oldFilename = $komentar->file;
+
+        // Update the record in the database
+        $komentar->status = $validatedData['status'];
+        $komentar->komentar = $validatedData['komentar'];
+    
+        // Save the file to storage
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $filePath = public_path('/komentar_file/');
+            $file->move($filePath, $filename);
+            
+            // Delete the old file
+            if ($oldFilename) {
+                $oldFilePath = public_path('/komentar_file/') . $oldFilename;
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+        } else {
+            $filename = $oldFilename;
+        }
+
+        $komentar->file = $filename;
+        $komentar->save();
+    
+        // Redirect to the previous page with a success message
+        toast('Komentar Berhasil Diubah', 'success')->autoClose(5000)->width('320px');
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Komentar $komentar)
+    public function destroy($id)
     {
-        //
+        try {
+            $komentar = Komentar::find($id);
+            $filePath = public_path('/komentar_file/' . $komentar->file);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+    
+            $komentar->delete();
+    
+            toast('Komentar telah dihapus', 'success')->autoClose(5000)->width('320px');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            $errorMessage = $e->getMessage();
+            toast('Gagal hapus komentar', 'error')->autoClose(5000)->width('320px');
+            return redirect()->back()->withInput();
+        }
     }
 }

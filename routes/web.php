@@ -18,6 +18,7 @@ use App\Http\Controllers\CategoryAduanController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\AdminPengumumanController;
 use App\Http\Controllers\DownloadableController;
+use App\Http\Controllers\KomentarController;
 use App\Models\Downloadable;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -57,6 +58,7 @@ Route::group(['middleware' => ['auth', 'IsAdmin']], function () {
     Route::resource('/dashboard/kategori', CategoryAduanController::class);
     Route::resource('/dashboard/pengumuman', AdminPengumumanController::class);
     Route::resource('/dashboard/admindownloadable', DownloadableController::class);
+    Route::resource('/dashboard/komentar', KomentarController::class);
 });
 
 Route::fallback(function () {

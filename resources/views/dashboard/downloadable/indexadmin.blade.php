@@ -228,7 +228,7 @@
         e.preventDefault();
         var form = this;
         Swal.fire({
-          title: "Apakah ingin menghapus File {{ $download->name }}?",
+          title: "Apakah ingin menghapus File?",
           text: "Data yang dihapus tidak bisa dikembalikan",
           icon: 'warning',
           showCancelButton: true,

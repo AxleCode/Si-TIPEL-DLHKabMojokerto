@@ -60,8 +60,9 @@
                                 @csrf
                                 <input type="hidden" name="laporan_id" value="{{ $laporan->id }}">
                             <div class="modal-body">
-                                <!-- Add your edit form here -->
-                                    <div class="mb-3">
+
+                                <!-- Status -->
+                                    <div class="mb-3 col-lg-10">
                                         <label for="status" class="form-label">Status</label>
                                         <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
                                             @foreach($statuses as $status)
@@ -77,7 +78,7 @@
                                             @enderror
                                     </div>
 
-                                    <div class="mb-3">
+                                    <div class="mb-3 col-lg-10">
                                         <label for="file" class="form-label">Upload File PDF/Gambar (Jika ada) </label>
                                         <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file" accept=".pdf, .jpg, .jpeg, .png">
                                         <p>*<small>Format jpeg,jpg,png,pdf Max ukuran file 1MB</small></p>
@@ -88,17 +89,17 @@
                                             @enderror
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="komentar" class="form-label">Komentar</label>
-                                        <input id="komentar" type="hidden" name="komentar" >
-                                        <trix-editor class="bg-white @error('komentar') is-invalid @enderror" input="komentar" placeholder="Masukkan komentar" @required(true)></trix-editor>
+                                    <!-- Komentar Status -->
+                                    <div class="form-outline mb-4 form-floating col-lg-10">
+                                        <textarea type="name" name="komentar" style="height: 150px" class="mt-2 form-control rounded-top rounded-top @error('komentar') is-invalid @enderror" id="komentar" placeholder="" required></textarea>
+                                        <label class="form-label" for="komentar">Masukkan Komentar</label>
                                         @error('komentar')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                    </div>
-                                    <!-- Add your other form inputs here -->
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div> 
+
                                 
                             </div>
                             <div class="modal-footer">
@@ -132,9 +133,9 @@
                     <p class="mt-0">{!! $laporan->body !!}</p>
                     <style>
                         .image-class {
-                            width: 200px; /* set the width you want */
-                            height: 200px; /* set the height you want */
-                            object-fit: cover; /* adjust the image aspect ratio to fit the container */
+                            width: 200px; 
+                            height: 200px; 
+                            object-fit: cover; 
                         }
                     </style>
 
@@ -197,15 +198,15 @@
         </form>
         </div>
         
-        <div class="me-5 ms-3 mb-3 col-11">
-            <p class="fs-3" ><strong>Histori Respon Petugas</strong></p>
+        <div class="me-5  mb-3 col-12">
+            <p class="fs-3 ms-2" ><strong>Histori Respon Petugas</strong></p>
             <table class="table table-hover my-0">
                 <thead>
                     <tr>
                         <th class="col-2">Waktu</th>
                         <th class="d-none d-xl-table-cell">Aktivitas</th>
                         <th class="d-none d-sm-table-cell">Status</th>
-                        <th class="d-none d-sm-table-cell">File</th>
+                        <th class="d-none d-sm-table-cell text-center">Aksi</th>
                     </tr>
                 </thead>
                 @if(count($komentar) > 0)
@@ -219,13 +220,171 @@
                                   <td><span class="badge bg-{{ $s->warna }}">{{ $s->name }}</span></td>
                                 @endif
                               @endforeach                           
-                                <td>
+                                <td class="">
                                     @if ($komen->file)
                                     <a href="{{ asset('komentar_file/' . $komen->file) }}" class="btn btn-sm btn-primary" download> <span data-feather="download"></span>  Download file</a>
-                                  @else
-                                    Tidak ada file
-                                  @endif
-                                </td>
+                                    
+                                    <button type="submit" class="badge bg-warning border-0 " data-bs-toggle="modal" data-bs-target="#editModal{{ $komen->id }}" >
+                                        <span data-feather="edit" ></span> Edit</button>
+
+                                      <!-- Edit Modal -->
+                                      <div class="modal fade" id="editModal{{ $komen->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="editModalLabel"> <span data-feather="grid" ></span><strong> Nama Kategori</strong></h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('komentar.update', $komen->id) }}" method="POST" enctype="multipart/form-data">
+                                              @csrf
+                                              @method('PUT')
+                                              <div class="modal-body">
+                                                <div class="ms-3">
+
+                                            <!-- Status komentar -->
+                                            <div class="mb-3 col-lg-10">
+                                                <label for="status" class="form-label">Status komentar</label>
+                                                <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" >
+                                                    @foreach($statuses as $status)
+                                                    <option value="{{ $status->kode_status }}" class="bg-{{ $status->warna }} text-white" {{ $komen->status == $status->kode_status ? 'selected' : '' }}>
+                                                        {{ $status->name }}
+                                                    </option>
+                                                @endforeach
+                                                </select>
+                                                @error('status')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                            </div>
+
+                                            <!-- komentar -->
+                                             <div class="form-outline mb-4 form-floating col-lg-10">
+                                                <textarea type="name" name="komentar" style="height: 150px" class="mt-2 form-control rounded-top rounded-top @error('komentar') is-invalid @enderror" id="komentar" placeholder="" required>{!! old('komentar', $komen->komentar) !!}</textarea>
+                                                <label class="form-label" for="komentar">Masukkan Komentar</label>
+                                                @error('komentar')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div> 
+                                            
+
+                                              <!-- File -->
+                                              <div class="col-lg-10">
+                                                <label class="form-label" for="name">Ubah File</label>
+                                                <input type="file" name="file" placeholder="Ganti file" class="mt-1 form-control rounded-top @error('file') is-invalid @enderror" id="file" >
+                                                <p style="font-size: 12px" class="mt-1">*Jangan isi file jika ingin menggunakan file sebelumnya</p>
+                                                @error('file')
+                                                <div class="invalid-feedback">
+                                                  {{ $message }}
+                                                </div>
+                                                @enderror
+                                              </div>
+                                            
+                                          </div>
+                                           
+                                        </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                              </div>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <!-- Delete Komentar-->
+                                    <form action="{{ route('komentar.destroy', $komen->id) }}" method="POST" class="delete-form d-inline" >
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="badge bg-danger border-0 n" >
+                                          <span data-feather="delete" ></span> Hapus</button>
+                                      </form>
+                                  
+                                @else
+                                    
+                                  <button type="submit" class="badge bg-warning border-0 text-right " style="margin-left: 115px" data-bs-toggle="modal" data-bs-target="#editModal{{ $komen->id }}" >
+                                    <span data-feather="edit" ></span> Edit</button>
+
+                                  <!-- Edit Modal -->
+                                  <div class="modal fade" id="editModal{{ $komen->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="editModalLabel"> <span data-feather="grid" ></span><strong> Nama Kategori</strong></h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="{{ route('komentar.update', $komen->id) }}" method="POST" enctype="multipart/form-data">
+                                          @csrf
+                                          @method('PUT')
+                                          <div class="modal-body">
+                                            <div class="ms-3">
+
+                                        <!-- Status komentar -->
+                                        <div class="mb-3 col-lg-10">
+                                            <label for="status" class="form-label">Status komentar</label>
+                                            <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" >
+                                                @foreach($statuses as $status)
+                                                <option value="{{ $status->kode_status }}" class="bg-{{ $status->warna }} text-white" {{ $komen->status == $status->kode_status ? 'selected' : '' }}>
+                                                    {{ $status->name }}
+                                                </option>
+                                            @endforeach
+                                            </select>
+                                            @error('status')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                        </div>
+
+                                        <!-- komentar -->
+                                         <div class="form-outline mb-4 form-floating col-lg-10">
+                                            <textarea type="name" name="komentar" style="height: 150px" class="mt-2 form-control rounded-top rounded-top @error('komentar') is-invalid @enderror" id="komentar" placeholder="" required>{{ old('komentar', $komen->komentar) }}</textarea>
+                                            <label class="form-label" for="komentar">Masukkan Komentar</label>
+                                            @error('komentar')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div> 
+
+                                          <!-- File -->
+                                          <div class="col-lg-10">
+                                            <label class="form-label" for="name">Ubah File</label>
+                                            <input type="file" name="file" placeholder="Ganti file" class="mt-1 form-control rounded-top @error('file') is-invalid @enderror" id="file" required>
+                                            <p style="font-size: 12px" class="mt-1">*Jangan isi file jika ingin menggunakan file sebelumnya</p>
+                                            @error('file')
+                                            <div class="invalid-feedback">
+                                              {{ $message }}
+                                            </div>
+                                            @enderror
+                                          </div>
+                                        
+                                      </div>
+                                       
+                                    </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <!-- Delete Komentar-->
+                                <form action="{{ route('komentar.destroy', $komen->id) }}" method="POST" class="delete-form d-inline " >
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="badge bg-danger border-0 " >
+                                      <span data-feather="delete" ></span> Hapus</button>
+                                  </form>
+
+
+                                @endif
+                            </td>
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -292,6 +451,27 @@
 
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+
+<script>
+    // Delete confirmation with SweetAlert2
+    $('.delete-form').on('submit', function(e) {
+      e.preventDefault();
+      var form = this;
+      Swal.fire({
+        title: "Apakah ingin menghapus Komentar?",
+        text: "Data yang dihapus tidak bisa dikembalikan",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              form.submit();
+          } 
+      });
+    });
+  </script>
 
 {{-- <script>
     // Listen for form submission event
