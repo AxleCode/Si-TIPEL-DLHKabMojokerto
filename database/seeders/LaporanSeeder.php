@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Laporan;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class LaporanSeeder extends Seeder
 {
@@ -12,6 +13,41 @@ class LaporanSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Laporan::create([
+            'category_aduan_id' =>'1',
+            'user_id' =>'1',
+            'judul' =>'Sampah liar samping jalan raya ngrame',
+            'body' =>'Menumpuk dan perlu diambil pak',
+            'coordinates' =>'-7.48989679257064, 112.56462304272291',
+            'address' =>'JI-157, Ngrame, Mojokerto, East Java, 61382, Indonesia',
+            'status' => '99',
+        ]);
+        Laporan::create([
+            'category_aduan_id' =>'2',
+            'user_id' =>'2',
+            'judul' =>'ranting pohon besar melebihi garis pembatas jalan ',
+            'body' =>'dijalan ini terdapat ranting pohon yang menganggu pengguna jalan',
+            'coordinates' =>'-7.525574949258333, 112.58562150093381',
+            'address' =>'Pungging, Mojokerto, East Java, 61384, Indonesia',
+            'status' => '0',
+        ]);
+        Laporan::create([
+            'category_aduan_id' =>'1',
+            'user_id' =>'2',
+            'judul' =>'Bau menyengat sampah dijalan sebelah makam wonosari',
+            'body' =>'Warga yang melintas tidak nyaman mohon segera diangkut sampahnya dan diberi larangan buang sampah disekitar area situ',
+            'coordinates' =>'-7.498446969127178, 112.4771356269647',
+            'address' =>'Jalan Raya Watukosek, Wonosari, Mojokerto, East Java, 61384, Indonesia',
+            'status' => '1',
+        ]);
+        Laporan::create([
+            'category_aduan_id' =>'1',
+            'user_id' =>'2',
+            'judul' =>'Banyak sampah menumpuk dijalan desa Tambakrejo',
+            'body' =>'banyak warga yang tetap buang sampah sembarangan di area situ mohon petugas dinas lingkungan hidup untuk memberikan solusi',
+            'coordinates' =>'-7.550669797052894, 112.65387746174548',
+            'address' =>'Tambakrejo, Mojokerto, East Java, 67155, Indonesia',
+            'status' => '0',
+        ]);
     }
 }

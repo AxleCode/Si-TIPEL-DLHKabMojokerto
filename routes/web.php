@@ -19,7 +19,9 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\AdminPengumumanController;
 use App\Http\Controllers\DownloadableController;
 use App\Http\Controllers\KomentarController;
+use App\Http\Controllers\NotifikasiController;
 use App\Models\Downloadable;
+use App\Models\Notifikasi;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -45,6 +47,8 @@ Route::get('/dashboard/profile', function(){
 })->name('index')->middleware('auth', 'verified');
 
 Route::get('/dashboard/downloadable', [DownloadableController::class,'user'])->middleware('auth', 'verified');;
+
+Route::get('/dashboard/notifikasi', [NotifikasiController::class,'index'])->middleware('auth', 'verified');;
 
 Route::post('/dashboard/profile',[ProfileController::class,'update'])->name('profile-update')->middleware('auth', 'verified');
 

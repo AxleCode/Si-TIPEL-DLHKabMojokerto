@@ -29,9 +29,9 @@
         </a>
       </li>
       
-      <li class="sidebar-item {{ Request::is('dashboard/history') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/history">
-          <i class="align-middle" data-feather="clock"></i> <span class="align-middle">history Notifikasi</span>
+      <li class="sidebar-item {{ Request::is('dashboard/notifikasi') ? 'active' : '' }}">
+        <a class="sidebar-link" href="/dashboard/notifikasi">
+          <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Histori Notifikasi</span>
         </a>
       </li>
 
