@@ -55,18 +55,38 @@
                                             });
                                         </script>
                                     @endif
-                                    
-                                    <p class="fs-3">Histori Notifikasi <strong>{{ auth()->user()->name }}</strong></p>
-                            
-                                    <div class="list-group">
-                                      @foreach($notifikasi as $notif)
-                                      <button type="button" class="mb-2 list-group-item list-group-item-action {{ $notif->status ? 'active' : '' }}">
-                                        <p class="ms-2 fs-4 fw-medium">{{ $notif->pesan }} &nbsp<p>
-                                        <p class="fw-bold fs-6">{{ $notif->created_at->locale('id_ID')->format('[H:i] d M Y') }}</p>
-                                      </button>
-                                    @endforeach
+                                    <div class="container mb-3">
+                                      <div class="row align-items-center">
+                                        <div class="col">
+                                          <p class="fs-3">Histori Notifikasi <strong>{{ auth()->user()->name }}</strong></p>
+                                        </div>
+
+                                        <form action="{{ route('notif-updateall') }}" method="POST">
+                                          @csrf
+                                          <div class="col text-end">
+                                              <button type="submit" class="w-30 ms-2 mb-2 btn btn-lg btn-outline-primary"> 
+                                                  <span data-feather="check-square"></span> Tandai Sudah Terbaca Semua
+                                              </button>
+                                          </div>
+                                      </form>
+                                      
+
+                                        </div>
                                     </div>
+                                    @foreach($notifikasi as $notif)
+                                    <form action="{{ route('notif-update', $notif->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="list-group me-3 ms-3">
+                                            <button type="submit" class="mb-2 list-group-item list-group-item-action {{ $notif->status ? 'active' : '' }}">
+                                                <p class=" mt-2 fs-4 fw-semibold">{{ $notif->judul }} &nbsp<p>
+                                                <p class="ms-2 fs-5 fw-medium">{{ $notif->pesan }} &nbsp<p>
+                                                <p class="fw-bold "><small>{{ $notif->created_at->locale('id_ID')->format('[H:i] d M Y') }}</small></p>
+                                            </button>
+                                        </div>
+                                    </form>
+                                @endforeach
                                 
+                                      {{ $notifikasi->links() }}
                     </div>
                    
                 </div>

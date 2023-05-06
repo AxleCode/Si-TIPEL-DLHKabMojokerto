@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Status;
 use App\Models\Laporan;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class StatusController extends Controller
 {
@@ -16,16 +18,21 @@ class StatusController extends Controller
     public function index()
     {
         $statuses = Status::withCount(['laporan as laporan_count'])->get();
-
-
         $colors = [
             'danger' => 'Merah',
             'success' => 'Hijau',
             'primary' => 'Biru',
             'warning' => 'Kuning',
         ];
-
-        return view('dashboard.status.index', compact('statuses', 'colors'));
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
+                    
+        return view('dashboard.status.index', compact('statuses', 'colors','notifikasi', 'jumlahnotif'));
     }
 
     /**

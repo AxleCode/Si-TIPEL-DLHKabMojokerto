@@ -42,13 +42,13 @@ Route::get('/', [MapController::class,'home']);
 
 Route::get('/dashboard', [DashboardController::class,'index'])->middleware('auth', 'verified');
 
-Route::get('/dashboard/profile', function(){
-    return view('dashboard.profile.index');
-})->name('index')->middleware('auth', 'verified');
+Route::get('/dashboard/profile', [ProfileController::class,'index'])->name('index')->middleware('auth', 'verified');
 
 Route::get('/dashboard/downloadable', [DownloadableController::class,'user'])->middleware('auth', 'verified');;
 
 Route::get('/dashboard/notifikasi', [NotifikasiController::class,'index'])->middleware('auth', 'verified');;
+Route::post('/dashboard/notifikasi/{id}', [NotifikasiController::class,'update'])->name('notif-update')->middleware('auth', 'verified');
+Route::post('/dashboard/notifikasi', [NotifikasiController::class,'updateall'])->name('notif-updateall')->middleware('auth', 'verified');
 
 Route::post('/dashboard/profile',[ProfileController::class,'update'])->name('profile-update')->middleware('auth', 'verified');
 

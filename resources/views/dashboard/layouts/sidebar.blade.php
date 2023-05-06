@@ -144,64 +144,64 @@
           <a class="nav-icon dropdown-toggle" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="position-relative ">
               <i class="feather align-middle mt-1" style="width: 23px; height: 30px"  data-feather="bell"></i>
-              <span class="indicator">4</span>
+              <span class="indicator">{{ $jumlahnotif }}</span>
             </div>
           </a>
           <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="notifDropdown">
             <div class="dropdown-menu-header">
-              4 New Notifications
+              {{ $jumlahnotif }} Notifikasi Baru
             </div>
             <div class="list-group">
-              <a href="#" class="list-group-item">
-                <div class="row g-0 align-items-center">
-                  <div class="col-2">
-                    <i class="text-danger" data-feather="alert-circle"></i>
-                  </div>
-                  <div class="col-10">
-                    <div class="text-dark">Update completed</div>
-                    <div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
-                    <div class="text-muted small mt-1">30m ago</div>
-                  </div>
-                </div>
-              </a>
-              <a href="#" class="list-group-item">
-                <div class="row g-0 align-items-center">
-                  <div class="col-2">
-                    <i class="text-warning" data-feather="bell"></i>
-                  </div>
-                  <div class="col-10">
-                    <div class="text-dark">Lorem ipsum</div>
-                    <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
-                    <div class="text-muted small mt-1">2h ago</div>
-                  </div>
-                </div>
-              </a>
-              <a href="#" class="list-group-item">
-                <div class="row g-0 align-items-center">
-                  <div class="col-2">
-                    <i class="text-primary" data-feather="home"></i>
-                  </div>
-                  <div class="col-10">
-                    <div class="text-dark">Login from 192.186.1.8</div>
-                    <div class="text-muted small mt-1">5h ago</div>
-                  </div>
-                </div>
-              </a>
-              <a href="#" class="list-group-item">
-                <div class="row g-0 align-items-center">
-                  <div class="col-2">
-                    <i class="text-success" data-feather="user-plus"></i>
-                  </div>
-                  <div class="col-10">
-                    <div class="text-dark">New connection</div>
-                    <div class="text-muted small mt-1">Christina accepted your request.</div>
-                    <div class="text-muted small mt-1">14h ago</div>
-                  </div>
-                </div>
-              </a>
-            </div>
+              @php $count = 0; @endphp
+              @foreach($notifikasi as $notif)
+                  @if($count < 4)
+                  @if ($notif->status)
+                    <a href="{{ $notif->link }}" class="list-group-item bg-primary">
+                      <div class="row g-0 align-items-center ">
+                          <div class="col-2">
+                              <i class="text-white ms-2" data-feather="{{ $notif->logo }}"></i>
+                          </div>
+                          <div class="col-10">
+                            @if ($notif->status)
+                              <div class="text-white ">{{ $notif->judul }}</div>
+                              <div class="text-white small mt-1">{{ Str::limit($notif->pesan, 80) }}</div>
+                              <div class="text-white small mt-1">{{ $notif->created_at->locale('id_ID')->diffForHumans() }}</div>
+                            @else
+                              <div class="text-dark">{{ $notif->judul }}</div>
+                              <div class="text-muted small mt-1">{{ Str::limit($notif->pesan, 80) }}</div>
+                              <div class="text-muted small mt-1">{{ $notif->created_at->locale('id_ID')->diffForHumans() }}</div>
+                            @endif
+                          </div>
+                      </div>
+                  </a>
+                @else
+                  <a href="{{ $notif->link }}" class="list-group-item ">
+                    <div class="row g-0 align-items-center ">
+                        <div class="col-2">
+                            <i class="{{ $notif->textlogo }} ms-2" data-feather="{{ $notif->logo }}"></i>
+                        </div>
+                        <div class="col-10">
+                          @if ($notif->status)
+                            <div class="text-white ">{{ $notif->judul }}</div>
+                            <div class="text-white small mt-1">{{ Str::limit($notif->pesan, 80) }}</div>
+                            <div class="text-white small mt-1">{{ $notif->created_at->locale('id_ID')->diffForHumans() }}</div>
+                          @else
+                            <div class="text-dark">{{ $notif->judul }}</div>
+                            <div class="text-muted small mt-1">{{ Str::limit($notif->pesan, 80) }}</div>
+                            <div class="text-muted small mt-1">{{ $notif->created_at->locale('id_ID')->diffForHumans() }}</div>
+                          @endif
+                        </div>
+                    </div>
+                </a>
+                @endif
+                      @php $count++; @endphp
+                  @endif
+              @endforeach
+          </div>
+          
+            
             <div class="dropdown-menu-footer">
-              <a href="#" class="text-muted">Show all notifications</a>
+              <a href="/dashboard/notifikasi" class="text-muted">Tampilkan Semua Notifikasi</a>
             </div>
           </ul>
         </li>

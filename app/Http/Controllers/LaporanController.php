@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Laporan;
+use App\Models\Komentar;
 use Illuminate\View\View;
+use App\Models\Notifikasi;
 use App\Models\LaporanImage;
 use Illuminate\Http\Request;
 use App\Models\CategoryAduan;
@@ -16,8 +19,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreLaporanRequest;
 use App\Http\Requests\UpdateLaporanRequest;
-use App\Models\Komentar;
-use App\Models\Status;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class LaporanController extends Controller
@@ -29,13 +30,19 @@ class LaporanController extends Controller
     {
         $category = CategoryAduan::all();
         $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
         $laporan = Laporan::where('user_id', $user->id)
                   ->orderByDesc('created_at')
                   ->paginate(6);;
         $statuses = Status::all();
         $laporanImages = LaporanImage::whereIn('laporan_id', $laporan->pluck('id'))->get();
 
-        return view('dashboard.laporan.index', compact('category','laporan','statuses','laporanImages'));
+        return view('dashboard.laporan.index', compact('category','laporan','statuses','laporanImages','notifikasi', 'jumlahnotif'));
     }
 
 
@@ -46,9 +53,15 @@ class LaporanController extends Controller
     public function create(): View
     {
         $category = CategoryAduan::all();
-        
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
 
-        return view('dashboard.laporan.create', compact('category'));
+        return view('dashboard.laporan.create', compact('category','notifikasi', 'jumlahnotif'));
     }
 
     /**
@@ -107,8 +120,15 @@ class LaporanController extends Controller
         $statuses = Status::all();
         $images = LaporanImage::where('laporan_id', $laporan->id)->get();
         $komentar = Komentar::with('status')->where('laporan_id', $laporan->id)->orderBy('updated_at', 'desc')->get();
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
 
-        return view('dashboard.laporan.show', compact('laporan','statuses','images','komentar'));
+        return view('dashboard.laporan.show', compact('laporan','statuses','images','komentar','notifikasi', 'jumlahnotif'));
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,14 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return view('dashboard/profile');
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
+        return view('dashboard.profile.index', compact('notifikasi', 'jumlahnotif'));
     }
 
     public function update(User $user, Request $request)

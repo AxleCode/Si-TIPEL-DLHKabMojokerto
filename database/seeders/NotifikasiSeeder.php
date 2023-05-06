@@ -15,27 +15,57 @@ class NotifikasiSeeder extends Seeder
     {
         Notifikasi::create([
             'user_id' => 1,
+            'judul'=> 'Laporan Update',
+            'logo'=> 'clipboard',
+            'textlogo'=> 'text-primary',
             'pesan' => 'Ini adalah notifikasi pertama.',
             'status' => false,
-            'link' => '/',
+            'created_at' => '2023-02-18 08:37:02',
+
         ]);
         Notifikasi::create([
             'user_id' => 1,
+            'judul'=> 'Laporan Update',
+            'logo'=> 'clipboard',
+            'textlogo'=> 'text-primary',
             'pesan' => 'Ini adalah notifikasi kedua.',
-            'status' => true,
-            'link' => '/',
+            'status' => false,
+            'created_at' => '2023-02-19 09:37:02',
         ]);
         Notifikasi::create([
             'user_id' => 1,
+            'judul'=> 'Laporan Update',
+            'logo'=> 'clipboard',
+            'textlogo'=> 'text-primary',
+            'pesan' => 'Ini adalah notifikasi favng oiegvoe ngvweuh nvw heiu cnhu fhi uhN IEHF VNWE FGNvwf guyeW XNUFGU Yg xwyufuy bufybg wfvewfvw efwevwe bgth btrh bw rcwer ewr eccr ewr',
+            'status' => false,
+            'created_at' => '2023-04-18 08:37:02',
+        ]);
+        Notifikasi::create([
+            'user_id' => 1,
+            'judul'=> 'Laporan Update',
+            'logo'=> 'clipboard',
+            'textlogo'=> 'text-primary',
+            'pesan' => 'Ini adalah notifikasi favng oiegvoe ngvweuh nvw heiu cnhu fhi uhN IEHF VNWE FGNvwf guyeW XNUFGU Yg xwyufuy bufybg wfvewfvw efwevwe bgth btrh bw rcwer ewr eccr ewr',
+            'status' => false,
+            'created_at' => '2023-04-19 08:37:02',
+        ]);
+        Notifikasi::create([
+            'user_id' => 1,
+            'judul'=> 'Laporan Update',
+            'logo'=> 'clipboard',
+            'textlogo'=> 'text-primary',
             'pesan' => 'Ini adalah notifikasi favng oiegvoe ngvweuh nvw heiu cnhu fhi uhN IEHF VNWE FGNvwf guyeW XNUFGU Yg xwyufuy bufybg wfvewfvw efwevwe bgth btrh bw rcwer ewr eccr ewr',
             'status' => true,
-            'link' => '/',
+            'created_at' => '2023-04-21 08:37:02',
         ]);
         Notifikasi::create([
             'user_id' => 2,
+            'judul'=> 'Laporan Update',
+            'logo'=> 'clipboard',
+            'textlogo'=> 'text-primary',
             'pesan' => 'halo.',
             'status' => false,
-            'link' => '/',
         ]);
     }
 }

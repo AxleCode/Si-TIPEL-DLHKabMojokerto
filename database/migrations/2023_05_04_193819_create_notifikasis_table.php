@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('pesan');
+            $table->string('judul');
+            $table->string('logo');
+            $table->string('textlogo');
             $table->boolean('status');
-            $table->string('link')->default('/');
+            $table->string('link')->default('#');
             $table->timestamps();
         });
     }

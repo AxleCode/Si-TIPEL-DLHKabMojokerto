@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notifikasi;
 use App\Models\Downloadable;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreDownloadableRequest;
 use App\Http\Requests\UpdateDownloadableRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 
 class DownloadableController extends Controller
 {
@@ -16,13 +18,27 @@ class DownloadableController extends Controller
     public function index()
     {
         $downloadable = Downloadable::paginate(20);
-        return view('dashboard.downloadable.indexadmin', compact('downloadable'));
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
+        return view('dashboard.downloadable.indexadmin', compact('downloadable','notifikasi', 'jumlahnotif'));
     }
 
     public function user()
     {
         $downloadable = Downloadable::paginate(20);
-        return view('dashboard.downloadable.index', compact('downloadable'));
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
+        return view('dashboard.downloadable.index', compact('downloadable','notifikasi', 'jumlahnotif'));
 
     }
 

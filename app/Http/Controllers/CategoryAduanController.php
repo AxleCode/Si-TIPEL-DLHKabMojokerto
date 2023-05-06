@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Laporan;
 use Illuminate\View\View;
+use App\Models\Notifikasi;
 use App\Models\CategoryAduan;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreCategoryAduanRequest;
 use App\Http\Requests\UpdateCategoryAduanRequest;
-use App\Models\Status;
 
 class CategoryAduanController extends Controller
 {
@@ -23,8 +25,15 @@ class CategoryAduanController extends Controller
     public function index(): View
     {
         $category = CategoryAduan::withCount('laporan')->get();
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
         
-        return view('dashboard.kategori.index', compact('category'));
+        return view('dashboard.kategori.index', compact('category', 'notifikasi', 'jumlahnotif'));
     }
 
     /**

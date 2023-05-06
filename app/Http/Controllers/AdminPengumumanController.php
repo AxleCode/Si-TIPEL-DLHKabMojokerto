@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\Notifikasi;
 use App\Models\Pengumuman;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Post;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class AdminPengumumanController extends Controller
 {
@@ -22,8 +24,15 @@ class AdminPengumumanController extends Controller
         // foreach ($pengumumans as $pengumuman) {
         //     $pengumuman->judul = Str::limit($pengumuman->judul, 50);
         // }
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
 
-        return view('dashboard.pengumuman.index', compact('pengumumans'));
+        return view('dashboard.pengumuman.index', compact('pengumumans', 'notifikasi', 'jumlahnotif'));
     }
 
     /**
