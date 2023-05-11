@@ -116,8 +116,15 @@ class AdminLaporanController extends Controller
         $images = LaporanImage::where('laporan_id', $laporan->id)->get();
         $komentar = Komentar::with('status')->where('laporan_id', $laporan->id)->orderBy('updated_at', 'desc')->get();
         
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
+        
         if(auth()->user()->is_admin || auth()->user()->id == $laporan->user_id) {
-            return view('dashboard.laporanadmin.edit', compact('laporan','userName','statuses','images','komentar'));
+            return view('dashboard.laporanadmin.edit', compact('laporan','userName','statuses','images','komentar', 'notifikasi', 'jumlahnotif'));
         } else {
             abort(403, 'Unauthorized action.');
         }
