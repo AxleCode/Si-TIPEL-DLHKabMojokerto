@@ -90,7 +90,18 @@ class AdminLaporanController extends Controller
         // Update the status of the Laporan instance
         $laporan->status = $request->status;
         $laporan->save();
-    
+
+        // Create a new notification
+        $notification = new Notifikasi();
+        $notification->user_id = $laporan->user_id;
+        $notification->judul = 'Laporan Update';
+        $notification->pesan = 'Status Laporan anda dengan ID '.$laporan->id.' telah diupdate oleh petugas';
+        $notification->status = true;
+        $notification->logo = 'clipboard'; 
+        $notification->textlogo = 'text-primary'; 
+        $notification->link = '/dashboard/laporan/'.$laporan->id;
+        $notification->save();
+        
         toast('Laporan berhasil diupdate','success')->autoClose(5000)->width('320px');
         return redirect()->back();
     }
@@ -116,12 +127,13 @@ class AdminLaporanController extends Controller
         $images = LaporanImage::where('laporan_id', $laporan->id)->get();
         $komentar = Komentar::with('status')->where('laporan_id', $laporan->id)->orderBy('updated_at', 'desc')->get();
         
-        $notifikasi = Notifikasi::where('user_id', $user->id)
-                    ->orderByDesc('created_at')
-                    ->paginate(15);;
-        $jumlahnotif = Notifikasi::where('user_id', $user->id)
-                    ->where('status', true)
-                    ->count();
+        $notifikasi = Notifikasi::where('user_id', 1)
+        ->orderByDesc('created_at')
+        ->paginate(15);
+    
+        $jumlahnotif = Notifikasi::where('user_id', 1)
+            ->where('status', true)
+            ->count();
         
         if(auth()->user()->is_admin || auth()->user()->id == $laporan->user_id) {
             return view('dashboard.laporanadmin.edit', compact('laporan','userName','statuses','images','komentar', 'notifikasi', 'jumlahnotif'));

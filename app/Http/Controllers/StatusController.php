@@ -85,8 +85,15 @@ class StatusController extends Controller
             ->where('laporans.status', $kode_status)
             ->orderBy('laporans.created_at', 'desc')
             ->paginate(30);
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                        ->orderByDesc('created_at')
+                        ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                        ->where('status', true)
+                        ->count();
     
-        return view('dashboard.status.show', compact('status', 'laporans'));
+        return view('dashboard.status.show', compact('status', 'laporans', 'notifikasi', 'jumlahnotif'));
     }
     
 

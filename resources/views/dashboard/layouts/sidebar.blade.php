@@ -156,7 +156,9 @@
               @foreach($notifikasi as $notif)
                   @if($count < 4)
                   @if ($notif->status)
-                    <a href="{{ $notif->link }}" class="list-group-item bg-primary">
+                  <form id="notif-form-{{ $notif->id }}" action="{{ route('notif-update', $notif->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <a onclick="event.preventDefault(); document.getElementById('notif-form-{{ $notif->id }}').submit();" class="list-group-item bg-primary" style="border: none;">
                       <div class="row g-0 align-items-center ">
                           <div class="col-2">
                               <i class="text-white ms-2" data-feather="{{ $notif->logo }}"></i>

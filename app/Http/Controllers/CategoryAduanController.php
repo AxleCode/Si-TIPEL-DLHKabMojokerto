@@ -95,8 +95,15 @@ class CategoryAduanController extends Controller
                     ->where('laporans.category_aduan_id', $id)
                     ->orderBy('laporans.created_at', 'desc')
                     ->paginate(30);
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                                ->orderByDesc('created_at')
+                                ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                                ->where('status', true)
+                                ->count();
         
-        return view('dashboard.kategori.show', compact('category', 'laporans'));
+        return view('dashboard.kategori.show', compact('category', 'laporans', 'notifikasi', 'jumlahnotif'));
     }
     
 

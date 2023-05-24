@@ -23,7 +23,7 @@ class LaporanSeeder extends Seeder
             'status' => '99',
         ]);
         Laporan::create([
-            'category_aduan_id' =>'2',
+            'category_aduan_id' =>'1',
             'user_id' =>'2',
             'judul' =>'ranting pohon besar melebihi garis pembatas jalan ',
             'body' =>'dijalan ini terdapat ranting pohon yang menganggu pengguna jalan',
@@ -32,12 +32,12 @@ class LaporanSeeder extends Seeder
             'status' => '0',
         ]);
         Laporan::create([
-            'category_aduan_id' =>'1',
+            'category_aduan_id' =>'2',
             'user_id' =>'2',
             'judul' =>'Bau menyengat sampah dijalan sebelah makam wonosari',
             'body' =>'Warga yang melintas tidak nyaman mohon segera diangkut sampahnya dan diberi larangan buang sampah disekitar area situ',
             'coordinates' =>'-7.498446969127178, 112.4771356269647',
-            'address' =>'Jalan Raya Watukosek, Wonosari, Mojokerto, East Java, 61384, Indonesia',
+            'address' =>'Pacing, Bangsal, Mojokerto Regency, East Java',
             'status' => '1',
         ]);
         Laporan::create([

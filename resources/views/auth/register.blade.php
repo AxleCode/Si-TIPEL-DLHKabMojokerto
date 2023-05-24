@@ -3,9 +3,7 @@
 @section('container')
 <div class="container mb-5 mt-3 ">
     <div class="container d-flex align-items-center">
-      <div class="me-1 ">
-        <img src="/img/logo-kementrian.png" width="60" alt="">
-      </div>
+
       <div class="me-1 ">
         <img src="/img/logo-mojokerto.png" width="60" alt="">
       </div>

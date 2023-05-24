@@ -10,7 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="/img/si-TIPEL.png" rel="icon">
+  <link href="/img/logo-baru.png" rel="icon">
   <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -61,9 +61,8 @@
   <header id="header" class="fixed-top ">
    
     <div class="container d-flex align-items-center">
-      <div class="me-1 ">
-        <img src="/img/logo-kementrian.png" width="60" alt="">
-      </div>
+
+
       <div class="me-1 ">
         <img src="/img/logo-mojokerto.png" width="60" alt="">
       </div>
@@ -120,8 +119,10 @@
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-3  pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
 
           @auth
-          <h1>Selamat Datang {{ auth()->user()->name }} Di Sistem Ticketing Pelayanan Online</h1>
-          <h2>UPT Dinas Lingkungan Hidup Kabupaten Mojokerto</h2>
+          <h1>Selamat Datang </h1>
+          <h1>{{ auth()->user()->name }} </h1>
+          <h1>Di Website si-Tipel</h1>
+          <h2 class="" style="font-weight: 1000px;">Sistem Ticketing Pelayanan Online DLH Kabupaten Mojokerto</h2>
           <div class="d-flex justify-content-center justify-content-lg-start mt-5">
             <a href="/dashboard" class="btn-get-started scrollto" ><i class="bi bi-box-arrow-in-up-right"></i> Dashboard Saya</a>
             <a href="/dashboard" class="btn-get-started bg-success scrollto ms-3" ><i class="bi bi-pencil-square"></i> Buat Laporan</a>
@@ -129,8 +130,8 @@
             </div>
   
           @else
-          <h1>Selamat Datang Di Sistem Ticketing Pelayanan Online</h1>
-          <h2>UPT Dinas Lingkungan Hidup Kabupaten Mojokerto</h2>
+          <h1>Selamat Datang Di Website si-Tipel</h1>
+          <h2 class="" style="font-weight: 1000px;">Sistem Ticketing Pelayanan Online DLH Kabupaten Mojokerto</h2>
           <div class="d-flex justify-content-center justify-content-lg-start mt-5">
             <a href="/login" class="btn-get-started scrollto"><i class="bi bi-box-arrow-in-up-right"></i> Buat Aduan</a>
             <a href="#about" class="btn-get-started scrollto ms-3" ></i>Selengkapnya</a>
@@ -138,7 +139,7 @@
           @endauth
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-          <img src="/img/Frame_33.png" class="img-fluid" width="530" alt="">
+          <img src="/img/logo-baru.png" class="img-fluid" width="530" alt="">
         </div>
       </div>
     </div>

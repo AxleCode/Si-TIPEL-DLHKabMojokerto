@@ -14,28 +14,28 @@ class CategoryAduanSeeder extends Seeder
     public function run(): void
     {
         CategoryAduan::create([
-            'name' =>'Timbulan Sampah',
-            'deskripsi' =>'Tumpukan sampah baru yang muncul di area Kabupaten Mojokerto',
-            'image' =>'img/timbulan.jpeg',
+            'name' =>'Pengaduan Masyarakat',
+            'deskripsi' =>'Semua masyarakat dapat mengadukan masalah yang ada di lingkungan hidup kabupaten mojokerto',
+            'image' =>'img/pengaduan.jpg',
             
         ]);
 
         CategoryAduan::create([
-            'name' =>'Gangguan Tumbuhan',
-            'deskripsi' =>'Tumbuhan yang mengganggu transportasi jalan raya di area Kabupaten Mojokerto',
-            'image' =>'img/gangguan-tumbuhan.jpeg',
+            'name' =>'Pelayanan Pengangkutan Sampah',
+            'deskripsi' =>'Pelayanan ini melibatkan proses pengumpulan, pengangkutan, dan pemrosesan sampah sesuai dengan regulasi dan kebijakan yang berlaku',
+            'image' =>'img/pengambilan-sampah.jpg',
         ]);
 
         CategoryAduan::create([
-            'name' =>'Limbah Air',
-            'deskripsi' =>'Pencemaran pembuangan limbah air yang menganggu dan terjadi di area Kabupaten Mojokerto',
-            'image' =>'img/limbah-air.jpeg',
-        ]);
-
-        CategoryAduan::create([
-            'name' =>'Limbah Udara',
-            'deskripsi' =>'Pencemaran pembuangan limbah udara yang menganggu dan terjadi di area Kabupaten Mojokerto',
+            'name' =>'Pengujian Parameter Udara',
+            'deskripsi' =>'Pengukuran berbagai parameter dan komponen dalam udara yang dapat memberikan informasi tentang tingkat polusi udara dan dampaknya terhadap lingkungan dan kesehatan masyarakat',
             'image' =>'img/limbah-udara.jpeg',
+        ]);
+
+        CategoryAduan::create([
+            'name' =>'Pengujian Parameter Air',
+            'deskripsi' =>'Pemantauan dan pengendalian kualitas air dilakukan untuk menentukan kualitas air dalam berbagai aspek seperti kebersihan, keamanan, dan kesesuaian dengan standar lingkungan yang telah ditetapkan',
+            'image' =>'img/limbah-air.jpeg',
         ]);
     }
 }

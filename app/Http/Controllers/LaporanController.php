@@ -79,7 +79,6 @@ class LaporanController extends Controller
         'imageFile.*' => 'image|max:5000|required', // Max size of each image is 5 MB
     ]);
     
-    
     // Buat Laporan baru
     $laporan = new Laporan();
     $laporan->judul = $validatedData['judul'];
@@ -106,7 +105,29 @@ class LaporanController extends Controller
             $image->save();
         }
     }
-    
+
+    // Create a new notification for client
+    $notification = new Notifikasi();
+    $notification->user_id = auth()->id();
+    $notification->judul = 'Laporan Baru Dibuat';
+    $notification->pesan = 'Laporan anda dengan ID '.$laporan->id.' telah dibuat dan sedang dalam antrian.';
+    $notification->status = true;
+    $notification->logo = 'clipboard'; 
+    $notification->textlogo = 'text-primary'; 
+    $notification->link = '/dashboard/laporan/'.$laporan->id;
+    $notification->save();
+
+    // Create a new notification for admin
+    $notification = new Notifikasi();
+    $notification->user_id = 1;
+    $notification->judul = 'Laporan Baru Dibuat';
+    $notification->pesan = 'Laporan dengan ID '.$laporan->id.' telah dibuat Mohon tindak lanjutnya';
+    $notification->status = true;
+    $notification->logo = 'clipboard'; 
+    $notification->textlogo = 'text-warning'; 
+    $notification->link = '/dashboard/laporanadmin/'.$laporan->id.'/edit';
+    $notification->save();
+
     return redirect()->route('laporan.index')->with('success', 'Laporan berhasil disubmit!');
         
     }
