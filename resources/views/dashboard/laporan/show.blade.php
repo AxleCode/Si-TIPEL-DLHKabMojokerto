@@ -50,9 +50,10 @@
                 </a>
                     <p class="fs-1"><strong>{{ $laporan->judul }}</strong></p>
                     <p>Dibuat pada : <strong>{{ $laporan->created_at->format('d F Y')  }}</strong></p>
-                    <p>Nama Pelapor : <strong>{{ $laporan->user->name  }}</strong></p>
-                    <p>Nomor Hp : <strong>{{ $laporan->user->nohp  }}</strong></p>
-                    <p>Email : <strong>{{ $laporan->user->email  }}</strong></p>
+                    <p>ID Ticketing Laporan : <strong>{{ $laporan->id  }}</strong></p>
+                    <p>Nama Pelapor : <strong>{{ $laporan->nama  }}</strong></p>
+                    <p>Nomor Hp : <strong>{{ $laporan->telpon  }}</strong></p>
+                    <p>Email : <strong>{{ $laporan->email  }}</strong></p>
                     <p>Kategori : <strong>{{ $laporan->categoryAduan->name }}</strong></p>
                     @foreach ($statuses as $status)
                                         @if ($laporan->status == $status->kode_status)

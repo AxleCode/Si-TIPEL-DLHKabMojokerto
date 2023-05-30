@@ -49,10 +49,67 @@
                                     <h4 class="text-right">Pengumuman Settings</h4>
                                 </div>
 
-                                <div class="">
-                                  <a href="{{ route('pengumuman.create') }}" class="w-30 ms-2 mb-2 btn btn-lg btn-outline-success"> 
-                                    <span data-feather="plus" ></span> Tambah Pengumuman</a>
+                              <div class="">
+                                <button type="button" class="w-30 ms-2 mb-2 btn btn-lg btn-outline-success" data-bs-toggle="modal" data-bs-target="#tambahpengumumanModal"> 
+                                    <span data-feather="plus" ></span> Tambah Pengumuman</button>
                             </div>
+                          
+                              <!-- Tambah Pengumuman Modal -->
+                              <div class="modal fade" id="tambahpengumumanModal" tabindex="-1" aria-labelledby="tambahpengumumanModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-lm">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h5 class="modal-title" id="tambahpengumumanModal"><span data-feather="grid"></span> Tambah Pengumuman</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <form action="{{ route('pengumuman.store') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                          <div class="modal-body">
+                                            <div class="ms-3">
+                                    
+                                         <!-- Judul Pengumuman -->
+                                         <div class="form-outline mb-3 form-floating col-lg-10">
+                                            <input type="text" name="judul" class="mt-2 form-control rounded-top rounded-top @error('judul') is-invalid @enderror" id="judul" placeholder="Nama Kategori" required value="{{ old('judul') }}">
+                                            <label class="form-label" for="judul">Masukkan Judul Pengumuman</label>
+                                            @error('judul')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div> 
+
+                                        <!-- Isi Pengumuman -->
+                                        <div class="col-lg-12">
+                                          <div class="form-floating mb-4">
+                                            @error('body')
+                                              <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                            <input id="trix-input" type="hidden" name="body" value="{{ old('body') }}">
+                                            <trix-editor input="trix-input" style="background-color: white;" data-trix-placeholder="Masukkan Isi Pengumuman"></trix-editor>
+                                          </div>
+                                        </div>
+
+                                         <!-- Status -->
+                                         <div class="form-outline form-floating col-lg-10">
+                                          <div class="mb-4 col-lg-9">
+                                            <label for="status" class="form-label">Status</label>
+                                            <select class="form-select" name="status">
+                                                <option value="1">Aktif</option>
+                                                <option value="0">Nonaktif</option>
+                                            </select>
+                                          </div>
+                                        </div> 
+                                      </div>
+                                       
+								                    </div>
+                                          <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                              <button  id="submit" type="submit" name="submit_type" value="password" class="btn btn-primary">Tambah Kategori</button>
+                                          </div>
+                                        </form>
+                                      </div>
+                                  </div>
+                              </div>
                 
                                 <table class="table table-hover my-0">
                                   <thead>
@@ -84,10 +141,70 @@
                                           <span data-feather="eye" ></span> Lihat
                                          
                                           </a>
+
                                           <a href="{{ route('pengumuman.edit',$umum->id) }}" class="badge bg-warning">
-                                              <span data-feather="edit" ></span> Edit
-                                            
-                                          </a>
+                                            <span data-feather="edit" ></span> Edit
+                                          
+                                        </a>
+
+                                        {{-- <button type="submit" class="badge bg-warning border-0" data-bs-toggle="modal" data-bs-target="#editModal{{ $umum->id }}">
+                                            <span data-feather="edit"></span> Edit
+                                        </button> --}}
+{{-- 
+                                        <!-- Edit Pengumuman Modal -->
+                                        <div class="modal fade" id="editModal{{ $umum->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editModalLabel">
+                                                            <span data-feather="grid"></span>
+                                                            <strong>Edit Pengumuman</strong>
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{ route('pengumuman.update', $umum->id) }}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="modal-body">
+                                                            <!-- Judul Pengumuman -->
+                                                            <div class="form-outline mb-3 form-floating col-lg-10">
+                                                                <input type="text" name="judul" class="mt-2 form-control rounded-top @error('judul') is-invalid @enderror" id="judul" placeholder="Nama Kategori" required value="{{ old('judul', $umum->judul) }}">
+                                                                <label class="form-label" for="judul">Masukkan Judul Pengumuman</label>
+                                                                @error('judul')
+                                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+
+                                                            <!-- Isi Pengumuman -->
+                                                            <div class="col-lg-12">
+                                                                <div class="form-floating mb-4">
+                                                                    @error('body')
+                                                                        <p class="text-danger">{{ $message }}</p>
+                                                                    @enderror
+                                                                    <input id="trix-input" type="hidden" name="body" value="{{ old('body', $umum->body) }}">
+                                                                    <trix-editor input="trix-input" style="background-color: white;" data-trix-placeholder="Masukkan Isi Pengumuman">{!! $umum->body !!}</trix-editor>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Status -->
+                                                            <div class="form-outline form-floating col-lg-10">
+                                                                <div class="mb-4 col-lg-9">
+                                                                    <label for="status" class="form-label">Status</label>
+                                                                    <select class="form-select" name="status">
+                                                                        <option value="1" {{ old('status', $umum->status) == 1 ? 'selected' : '' }}>Aktif</option>
+                                                                        <option value="0" {{ old('status', $umum->status) == 0 ? 'selected' : '' }}>Nonaktif</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div> --}}
                                           
                                           <form action="{{ route('pengumuman.destroy', $umum->id) }}" method="POST" class="delete-form d-inline" >
                                             @csrf

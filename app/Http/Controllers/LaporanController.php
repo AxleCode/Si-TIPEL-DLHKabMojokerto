@@ -61,7 +61,7 @@ class LaporanController extends Controller
                     ->where('status', true)
                     ->count();
 
-        return view('dashboard.laporan.create', compact('category','notifikasi', 'jumlahnotif'));
+        return view('dashboard.laporan.create', compact('category','notifikasi', 'jumlahnotif','user'));
     }
 
     /**
@@ -70,66 +70,83 @@ class LaporanController extends Controller
     public function store(StoreLaporanRequest $request)
     {
         // Validate the form data
-    $validatedData = $request->validate([
-        'judul' => 'required|max:255',
-        'category' => 'required|exists:category_aduans,id',
-        'body' => 'required',
-        'coordinates' => 'required',
-        'address' => 'required',
-        'imageFile.*' => 'image|max:5000|required', // Max size of each image is 5 MB
-    ]);
-    
-    // Buat Laporan baru
-    $laporan = new Laporan();
-    $laporan->judul = $validatedData['judul'];
-    $laporan->body = $validatedData['body'];
-    $laporan->category_aduan_id = $validatedData['category'];
-    $laporan->user_id = auth()->id(); 
-    $laporan->status = 0; 
-    $laporan->coordinates = $request->input('coordinates');
-    $laporan->address = $request->input('address');
+        $validatedData = $request->validate([
+            'judul' => 'required|max:255',
+            'nama' => 'required|max:255',
+            'telpon' => 'required|max:50',
+            'email' => 'required|max:125',
+            'category' => 'required|exists:category_aduans,id',
+            'body' => 'required',
+            'coordinates' => 'required',
+            'address' => 'required',
+            'imageFile.*' => 'image|max:5000|required', // Max size of each image is 5 MB
+        ]);
 
-    $laporan->save();
-    
-    // Upload file gambar ke db laporan_images dan menggunakan foreign key laporan
-    if ($request->hasFile('imageFile')) {
-        foreach ($request->file('imageFile') as $file) {
-            $fileName = $file->getClientOriginalName();
-            $filePath = public_path('/laporan_images/');
-            $file->move($filePath, $fileName);
-    
-            // Save the image path to the database
-            $image = new LaporanImage();
-            $image->laporan_id = $laporan->id;
-            $image->image_path = 'laporan_images/'.$fileName;
-            $image->save();
-        }
-    }
+        // Start a new transaction
+        DB::beginTransaction();
 
-    // Create a new notification for client
-    $notification = new Notifikasi();
-    $notification->user_id = auth()->id();
-    $notification->judul = 'Laporan Baru Dibuat';
-    $notification->pesan = 'Laporan anda dengan ID '.$laporan->id.' telah dibuat dan sedang dalam antrian.';
-    $notification->status = true;
-    $notification->logo = 'clipboard'; 
-    $notification->textlogo = 'text-primary'; 
-    $notification->link = '/dashboard/laporan/'.$laporan->id;
-    $notification->save();
+        try {
+            // Buat Laporan baru
+            $laporan = new Laporan();
+            $laporan->judul = $validatedData['judul'];
+            $laporan->nama = $validatedData['nama'];
+            $laporan->telpon = $validatedData['telpon'];
+            $laporan->email = $validatedData['email'];
+            $laporan->body = $validatedData['body'];
+            $laporan->category_aduan_id = $validatedData['category'];
+            $laporan->user_id = auth()->id(); 
+            $laporan->status = 0; 
+            $laporan->coordinates = $request->input('coordinates');
+            $laporan->address = $request->input('address');
 
-    // Create a new notification for admin
-    $notification = new Notifikasi();
-    $notification->user_id = 1;
-    $notification->judul = 'Laporan Baru Dibuat';
-    $notification->pesan = 'Laporan dengan ID '.$laporan->id.' telah dibuat Mohon tindak lanjutnya';
-    $notification->status = true;
-    $notification->logo = 'clipboard'; 
-    $notification->textlogo = 'text-warning'; 
-    $notification->link = '/dashboard/laporanadmin/'.$laporan->id.'/edit';
-    $notification->save();
-
-    return redirect()->route('laporan.index')->with('success', 'Laporan berhasil disubmit!');
+            $laporan->save();
         
+            // Upload file gambar ke db laporan_images dan menggunakan foreign key laporan
+            if ($request->hasFile('imageFile')) {
+                foreach ($request->file('imageFile') as $file) {
+                    $fileName = $file->getClientOriginalName();
+                    $filePath = public_path('/laporan_images/');
+                    $file->move($filePath, $fileName);
+            
+                    // Save the image path to the database
+                    $image = new LaporanImage();
+                    $image->laporan_id = $laporan->id;
+                    $image->image_path = 'laporan_images/'.$fileName;
+                    $image->save();
+                }
+            }
+
+            // Create a new notification for client
+            $notification = new Notifikasi();
+            $notification->user_id = auth()->id();
+            $notification->judul = 'Laporan Baru Dibuat';
+            $notification->pesan = 'Laporan anda dengan ID '.$laporan->id.' telah dibuat dan sedang dalam antrian.';
+            $notification->status = true;
+            $notification->logo = 'clipboard'; 
+            $notification->textlogo = 'text-primary'; 
+            $notification->link = '/dashboard/laporan/'.$laporan->id;
+            $notification->save();
+
+            // Create a new notification for admin
+            $notification = new Notifikasi();
+            $notification->user_id = 1;
+            $notification->judul = 'Laporan Baru Dibuat';
+            $notification->pesan = 'Laporan dengan ID '.$laporan->id.' telah dibuat Mohon tindak lanjutnya';
+            $notification->status = true;
+            $notification->logo = 'clipboard'; 
+            $notification->textlogo = 'text-warning'; 
+            $notification->link = '/dashboard/laporanadmin/'.$laporan->id.'/edit';
+            $notification->save();
+            // Commit the transaction
+            DB::commit();
+
+        return redirect()->route('laporan.index')->with('success', 'Laporan berhasil disubmit!');
+        } catch (\Exception $e) {
+            // An error occurred, rollback the transaction
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Error submitting laporan: ' . $e->getMessage());
+        }
+            
     }
 
     /**

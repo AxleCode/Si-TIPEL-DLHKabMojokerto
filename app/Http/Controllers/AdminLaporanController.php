@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\CategoryAduan;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Intervention\Image\Facades\Image;
@@ -61,49 +62,60 @@ class AdminLaporanController extends Controller
             'komentar' => 'required',
             'laporan_id' => 'required',
         ]);
-    
-        $laporan = Laporan::find($request->laporan_id);
-    
-        if (!$laporan) {
-            return redirect()->back()->with('error', 'Laporan tidak ditemukan.');
-        }
         
-        // Save the file to storage
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $filePath = public_path('/komentar_file/');
-            $file->move($filePath, $filename);
-        } else {
-            $filename = '';
-        }
-        
-        // Create a new Komentar instance
-        $komentar = new Komentar;
-        $komentar->laporan_id = $request->laporan_id;
-        $komentar->file = $filename;
-        $komentar->komentar = $request->komentar;
-        $komentar->status = $request->status;
-        $komentar->updated_at = Carbon::now('Asia/Jakarta');
-        $komentar->save();
-    
-        // Update the status of the Laporan instance
-        $laporan->status = $request->status;
-        $laporan->save();
+        // Start a new transaction
+        DB::beginTransaction();
 
-        // Create a new notification
-        $notification = new Notifikasi();
-        $notification->user_id = $laporan->user_id;
-        $notification->judul = 'Laporan Update';
-        $notification->pesan = 'Status Laporan anda dengan ID '.$laporan->id.' telah diupdate oleh petugas';
-        $notification->status = true;
-        $notification->logo = 'clipboard'; 
-        $notification->textlogo = 'text-primary'; 
-        $notification->link = '/dashboard/laporan/'.$laporan->id;
-        $notification->save();
+        try {
+            $laporan = Laporan::find($request->laporan_id);
+
+            if (!$laporan) {
+                return redirect()->back()->with('error', 'Laporan tidak ditemukan.');
+            }
+            
+            // Save the file to storage
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $filePath = public_path('/komentar_file/');
+                $file->move($filePath, $filename);
+            } else {
+                $filename = '';
+            }
+            
+            // Create a new Komentar instance
+            $komentar = new Komentar;
+            $komentar->laporan_id = $request->laporan_id;
+            $komentar->file = $filename;
+            $komentar->komentar = $request->komentar;
+            $komentar->status = $request->status;
+            $komentar->updated_at = Carbon::now('Asia/Jakarta');
+            $komentar->save();
+        
+            // Update the status of the Laporan instance
+            $laporan->status = $request->status;
+            $laporan->save();
+
+            // Create a new notification
+            $notification = new Notifikasi();
+            $notification->user_id = $laporan->user_id;
+            $notification->judul = 'Laporan Update';
+            $notification->pesan = 'Status Laporan anda dengan ID '.$laporan->id.' telah diupdate oleh petugas';
+            $notification->status = true;
+            $notification->logo = 'clipboard'; 
+            $notification->textlogo = 'text-primary'; 
+            $notification->link = '/dashboard/laporan/'.$laporan->id;
+            $notification->save();
+            // Commit the transaction
+            DB::commit();
         
         toast('Laporan berhasil diupdate','success')->autoClose(5000)->width('320px');
         return redirect()->back();
+    } catch (\Exception $e) {
+        // An error occurred, rollback the transaction
+        DB::rollBack();
+        return redirect()->back()->with('error', 'Error submitting laporan: ' . $e->getMessage());
+    }
     }
     
 

@@ -50,18 +50,27 @@ class AdminPengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'judul' => 'required|max:255',
-            'body' => 'required',
-            'status' => 'required'
-        ]);
-        
-        Pengumuman::create($validateData);
-
-        toast('Pengumuman telah ditambahkan','success')->autoClose(5000)->width('320px');
-
-        return redirect('dashboard/pengumuman');
+        try {
+            $validateData = $request->validate([
+                'judul' => 'required|max:255',
+                'body' => 'required',
+                'status' => 'required'
+            ]);
+    
+            Pengumuman::create($validateData);
+    
+            toast('Pengumuman telah ditambahkan', 'success')->autoClose(5000)->width('320px');
+    
+            return redirect('dashboard/pengumuman');
+        } catch (\Exception $e) {
+            // Handle the exception here
+            // You can log the error, display a custom error message, or perform any necessary actions
+            // For example:
+            toast('Terjadi kesalahan saat menyimpan pengumuman: '.$e->getMessage(), 'error')->autoClose(5000)->width('420px');
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan pengumuman: '.$e->getMessage()]);
+        }
     }
+    
 
     /**
      * Display the specified resource.
@@ -76,7 +85,14 @@ class AdminPengumumanController extends Controller
      */
     public function edit(Pengumuman $pengumuman)
     {
-        return view('dashboard.pengumuman.edit', compact('pengumuman'));
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                    ->orderByDesc('created_at')
+                    ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                    ->where('status', true)
+                    ->count();
+        return view('dashboard.pengumuman.edit', compact('pengumuman', 'notifikasi', 'jumlahnotif'));
     }
 
     /**
@@ -90,12 +106,17 @@ class AdminPengumumanController extends Controller
             'status' => 'required'
         ];
         $validateData = $request->validate($rules);
-
-        Pengumuman::where('id', $pengumuman->id)->update($validateData);
-        toast('Pengumuman telah diupdate','success')->autoClose(5000)->width('320px');
-
+    
+        $validateData['body'] = $request->input('body');
+    
+        $pengumuman->update($validateData);
+    
+        toast('Pengumuman telah diupdate', 'success')->autoClose(5000)->width('320px');
+    
         return redirect('dashboard/pengumuman');
     }
+    
+    
 
     /**
      * Remove the specified resource from storage.

@@ -43,6 +43,42 @@
                                         </script>
                                     @endif
 
+                                         <!-- Nama Pembuat Aduan -->
+                                         <div class=" mb-4 col-lg-8">
+                                            <label for="nama">Nama Pembuat Aduan</label>
+                                            <input type="text" name="nama" class="mt-2 form-control rounded-top rounded-top @error('nama') is-invalid @enderror" id="nama" required value="{{ old('nama',$user->name) }}">
+                                            
+                                            @error('nama')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                         <!-- Nomor Telpon -->
+                                         <div class=" mb-4 col-lg-8">
+                                            <label for="telpon">Nomor Telpon</label>
+                                            <input type="text" name="telpon" class="mt-2 form-control rounded-top rounded-top @error('telpon') is-invalid @enderror" id="telpon" required value="{{ old('telpon',$user->nohp) }}">
+                                            
+                                            @error('telpon')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                         <!-- Email -->
+                                         <div class=" mb-4 col-lg-8">
+                                            <label for="email">Email</label>
+                                            <input type="text" name="email" class="mt-2 form-control rounded-top rounded-top @error('email') is-invalid @enderror" id="email" required value="{{ old('email',$user->email) }}">
+                                            
+                                            @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
                                          <!-- Judul Aduan -->
                                          <div class=" mb-4 col-lg-8">
                                             <label for="judul">Judul Aduan</label>

@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_aduan_id');
             $table->foreignId('user_id');
+            $table->string('nama');
+            $table->string('telpon');
+            $table->string('email');
             $table->string('judul');
             $table->text('body');
             $table->text('coordinates');

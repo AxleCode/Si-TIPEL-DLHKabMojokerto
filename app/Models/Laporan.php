@@ -9,6 +9,7 @@ class Laporan extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $fillable = ['judul', 'body', 'status'];
     public function laporanimages()
     {
         return $this->hasMany(LaporanImage::class);
