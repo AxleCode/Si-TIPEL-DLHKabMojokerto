@@ -36,7 +36,7 @@
           <!-- Nama input -->
           <div class="form-outline mb-4 form-floating">
             <input type="name" name="name" class="form-control form-control-lg @error('name') is-invalid @enderror" placeholder="name" required value="{{ old('name') }}"/>
-            <label class="form-label" for="name">Nama Asli Sesuai KTP</label>
+            <label class="form-label" for="name">Nama</label>
             @error('name')
             <div class="invalid-feedback">
                 {{ $message }}

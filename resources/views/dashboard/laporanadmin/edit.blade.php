@@ -44,16 +44,23 @@
                     </div>
                 @endif
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <p class="h3 mb-3 fs-1 fw-bold">Laporan Aduan {{ $userName }} </p>
-                    
-                </div>
-                <a href="/dashboard/laporanadmin" class="w-30  mb-2 btn btn-lg btn-outline-primary" >
-                    <span data-feather="arrow-left"></span> Kembali
-                </a>
-                <a href="" class="w-30 ms-2 mb-2 btn btn-lg btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                    <span data-feather="edit"></span> Update Laporan Aduan
-                </a>
+            <a href="/dashboard/laporanadmin" class="w-30  mb-3 btn btn-lg btn-outline-primary" >
+                <span data-feather="arrow-left"></span> Kembali
+            </a>
+            <a href="" class="w-30 ms-2 mb-3 btn btn-lg btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal">
+                <span data-feather="edit"></span> Update Laporan Aduan
+            </a>
+            @foreach ($statuses as $status)
+                @if ($laporan->status == $status->kode_status)
+                    <span class="w-30 mb-3 ms-2 btn btn-lg btn-outline-primary text-white bg-{{ $status->warna }}">{{ $status->name }}</span>
+
+                @endif
+            @endforeach
+
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="h3 mb-1 fs-1 fw-bold">Laporan Aduan {{ $userName }} </p>
+            </div>                    
+              
                 
 
                 <!-- Edit Modal -->
@@ -130,7 +137,6 @@
                     <p>Kategori : <strong>{{ $laporan->categoryAduan->name }}</strong></p>
                     @foreach ($statuses as $status)
                                         @if ($laporan->status == $status->kode_status)
-                                        <p>Status : <span class="badge bg-{{ $status->warna }}">{{ $status->name }}</span></p>
                                         <p>Keterangan : {{ $status->deskripsi }}</p>
                                         @endif
                                       @endforeach

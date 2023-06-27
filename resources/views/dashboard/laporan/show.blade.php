@@ -40,14 +40,21 @@
                     </div>
                 @endif
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <p class="h3 mb-3 fs-1 fw-bold">Laporan Aduan {{ $laporan->user->name }} </p>
-                    
 
-                </div>
                 <a href="/dashboard/laporan" class="w-30 mb-2 btn btn-lg btn-outline-primary" >
                     <span data-feather="arrow-left"></span> Kembali
                 </a>
+                @foreach ($statuses as $status)
+                    @if ($laporan->status == $status->kode_status)
+                        <span class="w-30 mb-2 ms-2 btn btn-lg btn-outline-primary text-white bg-{{ $status->warna }}">{{ $status->name }}</span>
+
+                    @endif
+                @endforeach
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="h3 mb-3 fs-1 fw-bold">Laporan Aduan {{ $laporan->user->name }} </p>
+                    
+                </div>
+
                     <p class="fs-1"><strong>{{ $laporan->judul }}</strong></p>
                     <p>Dibuat pada : <strong>{{ $laporan->created_at->format('d F Y')  }}</strong></p>
                     <p>ID Ticketing Laporan : <strong>{{ $laporan->id  }}</strong></p>
@@ -56,11 +63,10 @@
                     <p>Email : <strong>{{ $laporan->email  }}</strong></p>
                     <p>Kategori : <strong>{{ $laporan->categoryAduan->name }}</strong></p>
                     @foreach ($statuses as $status)
-                                        @if ($laporan->status == $status->kode_status)
-                                        <p>Status : <span class="badge bg-{{ $status->warna }}">{{ $status->name }}</span></p>
-                                        <p>Keterangan : {{ $status->deskripsi }}</p>
-                                        @endif
-                                      @endforeach
+                        @if ($laporan->status == $status->kode_status)
+                        <p>Keterangan : {{ $status->deskripsi }}</p>
+                        @endif
+                    @endforeach
                     <p class="fs-3" > <strong>Bukti Foto Aduan</strong> </p>
                        
                     @foreach ($images as $image)

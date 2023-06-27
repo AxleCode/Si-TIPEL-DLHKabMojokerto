@@ -1,6 +1,5 @@
 <footer class="footer">
-	<div class="container-fluid">
-	  <div class="row text-muted">
+	  <div class="row text-muted ">
 		<div class="col-6 text-start">
 		  <p class="mb-0">
 			<a class="text-muted" href="" target="_blank">&copy;<strong>2023 Si-TIPEL</strong></a>								
@@ -16,8 +15,3 @@
 	  </div>
 	</div>
   </footer>
-  
-<style>
-
-
-</style>

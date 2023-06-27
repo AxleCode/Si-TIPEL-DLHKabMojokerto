@@ -17,10 +17,6 @@
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
                 <div class="form-group">
-                    <div class="text-center">
-                        <img src="img/si-TIPEL.png" 
-                        class="img-fluid " width="300" alt="si-TIPEL">
-                    </div>
 
                     <label class="font-weight-bold text-uppercase mt-4 mb-3">Email Address</label>
                     <input id="email" type="email" class="form-control mb-3 @error('email') is-invalid @enderror"

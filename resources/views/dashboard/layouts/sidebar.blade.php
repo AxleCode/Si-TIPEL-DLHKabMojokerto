@@ -1,129 +1,133 @@
 <nav id="sidebar" class="sidebar js-sidebar">
-  <div class="sidebar-content js-simplebar ">
+  <div class="sidebar-content">
     <a class="sidebar-brand" href="index.html">
   <img class="mb-2" src="/img/si-TIPEL.png" width="170px" alt="">
   <span class="align-middle fs-5 fw-semibold text-white-80"><br>Dinas Lingkungan Hidup</span>
   <span class=" align-middle fs-5 fw-semibold text-white-80"><br >Kabupaten Mojokerto</span>
     </a>
+    <div style=" overflow-y: 100px;">
+      <ul class="sidebar-nav">
+        <li class="sidebar-header">
+          User Pages
+        </li>
 
-    <ul class="sidebar-nav">
-      <li class="sidebar-header">
-        User Pages
-      </li>
-
-      <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard">
-          <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-        </a>
-      </li>
-
-      <li class="sidebar-item {{ Request::is('dashboard/laporan/create') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/laporan/create">
-          <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Buat Laporan Aduan</span>
-        </a>
-      </li>
-
-      <li class="sidebar-item {{ Request::is('dashboard/laporan') || Request::is('dashboard/laporan/') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/laporan">
-          <i class="align-middle" data-feather="book"></i> <span class="align-middle">List Laporan Aduan Saya</span>
-        </a>
-      </li>
-      
-      <li class="sidebar-item {{ Request::is('dashboard/notifikasi') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/notifikasi">
-          <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Histori Notifikasi</span>
-        </a>
-      </li>
-
-      <li class="sidebar-item {{ Request::is('dashboard/map') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/map">
-          <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
-        </a>
-      </li>
-
-      <li class="sidebar-item {{ Request::is('dashboard/downloadable') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/downloadable">
-          <i class="align-middle" data-feather="download"></i> <span class="align-middle">Downloadable</span>
-        </a>
-      </li>
-
-      <li class="sidebar-item {{ Request::is('/') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/" target="blank">
-          <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Website si-TIPEL</span>
-        </a>
-      </li>
-
-
-
-      
-
-      
-      {{-- <li class="sidebar-item has-submenu">
-        <a class="sidebar-link nav-link" href="#"><i class="align-middle" data-feather="edit-3"></i> <span class="align-middle">Laporan</span>  </a>
-        <ul class="submenu collapse bg-white">
-          <li ><a class="nav-link ms-2 mb-2 mt-3" href="#"><i class="align-middle" data-feather="edit"></i> <span class="align-middle">Buat Laporan</span>  </a></li>
-          <li ><a class="nav-link ms-2 mb-2 mt-3" href="#"><i class="align-middle" data-feather="book"></i> <span class="align-middle">List Laporan Saya</span>  </a></li>
-          
-        </ul>
-      </li> --}}
-
-      
-
-      @can('admin')
-      <li class="sidebar-header">
-        Administator
-
-        <li class="sidebar-item {{ Request::is('dashboard/laporanadmin*') ? 'active' : '' }}">
-          <a class="sidebar-link" href="/dashboard/laporanadmin">
-            <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan Aduan</span>
+        <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard">
+            <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
           </a>
         </li>
 
-      </li>
-      <li class="sidebar-item {{ Request::is('dashboard/pengumuman*') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/pengumuman">
-          <i class="align-middle" data-feather="square"></i> <span class="align-middle">Pengumuman</span>
-        </a>
-      </li>
+        <li class="sidebar-item {{ Request::is('dashboard/laporan/create') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/laporan/create">
+            <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Buat Laporan Aduan</span>
+          </a>
+        </li>
 
-      <li class="sidebar-item {{ Request::is('dashboard/kategori*') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/kategori">
-          <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Kategori</span>
-        </a>
-      </li>
+        <li class="sidebar-item {{ Request::is('dashboard/laporan') || Request::is('dashboard/laporan/') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/laporan">
+            <i class="align-middle" data-feather="book"></i> <span class="align-middle">List Laporan Aduan Saya</span>
+          </a>
+        </li>
+        
+        <li class="sidebar-item {{ Request::is('dashboard/notifikasi') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/notifikasi">
+            <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Histori Notifikasi</span>
+          </a>
+        </li>
 
-      <li class="sidebar-item {{ Request::is('dashboard/status*') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/status">
-          <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Status</span>
-        </a>
-      </li>
+        <li class="sidebar-item {{ Request::is('dashboard/map') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/map">
+            <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+          </a>
+        </li>
+{{-- 
+        <li class="sidebar-item {{ Request::is('dashboard/downloadable') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/downloadable">
+            <i class="align-middle" data-feather="download"></i> <span class="align-middle">Downloadable</span>
+          </a>
+        </li> --}}
 
-      <li class="sidebar-item {{ Request::is('dashboard/admindownloadable') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/admindownloadable">
-          <i class="align-middle" data-feather="download-cloud"></i> <span class="align-middle">Setting Downloadable</span>
-        </a>
-      </li>
-      @endcan
+        <li class="sidebar-item {{ Request::is('/') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/" target="blank">
+            <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Website si-TIPEL</span>
+          </a>
+        </li>
 
-      <li class="sidebar-header">
-        Setting Pages
-      </li>
-      <li class="sidebar-item {{ Request::is('dashboard/profile') ? 'active' : '' }}">
-        <a class="sidebar-link" href="/dashboard/profile">
-          <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
-        </a>
-      </li>
-   
 
-      <li class="sidebar-item">
-        <a class="sidebar-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-          <i  class="align-middle" data-feather="log-out"></i> <span class="align-middle">Logout</span>
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-          @csrf
-      </form>
-      </li>
-    </ul>
+
+        
+
+        
+        {{-- <li class="sidebar-item has-submenu">
+          <a class="sidebar-link nav-link" href="#"><i class="align-middle" data-feather="edit-3"></i> <span class="align-middle">Laporan</span>  </a>
+          <ul class="submenu collapse bg-white">
+            <li ><a class="nav-link ms-2 mb-2 mt-3" href="#"><i class="align-middle" data-feather="edit"></i> <span class="align-middle">Buat Laporan</span>  </a></li>
+            <li ><a class="nav-link ms-2 mb-2 mt-3" href="#"><i class="align-middle" data-feather="book"></i> <span class="align-middle">List Laporan Saya</span>  </a></li>
+            
+          </ul>
+        </li> --}}
+
+        
+
+        @can('admin')
+        <li class="sidebar-header">
+          Administator
+
+          <li class="sidebar-item {{ Request::is('dashboard/laporanadmin*') ? 'active' : '' }}">
+            <a class="sidebar-link" href="/dashboard/laporanadmin">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan Aduan</span>
+            </a>
+          </li>
+
+        </li>
+        <li class="sidebar-item {{ Request::is('dashboard/pengumuman*') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/pengumuman">
+            <i class="align-middle" data-feather="square"></i> <span class="align-middle">Pengumuman</span>
+          </a>
+        </li>
+
+        <li class="sidebar-item {{ Request::is('dashboard/kategori*') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/kategori">
+            <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Kategori</span>
+          </a>
+        </li>
+
+        <li class="sidebar-item {{ Request::is('dashboard/status*') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/status">
+            <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Status</span>
+          </a>
+        </li>
+
+        {{-- <li class="sidebar-item {{ Request::is('dashboard/admindownloadable') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/admindownloadable">
+            <i class="align-middle" data-feather="download-cloud"></i> <span class="align-middle">Setting Downloadable</span>
+          </a>
+        </li> --}}
+
+        <li class="sidebar-item {{ Request::is('dashboard/admindownloadable') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/admindownloadable">
+            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Setting User</span>
+          </a>
+        </li>
+        @endcan
+
+        <li class="sidebar-item {{ Request::is('dashboard/profile') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/profile">
+            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+          </a>
+        </li>
+    
+
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i  class="align-middle" data-feather="log-out"></i> <span class="align-middle">Logout</span>
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
@@ -157,14 +161,14 @@
                             @if ($notif->status)
                                 <form id="notif-form-{{ $notif->id }}" action="{{ route('notif-update', $notif->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <a onclick="event.preventDefault(); document.getElementById('notif-form-{{ $notif->id }}').submit();" class="list-group-item bg-primary" style="border: none;">
-                                        <div class="row align-items-center ">
+                                    <a onclick="event.preventDefault(); document.getElementById('notif-form-{{ $notif->id }}').submit();" class="list-group-item bg-primary" style="">
+                                        <div class="row align-items-center">
                                             <div class="col-2">
                                                 <i class="text-white ms-2" data-feather="{{ $notif->logo }}"></i>
                                             </div>
                                             <div class="col-10">
                                                 @if ($notif->status)
-                                                    <div class="text-white ">{{ $notif->judul }}</div>
+                                                    <div class="text-white">{{ $notif->judul }}</div>
                                                     <div class="text-white small mt-1">{{ Str::limit($notif->pesan, 80) }}</div>
                                                     <div class="text-white small mt-1">{{ $notif->created_at->locale('id_ID')->diffForHumans() }}</div>
                                                 @else
@@ -262,3 +266,5 @@
     }) // forEach
   }); 
   </script>
+
+  

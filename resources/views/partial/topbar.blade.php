@@ -19,9 +19,6 @@
  
   <div class="container d-flex align-items-center">
     <div class="me-1 ">
-      <img src="/img/logo-kementrian.png" width="60" alt="">
-    </div>
-    <div class="me-1 ">
       <img src="/img/logo-mojokerto.png" width="60" alt="">
     </div>
     <h3 class="logo me-auto fs-5 mt-3 fw-bolder">Dinas Lingkungan Hidup <p>Kabupaten Mojokerto</h3>

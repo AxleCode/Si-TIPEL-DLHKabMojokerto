@@ -95,7 +95,6 @@
                                       <div class="col-md-4 mb-3">
                                         <div class="card">
                                           <div id="carousel-{{ $lapor->id }}" class="carousel slide" data-bs-ride="carousel">
-                                            <!-- carousel code here -->
                                             <div class="carousel-inner">
                                               @foreach($lapor->laporanImages as $image)
                                                 <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
@@ -123,8 +122,8 @@
                                           <td class="d-none d-xl-table-cell">Update Pada {{ $lapor->updated_at->format('[H:i] d F Y') }}</td>
 
                                           <div class="mt-2 text-center card-footer">
-                                            <a href="{{ route('laporan.show',$lapor->id) }}" class="badge bg-info fs-5">
-                                              <span data-feather="eye" ></span> Lihat Detail
+                                            <a href="{{ route('laporan.show',$lapor->id) }}" class="fs-5 w-30 ms-2 mb-2 btn btn-lg btn-outline-primary">
+                                              <span ></span> Lihat Detail
                                               </a>
                                               @if ($lapor->status == '0')
                                                 <form action="{{ route('laporan.destroy', $lapor->id) }}" method="POST" class="delete-form d-inline" 

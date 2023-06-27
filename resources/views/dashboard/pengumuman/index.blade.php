@@ -139,8 +139,62 @@
                                       <td class="d-none d-md-table-cell">
                                         <a href="{{ route('pengumuman.show',$umum->id) }}" class="badge bg-info">
                                           <span data-feather="eye" ></span> Lihat
-                                         
                                           </a>
+                                           {{-- <!-- lihat Pengumuman Modal -->
+                                          <div class="modal fade" id="lihatpengumumanModal" tabindex="-1" aria-labelledby="lihatpengumumanModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="lihatpengumumanModal"><span data-feather="grid"></span>Lihat Pengumuman</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{ route('pengumuman.show',$umum->id) }}" method="POST" enctype="multipart/form-data">
+                                                      @csrf
+                                                    <div class="modal-body">
+                                                      <div class="ms-3">
+                                              
+                                                  <!-- Judul Pengumuman -->
+                                                  <div class="form-outline mb-3 form-floating col-lg-10">
+                                                      <input type="text" name="judul" class="mt-2 form-control rounded-top rounded-top @error('judul') is-invalid @enderror" id="judul" placeholder="Nama Kategori" required value="{{ $umum->judul }}">
+                                                      <label class="form-label" for="judul">Judul Pengumuman</label>
+                                                      @error('judul')
+                                                      <div class="invalid-feedback">
+                                                          {{ $message }}
+                                                      </div>
+                                                      @enderror
+                                                  </div> 
+
+                                                  <!-- Isi Pengumuman -->
+                                                  <div class="col-lg-12">
+                                                    <div class="form-floating mb-4">
+                                                      @error('body')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                      @enderror
+                                                   <textarea >{!! $umum->body !!}</textarea>
+                                                    </div>
+                                                  </div>
+
+                                                  <!-- Status -->
+                                                  <div class="form-outline form-floating col-lg-10">
+                                                    <div class="mb-4 col-lg-9">
+                                                      <label for="status" class="form-label">Status</label>
+                                                      <select class="form-select" name="status">
+                                                          <option value="1">Aktif</option>
+                                                          <option value="0">Nonaktif</option>
+                                                      </select>
+                                                    </div>
+                                                  </div> 
+                                                </div>
+                                                
+                                              </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button  id="submit" type="submit" name="submit_type" value="password" class="btn btn-primary">Tambah Kategori</button>
+                                                    </div>
+                                                  </form>
+                                                </div>
+                                            </div>
+                                        </div> --}}
 
                                           <a href="{{ route('pengumuman.edit',$umum->id) }}" class="badge bg-warning">
                                             <span data-feather="edit" ></span> Edit

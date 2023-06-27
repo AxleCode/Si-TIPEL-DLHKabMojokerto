@@ -25,10 +25,13 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/5.3.4/simplebar.min.js"></script>
+
 	<style>
 		trix-toolbar [data-trix-button-group="file-tools"] {
 		  display: none;
 		}
+
 	  </style>
 
 	{{-- leaflet --}}
@@ -53,11 +56,10 @@
 <body class="d-flex flex-column vh-1000">
 	<div class="wrapper">
 	@include('sweetalert::alert')
-    @include('dashboard.layouts.sidebar')
+	@include('dashboard.layouts.sidebar')
+	@yield('container')
 
-      @yield('container')
-	
-  @include('dashboard.layouts.footer')
+  	@include('dashboard.layouts.footer')
 </div>
 
       <script src="/jsdashboard/app.js"></script>

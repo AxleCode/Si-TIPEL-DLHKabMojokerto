@@ -77,7 +77,14 @@ class AdminPengumumanController extends Controller
      */
     public function show(Pengumuman $pengumuman)
     {
-        return view('dashboard.pengumuman.show', compact('pengumuman'));
+        $user = Auth::user();
+        $notifikasi = Notifikasi::where('user_id', $user->id)
+                                ->orderByDesc('created_at')
+                                ->paginate(15);;
+        $jumlahnotif = Notifikasi::where('user_id', $user->id)
+                                ->where('status', true)
+                                ->count();
+        return view('dashboard.pengumuman.show', compact('pengumuman', 'notifikasi', 'jumlahnotif'));
     }
 
     /**

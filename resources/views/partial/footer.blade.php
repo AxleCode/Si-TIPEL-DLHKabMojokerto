@@ -79,25 +79,6 @@
   <footer class="container py-1">
     
 
-    <div class="text-center mt-5 mb-5">
-      <h2 class="">Follow Us</h2>
-      <button type="button" class="btn btn-link btn-floating mx-1">
-        <i class="bi bi-facebook fs-3"></i>
-      </button>
-  
-      <button type="button" class="btn btn-link btn-floating mx-1">
-        <i class="bi bi-youtube fs-3"></i>
-      </button>
-  
-      <button type="button" class="btn btn-link btn-floating mx-1">
-        <i class="bi bi-instagram fs-3"></i>
-      </button>
-      <button type="button" class="btn btn-link btn-floating mx-1">
-        <i class="bi bi-twitter fs-3"></i>
-      </button>
-  
-    </div>
-
     <div class="d-flex flex-column flex-sm-row justify-content-between py-1 my-1 border-top">
       <p>&copy; 2023 Dinas Lingkungan Hidup Kabupaten Mojokerto. All rights reserved.</p>
       
