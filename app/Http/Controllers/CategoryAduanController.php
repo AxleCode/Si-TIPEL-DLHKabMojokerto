@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use App\Models\Notifikasi;
 use App\Models\CategoryAduan;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -50,13 +51,15 @@ class CategoryAduanController extends Controller
 
     public function store(StoreCategoryAduanRequest $request): RedirectResponse
     {
-       
+         // Start a new transaction
+        DB::beginTransaction();
         try {
             $validateData = $request->validate([
                 'name' => 'required|max:255|unique:category_aduans,name',
                 'deskripsi' => 'required|max:255',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:1048',
             ]);
+
             // Handle image upload and storage
             $imagePath = null;
             if ($request->hasFile('image')) {
@@ -72,10 +75,13 @@ class CategoryAduanController extends Controller
             $categoryAduan->deskripsi = $validateData['deskripsi'];
             $categoryAduan->image = $imagePath;
             $categoryAduan->save();
+            
+            DB::commit();   
 
             toast('Kategori telah ditambahkan', 'success')->autoClose(5000)->width('320px');
             return redirect('dashboard/kategori');
         } catch (\Exception $e) {
+            DB::rollBack();
             $errorMessage = $e->getMessage();
             toast($errorMessage, 'error')->autoClose(5000)->width('350px');
             return redirect()->back()->withInput();
@@ -120,6 +126,9 @@ class CategoryAduanController extends Controller
      */
     public function update(UpdateCategoryAduanRequest $request, CategoryAduan $categoryAduan, $id)
     {
+        // Start a new transaction
+        DB::beginTransaction();
+
         try {
             $category = CategoryAduan::findOrFail($id);
             
@@ -143,11 +152,14 @@ class CategoryAduanController extends Controller
                 'deskripsi' => $request->deskripsi,
                 'image' => $imagePath,
             ]);
-    
+
+            DB::commit();   
+
             toast('Kategori berhasil diperbarui', 'success')->autoClose(5000)->width('320px');
     
             return redirect()->route('kategori.index');
         } catch (\Exception $e) {
+            DB::rollBack();
             $errorMessage = $e->getMessage();
             toast($errorMessage, 'error')->autoClose(5000)->width('320px');
             return redirect()->route('kategori.index');

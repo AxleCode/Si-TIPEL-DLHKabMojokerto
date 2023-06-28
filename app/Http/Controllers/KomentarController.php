@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Komentar;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreKomentarRequest;
 use App\Http\Requests\UpdateKomentarRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 
 class KomentarController extends Controller
 {
@@ -55,46 +56,55 @@ class KomentarController extends Controller
      */
     public function update(UpdateKomentarRequest $request, $id)
     {
-        $komentar = Komentar::find($id);
+        // Start a new transaction
+        DB::beginTransaction();
 
-        // Validate the input data
-        $validatedData = $request->validate([
-            'status' => 'required',
-            'komentar' => 'required',
-            'file' => 'mimes:jpeg,jpg,png,pdf|max:1048'
-        ]);
+        try {
+            $komentar = Komentar::find($id);
 
-        // Retrieve the old filename
-        $oldFilename = $komentar->file;
+            // Validate the input data
+            $validatedData = $request->validate([
+                'status' => 'required',
+                'komentar' => 'required',
+                'file' => 'mimes:jpeg,jpg,png,pdf|max:1048'
+            ]);
 
-        // Update the record in the database
-        $komentar->status = $validatedData['status'];
-        $komentar->komentar = $validatedData['komentar'];
-    
-        // Save the file to storage
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $filePath = public_path('/komentar_file/');
-            $file->move($filePath, $filename);
-            
-            // Delete the old file
-            if ($oldFilename) {
-                $oldFilePath = public_path('/komentar_file/') . $oldFilename;
-                if (file_exists($oldFilePath)) {
-                    unlink($oldFilePath);
+            // Retrieve the old filename
+            $oldFilename = $komentar->file;
+
+            // Update the record in the database
+            $komentar->status = $validatedData['status'];
+            $komentar->komentar = $validatedData['komentar'];
+        
+            // Save the file to storage
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $filePath = public_path('/komentar_file/');
+                $file->move($filePath, $filename);
+                
+                // Delete the old file
+                if ($oldFilename) {
+                    $oldFilePath = public_path('/komentar_file/') . $oldFilename;
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath);
+                    }
                 }
+            } else {
+                $filename = $oldFilename;
             }
-        } else {
-            $filename = $oldFilename;
-        }
 
-        $komentar->file = $filename;
-        $komentar->save();
-    
-        // Redirect to the previous page with a success message
-        toast('Komentar Berhasil Diubah', 'success')->autoClose(5000)->width('320px');
-        return redirect()->back();
+            $komentar->file = $filename;
+            $komentar->save();
+            DB::commit();   
+            // Redirect to the previous page with a success message
+            toast('Komentar Berhasil Diubah', 'success')->autoClose(5000)->width('320px');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            // An error occurred, rollback the transaction
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Update Komentar Error: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -102,6 +112,9 @@ class KomentarController extends Controller
      */
     public function destroy($id)
     {
+        // Start a new transaction
+        DB::beginTransaction();
+
         try {
             $komentar = Komentar::find($id);
             $filePath = public_path('/komentar_file/' . $komentar->file);
@@ -110,10 +123,11 @@ class KomentarController extends Controller
             }
     
             $komentar->delete();
-    
+            DB::commit();   
             toast('Komentar telah dihapus', 'success')->autoClose(5000)->width('320px');
             return redirect()->back();
         } catch (\Exception $e) {
+            DB::rollBack();
             $errorMessage = $e->getMessage();
             toast('Gagal hapus komentar', 'error')->autoClose(5000)->width('320px');
             return redirect()->back()->withInput();

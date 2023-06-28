@@ -192,17 +192,28 @@ class LaporanController extends Controller
      */
     public function destroy(Laporan $laporan, Request $request)
     {
-         // Delete the laporan record from the database
-        $laporan->delete();
+        // Start a new transaction
+        DB::beginTransaction();
 
-        // Delete the laporan images from the disk
-        foreach ($laporan->laporanImages as $image) {
-            unlink(public_path($image->image_path));
-        }        
+        try {
+            // Delete the laporan record from the database
+            $laporan->delete();
 
-        // Delete the laporan images from the database
-        $laporan->laporanImages()->delete();
+            // Delete the laporan images from the disk
+            foreach ($laporan->laporanImages as $image) {
+                unlink(public_path($image->image_path));
+            }        
 
-        return redirect()->back()->with('success', 'Laporan berhasil dihapus');
+            // Delete the laporan images from the database
+            $laporan->laporanImages()->delete();
+            // Commit the transaction
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Laporan berhasil dihapus');
+        } catch (\Exception $e) {
+            // An error occurred, rollback the transaction
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Hapus laporan error: ' . $e->getMessage());
+        }
     }
 }
