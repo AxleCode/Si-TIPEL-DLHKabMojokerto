@@ -1,27 +1,28 @@
 <?php
 
 use App\Models\Status;
+use App\Models\Notifikasi;
+use App\Models\Downloadable;
+
 use App\Models\CategoryAduan;
 use App\Http\Controllers\SendEmail;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\AdminLaporanController;
+use App\Http\Controllers\DownloadableController;
 use App\Http\Controllers\CategoryAduanController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\AdminPengumumanController;
-use App\Http\Controllers\DownloadableController;
-use App\Http\Controllers\KomentarController;
-use App\Http\Controllers\NotifikasiController;
-use App\Models\Downloadable;
-use App\Models\Notifikasi;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -35,8 +36,6 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-
 
 Route::get('/', [MapController::class,'home']);
 
@@ -58,6 +57,7 @@ Route::get('/dashboard/map', [MapController::class,'index'])->middleware('auth',
 
 Route::group(['middleware' => ['auth', 'IsAdmin']], function () {
     Route::resource('/dashboard/status', StatusController::class);
+    Route::resource('/dashboard/user', UserController::class);
     Route::resource('/dashboard/laporanadmin', AdminLaporanController::class);
     Route::resource('/dashboard/kategori', CategoryAduanController::class);
     Route::resource('/dashboard/pengumuman', AdminPengumumanController::class);

@@ -57,7 +57,7 @@
                                     @endif
                                     
 
-                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-3 ms-2">
                                     <h4 class="text-right">Status Settings</h4>
                                 </div>
 
@@ -237,7 +237,6 @@
                                               <span data-feather="delete" ></span> Hapus</button>
                                           </form>
                                           
-                                          </a>
                                       </td>
                                     </tr>
                                   </tbody>

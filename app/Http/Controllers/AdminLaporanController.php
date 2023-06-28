@@ -164,28 +164,40 @@ class AdminLaporanController extends Controller
             'komentar' => 'required',
             'file' => 'nullable|mimes:jpeg,jpg,png,pdf|max:1048'
         ]);
-    
-        $laporan = Laporan::find($id);
-        $laporan->status = $request->status;
-    
-        if ($request->hasFile('file')) {
-            $image = $request->file('file');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $path = public_path('komentar_file/' . $filename);
-            Image::make($image->getRealPath())->resize(600, 400)->save($path);
-            $laporan->image = $filename;
-        }
-    
-        $laporan->save();
-    
-        $komentar = new Komentar;
-        $komentar->laporan_id = $laporan->id;
-        $komentar->user_id = auth()->user()->id;
-        $komentar->komentar = $request->komentar;
-    
-        $komentar->save();
-    
-        return back()->with('success', 'Laporan Aduan berhasil diperbaharui');
+
+         // Start a new transaction
+         DB::beginTransaction();
+
+            try {
+        
+                $laporan = Laporan::find($id);
+                $laporan->status = $request->status;
+            
+                if ($request->hasFile('file')) {
+                    $image = $request->file('file');
+                    $filename = time() . '.' . $image->getClientOriginalExtension();
+                    $path = public_path('komentar_file/' . $filename);
+                    Image::make($image->getRealPath())->resize(600, 400)->save($path);
+                    $laporan->image = $filename;
+                }
+            
+                $laporan->save();
+            
+                $komentar = new Komentar;
+                $komentar->laporan_id = $laporan->id;
+                $komentar->user_id = auth()->user()->id;
+                $komentar->komentar = $request->komentar;
+            
+                $komentar->save();
+                // Commit the transaction
+                DB::commit();
+            return back()->with('success', 'Laporan Aduan berhasil diperbaharui');
+    } catch (\Exception $e) {
+        // An error occurred, rollback the transaction
+        DB::rollBack();
+        return redirect()->back()->with('error', 'Update laporan Error: ' . $e->getMessage());
+    }
+
     }
 
     /**
@@ -193,18 +205,31 @@ class AdminLaporanController extends Controller
      */
     public function destroy(Laporan $laporan, $id)
     {
-        $laporan = Laporan::findOrFail($id);
-        // Delete the laporan images from the disk
-        foreach ($laporan->laporanImages as $image) {
-            unlink(public_path($image->image_path));
-        }        
-         
-        // Delete the laporan record from the database
-        $laporan->delete();
+        // Start a new transaction
+        DB::beginTransaction();
 
-        // Delete the laporan images from the database
-        $laporan->laporanImages()->delete();
-         
-        return redirect()->back()->with('success', 'Laporan berhasil dihapus');
+        try {
+
+            $laporan = Laporan::findOrFail($id);
+            // Delete the laporan images from the disk
+            foreach ($laporan->laporanImages as $image) {
+                unlink(public_path($image->image_path));
+            }        
+            
+            // Delete the laporan record from the database
+            $laporan->delete();
+
+            // Delete the laporan images from the database
+            $laporan->laporanImages()->delete();
+            // Commit the transaction
+            DB::commit();           
+            return redirect()->back()->with('success', 'Laporan berhasil dihapus');
+        } catch (\Exception $e) {
+            // An error occurred, rollback the transaction
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Hapus laporan Error: ' . $e->getMessage());
+        }
+
     }
+    
 }

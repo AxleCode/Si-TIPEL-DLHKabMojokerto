@@ -104,8 +104,8 @@
           </a>
         </li> --}}
 
-        <li class="sidebar-item {{ Request::is('dashboard/admindownloadable') ? 'active' : '' }}">
-          <a class="sidebar-link" href="/dashboard/admindownloadable">
+        <li class="sidebar-item {{ Request::is('dashboard/user*') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/user">
             <i class="align-middle" data-feather="users"></i> <span class="align-middle">Setting User</span>
           </a>
         </li>
