@@ -253,7 +253,7 @@
         <div class="section-title">
           <h2>Pelayanan</h2>
           <p>
-            Berikut jenis aduan yang kami terima
+            Berikut jenis pelayanan kami
           </p>
         </div>
 

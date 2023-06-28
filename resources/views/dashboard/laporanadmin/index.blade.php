@@ -48,7 +48,7 @@
                                 <table class="table table-hover my-0">
                                   <thead>
                                     <tr>
-                                        <th>ID Aduan</th>
+                                        <th>No Tiket</th>
                                       <th>Judul</th>
                                       
                                       <th class="d-none d-xl-table-cell">Di Laporkan</th>
@@ -60,7 +60,7 @@
 
                                   <tbody>
                                     <tr>
-                                    <td> {{ $lapor->id }}</td>
+                                    <td> {{ $lapor->nomor_tiket }}</td>
                                       <td>{{ Str::limit($lapor->judul, 35) }}</td>
                                       <td class="d-none d-xl-table-cell">{{ $lapor->updated_at->format('d F Y') }}</td>
                                       @foreach ($statuses as $status)

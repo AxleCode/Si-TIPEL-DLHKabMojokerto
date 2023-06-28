@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('category_aduan_id');
             $table->foreignId('user_id');
             $table->string('nama');
+            $table->bigInteger('nomor_tiket');
             $table->string('telpon');
             $table->string('email');
             $table->string('judul');

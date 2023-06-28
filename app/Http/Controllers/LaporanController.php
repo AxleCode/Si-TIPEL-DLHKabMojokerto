@@ -86,10 +86,17 @@ class LaporanController extends Controller
         DB::beginTransaction();
 
         try {
+            // Generate the nomor_tiket
+            $date = now()->format('dmY');
+            $category = CategoryAduan::find($validatedData['category']);
+            $latestId = Laporan::max('id') + 1;
+            $nomorTiket = $date . $category->id . $latestId;
+            
             // Buat Laporan baru
             $laporan = new Laporan();
             $laporan->judul = $validatedData['judul'];
             $laporan->nama = $validatedData['nama'];
+            $laporan->nomor_tiket = $nomorTiket;
             $laporan->telpon = $validatedData['telpon'];
             $laporan->email = $validatedData['email'];
             $laporan->body = $validatedData['body'];

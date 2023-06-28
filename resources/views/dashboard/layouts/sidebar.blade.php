@@ -159,10 +159,11 @@
                     @foreach($notifikasi as $notif)
                         @if($count < 4)
                             @if ($notif->status)
-                                <form id="notif-form-{{ $notif->id }}" action="{{ route('notif-update', $notif->id) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
+
                                     <a onclick="event.preventDefault(); document.getElementById('notif-form-{{ $notif->id }}').submit();" class="list-group-item bg-primary" style="">
-                                        <div class="row align-items-center">
+                                      <form id="notif-form-{{ $notif->id }}" action="{{ route('notif-update', $notif->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf  
+                                      <div class="row align-items-center">
                                             <div class="col-2">
                                                 <i class="text-white ms-2" data-feather="{{ $notif->logo }}"></i>
                                             </div>
@@ -178,8 +179,9 @@
                                                 @endif
                                             </div>
                                         </div>
+                                      </form>
                                     </a>
-                                </form>
+   
                             @else
                                 <a href="{{ $notif->link }}" class="list-group-item ">
                                     <div class="row align-items-center ">

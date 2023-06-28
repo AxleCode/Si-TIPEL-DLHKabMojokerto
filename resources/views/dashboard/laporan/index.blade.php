@@ -113,7 +113,7 @@
                                           </div>
                                           <div class="card-body" style="height: 250px; overflow-y: hidden;">
                                             <h3 class="card-title fs-4" >{!! Str::limit($lapor->judul, 55) !!}</h3>
-                                            <p class="card-text">ID Aduan : {{ $lapor->id }}</p>
+                                            <p class="card-text">Nomor Tiket : {{ $lapor->nomor_tiket }}</p>
                                             @foreach ($statuses as $status)
                                             @if ($lapor->status == $status->kode_status)
                                               <p><span class="badge bg-{{ $status->warna }}">{{ $status->name }}</span></p>
