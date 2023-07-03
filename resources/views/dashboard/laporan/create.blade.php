@@ -103,7 +103,7 @@
                                      
                                      <!-- Peta -->
                                      <label for="map" class="form-label">Koordinat Titik Lokasi Aduan</label>
-                                <div id="map" class=" col-lg-12" style="height: 400px;">
+                                <div id="map" class=" col-lg-12" style="height: 500px;">
                                 
                                 </div>
                                 

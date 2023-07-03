@@ -1,15 +1,14 @@
-@extends('layouts.main', ['title' => 'Register - Si-TIPEL '])
+@extends('layouts.main', ['title' => 'Login - Si-TIPEL '])
 
 @section('container')
 <div class="container mb-5 mt-3 ">
           {{-- <img  src="img/logo-kementrian.png" width="86" alt="kementrian">
           <img  src="img/logo-dlhkabmjkt.png" width="300" alt="dlh kab mojokerto"> --}}
           {{-- <img  style="margin-left:1000px" src="img/logo-kementrian.png" width="85" alt="kementrian lingkungan hidup"> --}}
-
           <div class="container d-flex align-items-center">
 
             <div class="me-1 ">
-              <img src="/img/logo-mojokerto.png" width="60" alt="">
+              <img src="{{ $logo_dlh->image_path }}" width="60" alt="">
             </div>
             <h3 class="logo me-auto fs-5 mt-3 fw-bolder">Dinas Lingkungan Hidup <p>Kabupaten Mojokerto</h3>
           </div>
@@ -17,7 +16,7 @@
         
     <div class="row d-flex align-items-center justify-content-center mt-4 ">
       <div class="col-md-8 col-lg-7 col-xl-5 ">
-        <img src="img/si-TIPEL.png" 
+        <img src="{{ $logo_kedua->image_path }}" 
           class="img-fluid" width="600" alt="si-TIPEL">
       </div>
 

@@ -10,8 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="/img/logo-baru.png" rel="icon">
-  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="{{ $logo_kedua->image_path }}" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -64,7 +63,7 @@
 
 
       <div class="me-1 ">
-        <img src="/img/logo-mojokerto.png" width="60" alt="">
+        <img src="{{ $logo_dlh->image_path }}" width="60" alt="">
       </div>
       
       <h3 class="logo me-auto fs-5 mt-3"><a href="index.html"> Dinas Lingkungan Hidup <p>Kabupaten Mojokerto</a></h3>
@@ -140,7 +139,7 @@
           @endauth
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-          <img src="/img/logo-baru.png" class="img-fluid" width="530" alt="">
+          <img src="{{ $logo_utama->image_path }}" class="img-fluid" width="530" alt="">
         </div>
       </div>
     </div>
@@ -239,7 +238,7 @@
 
           </div>
 
-          <div class="col-lg-6 align-items-stretch order-1 order-lg-2 img" style='background-image: url("/img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+          <div class="col-lg-6 align-items-stretch order-1 order-lg-2 img" style='background-image: url("{{ $logo_alur->image_path }}");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
         </div>
 
       </div>

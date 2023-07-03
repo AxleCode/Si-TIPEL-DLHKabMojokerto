@@ -23,6 +23,9 @@ use App\Http\Controllers\DownloadableController;
 use App\Http\Controllers\CategoryAduanController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\AdminPengumumanController;
+use App\Http\Controllers\WebsiteController;
+
+use App\Models\Logo;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -38,6 +41,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 Route::get('/', [MapController::class,'home']);
+Route::get('/home', [MapController::class,'home']);
 
 Route::get('/dashboard', [DashboardController::class,'index'])->middleware('auth', 'verified');
 
@@ -55,6 +59,10 @@ Route::resource('/dashboard/laporan', LaporanController::class)->middleware('aut
 
 Route::get('/dashboard/map', [MapController::class,'index'])->middleware('auth', 'verified');
 
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+
+
 Route::group(['middleware' => ['auth', 'IsAdmin']], function () {
     Route::resource('/dashboard/status', StatusController::class);
     Route::resource('/dashboard/user', UserController::class);
@@ -63,7 +71,14 @@ Route::group(['middleware' => ['auth', 'IsAdmin']], function () {
     Route::resource('/dashboard/pengumuman', AdminPengumumanController::class);
     Route::resource('/dashboard/admindownloadable', DownloadableController::class);
     Route::resource('/dashboard/komentar', KomentarController::class);
+
+    Route::get('/dashboard/website', [WebsiteController::class, 'index'])->name('website.index');
+    Route::put('/dashboard/website/{id}/logo1', [WebsiteController::class, 'updateLogo1'])->name('logo1-update');
+    Route::put('/dashboard/website/{id}/pelayanan', [WebsiteController::class, 'updatePelayanan'])->name('pelayanan-update');
+    Route::post('/dashboard/website', [WebsiteController::class, 'buatPelayanan'])->name('buat-pelayanan');
+    
 });
+
 
 Route::fallback(function () {
     abort(404);

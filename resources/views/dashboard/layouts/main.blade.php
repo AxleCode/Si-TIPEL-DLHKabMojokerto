@@ -8,52 +8,44 @@
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<meta name="author" content="AdminKit">
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
+	<title>Dashboard - Si-TIPEL DLH KAB MOJOKERTO</title>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="/img/si-TIPEL.png" />
-
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
-
-	<title>Dashboard - Si-TIPEL DLH KAB MOJOKERTO</title>
-
 	<link href="/cssdashboard/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-	
 	<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
 	<script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
-
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/simplebar/5.3.4/simplebar.min.js"></script>
-
 	<style>
 		trix-toolbar [data-trix-button-group="file-tools"] {
 		  display: none;
 		}
-
-	  </style>
-
-	{{-- leaflet --}}
+	</style>
+	<!-- Leaflet -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
 	<!-- Axios JavaScript -->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-	{{-- fontawesome --}}
+	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+	<!-- Lightbox -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-
+	<!-- Moment.js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
+	<!-- Bootstrap Icons -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
-
-
 </head>
 
+
 <body class="d-flex flex-column vh-1000">
+	@php
+    $logo = \App\Models\Logo::find(2);
+    $logo_kedua = $logo->image_path;  
+    @endphp
 	<div class="wrapper">
 	@include('sweetalert::alert')
 	@include('dashboard.layouts.sidebar')

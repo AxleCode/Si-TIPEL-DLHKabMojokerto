@@ -1,7 +1,8 @@
 <nav id="sidebar" class="sidebar js-sidebar">
   <div class="sidebar-content">
-    <a class="sidebar-brand" href="index.html">
-  <img class="mb-2" src="/img/si-TIPEL.png" width="170px" alt="">
+    <a class="sidebar-brand" href="/dashboard">
+      
+  <img class="mb-2" src="/{{ $logo_kedua }}" width="170px" alt="">
   <span class="align-middle fs-5 fw-semibold text-white-80"><br>Dinas Lingkungan Hidup</span>
   <span class=" align-middle fs-5 fw-semibold text-white-80"><br >Kabupaten Mojokerto</span>
     </a>
@@ -48,14 +49,11 @@
         </li> --}}
 
         <li class="sidebar-item {{ Request::is('/') ? 'active' : '' }}">
-          <a class="sidebar-link" href="/" target="blank">
+          <a class="sidebar-link" href="/" target="_blank">
             <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Website si-TIPEL</span>
           </a>
         </li>
 
-
-
-        
 
         
         {{-- <li class="sidebar-item has-submenu">
@@ -109,6 +107,13 @@
             <i class="align-middle" data-feather="users"></i> <span class="align-middle">Setting User</span>
           </a>
         </li>
+
+        <li class="sidebar-item {{ Request::is('dashboard/website*') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/website">
+            <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Setting Website</span>
+          </a>
+        </li>
+
         @endcan
 
         <li class="sidebar-item {{ Request::is('dashboard/profile') ? 'active' : '' }}">
@@ -135,7 +140,8 @@
   <nav class="navbar navbar-expand navbar-light navbar-bg">
     <a class="sidebar-toggle js-sidebar-toggle">
       <i class="hamburger align-self-center"></i>
-    </a>
+    </a>   
+
     <div class="navbar-collapse collapse">
       <div class="fs-3 ms-3 container d-flex align-items-center justify-content-start mt-3" style="height: 20px;">
         <p>Selamat datang kembali <strong>{{ auth()->user()->name }}</strong></p>

@@ -1,5 +1,8 @@
 @extends('layouts.app', ['title' => 'Forgot Password - Si-Tipel DLH Kab Mojokerto'])
-
+@php
+$logo = \App\Models\Logo::find(2);
+$logo_kedua = $logo->image_path;   
+@endphp
 @section('content')
 <div class="col-md-5">
     <div class="card">
@@ -16,7 +19,7 @@
 
                 <div class="form-group">
                     <div class="text-center">
-                        <img src="img/si-TIPEL.png" 
+                        <img src="{{ $logo_kedua }}" 
                         class="img-fluid " width="300" alt="si-TIPEL">
                     </div>
                     <label class="font-weight-bold text-uppercase mb-3 mt-3">Email Address</label>

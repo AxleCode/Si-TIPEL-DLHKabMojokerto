@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Logo;
 use App\Models\Status;
 use App\Models\Laporan;
 use App\Models\Komentar;
@@ -34,8 +35,12 @@ class MapController extends Controller
         $status = Status::all();
         $komentar = Komentar::all();
         $category = CategoryAduan::all();
+        $logo_utama = Logo::find(1);
+        $logo_kedua = Logo::find(2);
+        $logo_dlh = Logo::find(3);
+        $logo_alur = Logo::find(4);
 
-        return view('home.index',  compact('laporan','status','category', 'komentar'));
+        return view('home.index',  compact('laporan','status','category', 'komentar', 'logo_utama', 'logo_kedua', 'logo_dlh', 'logo_alur'));
     }
 
 }

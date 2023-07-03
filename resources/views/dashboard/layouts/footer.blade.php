@@ -8,7 +8,6 @@
 		<div class="col-6 text-end">
 		  <ul class="list-inline">
 			<li class="list-inline-item">
-			  <a class="text-muted" href="" target="_blank">Aplikasi Skripsi Gaes :)</a>
 			</li>  
 		  </ul>
 		</div>

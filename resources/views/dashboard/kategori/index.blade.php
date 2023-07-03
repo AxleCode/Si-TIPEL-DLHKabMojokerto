@@ -123,7 +123,7 @@
 								                    </div>
                                           <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                              <button id="submit1" type="submit"  type="button" class="btn btn-primary">Tambah Kategori</button>
+                                              <button id="submit1" type="submit" class="btn btn-primary">Tambah Kategori</button>
                                           </div>
                                         </form>
                                       </div>

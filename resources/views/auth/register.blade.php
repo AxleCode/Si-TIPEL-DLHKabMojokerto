@@ -1,18 +1,24 @@
 @extends('layouts.main', ['title' => 'Register - Si-TIPEL '])
 
 @section('container')
+  @php
+  $logo = \App\Models\Logo::find(2);
+  $logo_kedua = $logo->image_path;
+  $logo3 = \App\Models\Logo::find(3);
+  $logo_dlh = $logo3->image_path;    
+  @endphp
 <div class="container mb-5 mt-3 ">
     <div class="container d-flex align-items-center">
 
       <div class="me-1 ">
-        <img src="/img/logo-mojokerto.png" width="60" alt="">
+        <img src="{{ $logo_dlh }}" width="60" alt="">
       </div>
       <h3 class="logo me-auto fs-5 mt-3 fw-bolder">Dinas Lingkungan Hidup <p>Kabupaten Mojokerto</h3>
     </div>
         
     <div class="row d-flex align-items-center justify-content-center mt-4 ">
       <div class="col-md-8 col-lg-7 col-xl-5 ">
-        <img src="img/si-TIPEL.png" 
+        <img src="{{ $logo_kedua }}" 
           class="img-fluid" width="600" alt="si-TIPEL">
       </div>
       <div class="col-md-7 col-lg-5 col-xl-4 offset-xl-1">

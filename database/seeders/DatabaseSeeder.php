@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Logo;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Pengumuman;
@@ -30,6 +31,8 @@ class DatabaseSeeder extends Seeder
             LaporanImageSeeder::class,
             StatusSeeder::class,
             NotifikasiSeeder::class,
+            LogoSeeder::class,
+            PelayananSeeder::class,
         ]);
 
         User::create([

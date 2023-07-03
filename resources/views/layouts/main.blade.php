@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="en">
   <head>
+    @php
+    $logo = \App\Models\Logo::find(2);
+    $logo_kedua = $logo->image_path;
+    $logo3 = \App\Models\Logo::find(3);
+    $logo_dlh = $logo3->image_path;    
+    @endphp
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? config('app.name') }} Sistem Ticketing Pelayanan DLH Kab Mojokerto</title>
@@ -14,7 +21,7 @@
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 
      <link rel="stylesheet" href="style-login.css">
-    
+     <link href="{{ $logo_kedua }}" rel="icon">
   </head>
   <body>
 

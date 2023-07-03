@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
+    @php
+    $logo = \App\Models\Logo::find(2);
+    $logo_kedua = $logo->image_path;   
+    @endphp
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }} | Sistem Ticketing Pelayanan DLH Kab Mojokerto</title>
@@ -19,7 +23,7 @@
  
   <div class="container d-flex align-items-center">
     <div class="me-1 ">
-      <img src="/img/logo-mojokerto.png" width="60" alt="">
+      <img src="{{ $logo_kedua }}" width="60" alt="">
     </div>
     <h3 class="logo me-auto fs-5 mt-3 fw-bolder">Dinas Lingkungan Hidup <p>Kabupaten Mojokerto</h3>
   </div>
