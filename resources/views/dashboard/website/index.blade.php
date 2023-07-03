@@ -233,18 +233,67 @@
                     <td>{!! Str::limit($layanan->slug, 30) !!}</td>
                     <td class="col-6">{!! Str::limit($layanan->body, 300) !!}</td>
                     <td class="col-3">
-                        <button type="submit" class="badge bg-warning border-0" data-bs-toggle="modal"
-                            data-bs-target="#editModal{{ $layanan->id }}">
-                            <span data-feather="edit"></span> Edit
-                        </button>
+                         <button type="submit" class="badge bg-warning border-0 " data-bs-toggle="modal" data-bs-target="#editModallayanan{{ $layanan->id }}" >
+                                <span data-feather="edit" ></span> Edit</button>
         
-                        <!-- Edit Pelayanan Modal -->
-                        <div class="modal fade" id="editModal{{ $layanan->id }}" tabindex="-1" aria-labelledby="editModalLabel"
-                            aria-hidden="true">
-                            <!-- Modal content -->
-                        </div>
+                              <!-- Edit Pelayanan Modal -->
+                              <div class="modal fade" id="editModallayanan{{ $layanan->id }}" tabindex="-1" aria-labelledby="editmodallabellayanan" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="editmodallabellayanan"> <span data-feather="grid" ></span><strong> {{ $layanan->name }}</strong></h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('pelayanan-update', $layanan->id) }}" method="POST" enctype="multipart/form-data">
+                                      @csrf
+                                      @method('PUT')
+                                      <div class="modal-body">
+                                        
+                                        <!-- Nomor Pelayanan -->
+                                        <div class="mb-4 col-lg-8" hidden>
+                                          <label for="nomor" class="form-label">Nomor Pelayanan</label>
+                                          <select class="form-select" name="nomor" id="nomor">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                              <option value="{{ $i }}" {{ (old('nomor') == $i || $layanan->nomor == $i) ? 'selected' : '' }}>
+                                                {{ $i }}
+                                              </option>
+                                            @endfor
+                                          </select>
+                                        </div>                                       
         
-                        <form action="{{ route('user.destroy', $logo1) }}" method="POST" class="delete-form d-inline">
+                                        <!-- Slug Pelayanan -->
+                                        <div class="form-outline mt-3 form-floating col-lg-10">
+                                          <input type="text" name="slug" class="mt-3 form-control rounded-top rounded-top @error('slug') is-invalid @enderror" id="slug" placeholder="Nama Kategori" required value="{{ old('slug', $layanan->slug) }}">
+                                          <label class="form-label" for="slug">Masukkan Slug Pelayanan</label>
+                                          @error('slug')
+                                              <div class="invalid-feedback">
+                                                  {{ $message }}
+                                              </div>
+                                          @enderror
+                                      </div>
+              
+                                      <!-- Body Pelayanan -->
+                                      <div class="form-outline mt-3 form-floating col-lg-10">
+                                          <input type="text" name="body" class="mt-3 form-control rounded-top rounded-top @error('body') is-invalid @enderror"id="body" placeholder="Nama Kategori" required value="{{ old('body', $layanan->body) }}">
+                                          <label class="form-label" for="body">Masukkan Body Pelayanan</label>
+                                          @error('body')
+                                              <div class="invalid-feedback">
+                                                  {{ $message }}
+                                              </div>
+                                          @enderror
+                                      </div>
+                                                                           
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+        
+                        <form action="{{ route('layanan-hapus', $layanan) }}" method="POST" class="delete-form d-inline">
                             @csrf
                             @method('delete')
                             <button type="submit" class="badge bg-danger border-0 n">
@@ -262,6 +311,26 @@
         </div>
     </div>
 </div>
+
+<script>
+  $('.delete-form').submit(function(e) {
+      e.preventDefault();
+      var form = this;
+      Swal.fire({
+          title: 'Apakah anda yakin ingin menghapus alur layanan ini?',
+          text: "Data tidak bisa dikembalikan lagi setelah dihapus!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Hapus!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              form.submit();
+          }
+      });
+  });
+</script>
 
 <style>
 .form-control:focus {

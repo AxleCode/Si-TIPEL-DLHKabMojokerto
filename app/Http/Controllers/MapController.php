@@ -9,6 +9,7 @@ use App\Models\Komentar;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use App\Models\CategoryAduan;
+use App\Models\Pelayanan;
 use Illuminate\Support\Facades\Auth;
 
 class MapController extends Controller
@@ -19,6 +20,7 @@ class MapController extends Controller
         $status = Status::all();
         $komentar = Komentar::all();
         $category = CategoryAduan::all();
+
         $user = Auth::user();
         $notifikasi = Notifikasi::where('user_id', $user->id)
                     ->orderByDesc('created_at')
@@ -33,6 +35,7 @@ class MapController extends Controller
     {
         $laporan = Laporan::with('status')->get();
         $status = Status::all();
+        $pelayanan = Pelayanan::orderBy('nomor', 'asc')->get();
         $komentar = Komentar::all();
         $category = CategoryAduan::all();
         $logo_utama = Logo::find(1);
@@ -40,7 +43,7 @@ class MapController extends Controller
         $logo_dlh = Logo::find(3);
         $logo_alur = Logo::find(4);
 
-        return view('home.index',  compact('laporan','status','category', 'komentar', 'logo_utama', 'logo_kedua', 'logo_dlh', 'logo_alur'));
+        return view('home.index',  compact('laporan','status','category', 'komentar', 'logo_utama', 'logo_kedua', 'logo_dlh', 'logo_alur','pelayanan'));
     }
 
 }

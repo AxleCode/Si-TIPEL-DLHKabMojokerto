@@ -147,16 +147,54 @@ class WebsiteController extends Controller
         }
     }
 
-    public function updatePelayanan(Logo $logo)
+    public function updatePelayanan(Request $request, $id)
     {
-       
+        // Validate the form data
+        $validatedData = $request->validate([
+            'nomor' => 'required',
+            'slug' => 'required',
+            'body' => 'required',
+        ]);
+
+        try {
+            // Find the pelayanan by ID
+            $pelayanan = Pelayanan::findOrFail($id);
+
+            // Update the pelayanan with the validated data
+            $pelayanan->nomor = $request->input('nomor');
+            $pelayanan->slug = $request->input('slug');
+            $pelayanan->body = $request->input('body');
+            $pelayanan->save();
+
+            // Redirect back or to a specific route after successful update
+            return redirect()->back()->with('success', 'Pelayanan has been updated successfully');
+        } catch (\Exception $e) {
+            $errorMessage = $e->getMessage();
+            toast($errorMessage, 'error')->autoClose(5000)->width('420px');
+            return redirect()->route('website.index');
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Logo $logo)
+    public function destroy(Request $request, $id)
     {
-        //
+        try {
+            // Find the pelayanan by ID
+            $pelayanan = Pelayanan::findOrFail($id);
+    
+            // Delete the pelayanan
+            $pelayanan->delete();
+    
+            // Redirect back or to a specific route after successful deletion
+            return redirect()->back()->with('success', 'Pelayanan has been deleted successfully');
+        } catch (\Exception $e) {
+            $errorMessage = $e->getMessage();
+            toast($errorMessage, 'error')->autoClose(5000)->width('420px');
+            return redirect()->route('website.index');
+        }
     }
+    
 }

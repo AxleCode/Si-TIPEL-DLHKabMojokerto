@@ -76,6 +76,8 @@ Route::group(['middleware' => ['auth', 'IsAdmin']], function () {
     Route::put('/dashboard/website/{id}/logo1', [WebsiteController::class, 'updateLogo1'])->name('logo1-update');
     Route::put('/dashboard/website/{id}/pelayanan', [WebsiteController::class, 'updatePelayanan'])->name('pelayanan-update');
     Route::post('/dashboard/website', [WebsiteController::class, 'buatPelayanan'])->name('buat-pelayanan');
+    Route::delete('/dashboard/layanan/{layanan}', [WebsiteController::class, 'destroy'])->name('layanan-hapus');
+
     
 });
 

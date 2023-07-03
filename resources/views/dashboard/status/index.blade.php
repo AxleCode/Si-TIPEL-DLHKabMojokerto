@@ -259,7 +259,7 @@
           e.preventDefault();
           var form = this;
           Swal.fire({
-              title: 'Apakah anda yakin ingin menghapus {{ $status->name }}?',
+              title: 'Apakah anda yakin ingin menghapus status ini?',
               text: "Data tidak bisa dikembalikan lagi setelah dihapus!",
               icon: 'warning',
               showCancelButton: true,
