@@ -31,12 +31,12 @@
                             <div class="p-3 py-5 ">
                                
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">List Aduan {{ auth()->user()->name }} </h4>
+                                    <h4 class="text-right">List Laporan{{ auth()->user()->name }} </h4>
                                 </div>
 
                                 <div class="mb-4">
                                   <a href="{{ route('laporan.create') }}" class="w-30 ms-2 mb-2 btn btn-lg btn-outline-success"> 
-                                    <span data-feather="edit" ></span> Buat Aduan</a>
+                                    <span data-feather="edit" ></span> Buat Laporan</a>
                             </div>
 
                            {{-- <table class="table table-hover my-0">
@@ -121,7 +121,7 @@
                                           @endforeach
                                           <td class="d-none d-xl-table-cell">Update Pada {{ $lapor->updated_at->format('[H:i] d F Y') }}</td>
 
-                                          <div class="mt-2 text-center card-footer">
+                                          <div class="mt-1 text-center card-footer">
                                             <a href="{{ route('laporan.show',$lapor->id) }}" class="fs-5 w-30 ms-2 mb-2 btn btn-lg btn-outline-primary">
                                               <span ></span> Lihat Detail
                                               </a>
@@ -132,7 +132,7 @@
                                                   data-bs-title="Anda hanya dapat membatalkan aduan saat berada di status Dalam Antrian">
                                                   @csrf
                                                   @method('delete')
-                                                  <button type="submit" class="badge bg-danger border-0 fs-5 mt-2" >
+                                                  <button type="submit" class="fs-5 w-30 ms-2 mb-2 btn btn-lg btn-outline-danger mt-1" >
                                                     <span data-feather="x-circle" ></span> Batalkan Aduan
                                                   </button>
                                                 </form>

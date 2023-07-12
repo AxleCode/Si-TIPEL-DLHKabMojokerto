@@ -42,7 +42,7 @@
                             <div class="p-3 py-5">
                                
                                 <div class="d-flex justify-content-between align-items-center ms-2 ">
-                                    <strong><h2 class="text-right">List Semua Aduan </h2></strong>
+                                    <strong><h2 class="text-right">List Semua Laporan </h2></strong>
                                 </div>
                 
                                 <table class="table table-hover my-0">

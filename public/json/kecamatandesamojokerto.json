@@ -1,0 +1,848 @@
+{
+  "kecamatan": [
+    {
+      "id": 1,
+      "nama": "Kecamatan Bangsal",
+      "desa": [
+        {
+          "id": 1,
+          "nama": "Desa Bangsal",
+          "koordinat": {
+            "latitude": -7.499140,
+            "longitude": 112.484127
+          }
+        },
+        {
+          "id": 2,
+          "nama": "Desa Gayam",
+          "koordinat": {
+            "latitude": -7.493736043019757,
+            "longitude": 112.49819755488718
+          }
+        }
+        ,
+        {
+          "id": 3,
+          "nama": "Desa Kedunguneng",
+          "koordinat": {
+            "latitude": -7.523207807101436,
+            "longitude": 112.48410844855245
+          }
+        },
+        {
+          "id": 4,
+          "nama": "Desa Kutoporong",
+          "koordinat": {
+            "latitude": -7.529727388940494, 
+            "longitude":  112.49244689941408
+          }
+        },
+        {
+          "id": 5,
+          "nama": "Desa Mejoyo",
+          "koordinat": {
+            "latitude": -7.49645037858152554, 
+            "longitude":  112.52238464774567
+          }
+        },
+        {
+          "id": 6,
+          "nama": "Desa Mojotamping",
+          "koordinat": {
+            "latitude": -7.508084594265203, 
+            "longitude":  112.52068519592287
+          }
+        },
+        {
+          "id": 7,
+          "nama": "Desa Ngastemi",
+          "koordinat": {
+            "latitude": -7.511428807826476,  
+            "longitude":  112.49518489785261
+          }
+        },
+        {
+          "id": 8,
+          "nama": "Desa Ngrowo",
+          "koordinat": {
+            "latitude": -7.497932663962731, 
+            "longitude":  112.51126098606622
+          }
+        },
+        {
+          "id": 9,
+          "nama": "Desa Pacing",
+          "koordinat": {
+            "latitude": -7.494997878922806, 
+            "longitude":  112.47725057575737 
+          }
+        },
+        {
+          "id": 10,
+          "nama": "Desa Pekuwon",
+          "koordinat": {
+            "latitude": -7.493543509467388,  
+            "longitude":  112.50807666699987
+          }
+        },
+        {
+          "id": 11,
+          "nama": "Desa Peterongan",
+          "koordinat": {
+            "latitude": -7.5108975003941625, 
+            "longitude":  112.48781204223634
+          }
+        },
+        {
+          "id": 12,
+          "nama": "Desa Puloniti",
+          "koordinat": {
+            "latitude": -7.5006860689531605, 
+            "longitude":  112.48901367187501
+          }
+        },
+        {
+          "id": 13,
+          "nama": "Desa Salen",
+          "koordinat": {
+            "latitude": -7.496704609891015, 
+            "longitude":  112.49394035548903
+          }
+        },
+        {
+          "id": 14,
+          "nama": "Desa Sidomulyo",
+          "koordinat": {
+            "latitude": -7.49687480393626,  
+            "longitude":  112.4940261861775
+          }
+        },
+        {
+          "id": 15,
+          "nama": "Desa Sumbertebu",
+          "koordinat": {
+            "latitude": -7.500802544574516, 
+            "longitude":  112.50017166137697
+          }
+        },
+        {
+          "id": 16,
+          "nama": "Desa Sumberwono",
+          "koordinat": {
+            "latitude": -7.513170579615132,  
+            "longitude":  112.4755897553405
+          }
+        },
+        {
+          "id": 17,
+          "nama": "Desa Tinggarbuntut",
+          "koordinat": {
+            "latitude": -7.477855212251553, 
+            "longitude":  112.51608466787731
+          }
+        }
+
+      ]
+    },
+    {
+      "id": 2,
+      "nama": "Kecamatan Dawarblandong",
+      "desa": [
+        {
+          "id": 1,
+          "nama": "Desa Bangeran",
+          "koordinat": {
+            "latitude": -7.362584441591979, 
+            "longitude": 112.44102573604326
+          }
+        },
+        {
+          "id": 2,
+          "nama": "Desa Banyulegi",
+          "koordinat": {
+            "latitude": -7.314930550033899, 
+            "longitude": 112.44802092143802
+          }
+        },
+        {
+          "id": 3,
+          "nama": "Desa Branyublandong",
+          "koordinat": {
+            "latitude": -7.347457277280156,  
+            "longitude": 112.45911023695955
+          }
+        },
+        {
+          "id": 4,
+          "nama": "Desa Cinandang",
+          "koordinat": {
+            "latitude": -7.330537126583126, 
+            "longitude": 112.4080581602175 
+          }
+        },
+        {
+          "id": 5,
+          "nama": "Desa Cendoro",
+          "koordinat": {
+            "latitude": -7.345206766102281, 
+            "longitude": 112.36922835727458 
+          }
+        },
+        {
+          "id": 6,
+          "nama": "Desa Dawarblandong",
+          "koordinat": {
+            "latitude": -7.3306839768248215,  
+            "longitude": 112.41798606605876
+          }
+        },
+        {
+          "id": 7,
+          "nama": "Desa Gunungan",
+          "koordinat": {
+            "latitude": -7.323417082580293, 
+            "longitude": 112.4526144415884
+          }
+        },
+        {
+          "id": 8,
+          "nama": "Desa Gunungsari",
+          "koordinat": {
+            "latitude": -7.34813510632217,  
+            "longitude": 112.40207953396826
+          }
+        },
+        {
+          "id": 9,
+          "nama": "Desa Jatirowo",
+          "koordinat": {
+            "latitude": -7.343878796413034,  
+            "longitude": 112.4256736250093
+          }
+        },
+        {
+          "id": 10,
+          "nama": "Desa Madureso",
+          "koordinat": {
+            "latitude": -7.344256559204385,  
+            "longitude": 112.4741051990207
+          }
+        },
+        {
+          "id": 11,
+          "nama": "Desa Pucuk",
+          "koordinat": {
+            "latitude": -7.3354033116050665,  
+            "longitude": 112.44356928339478
+          }
+        },
+        {
+          "id": 12,
+          "nama": "Desa Pulorejo",
+          "koordinat": {
+            "latitude": -7.331654455774404,  
+            "longitude": 112.4251779101196
+          }
+        },
+        {
+          "id": 13,
+          "nama": "Desa Randegan",
+          "koordinat": {
+            "latitude": -7.319412730824528, 
+            "longitude": 112.47726608489455
+          }
+        },
+        {
+          "id": 14,
+          "nama": "Desa Simongagrok",
+          "koordinat": {
+            "latitude": -7.333155897857098, 
+            "longitude": 112.36205116822988
+          }
+        },
+        {
+          "id": 18,
+          "nama": "Desa Sumberwuluh",
+          "koordinat": {
+            "latitude": -7.335028724383705, 
+            "longitude": 112.38792091675629
+          }
+        },
+        {
+          "id": 15,
+          "nama": "Desa Suru",
+          "koordinat": {
+            "latitude": -7.364992875778155,  
+            "longitude": 112.42706865150087
+          }
+        },
+        {
+          "id": 16,
+          "nama": "Desa Talunblandong",
+          "koordinat": {
+            "latitude": -7.322906287486157, 
+            "longitude": 112.40565919740393
+          }
+        },
+        {
+          "id": 17,
+          "nama": "Desa Temuireng",
+          "koordinat": {
+            "latitude": -7.326413656105383,  
+            "longitude": 112.47053944008113
+          }
+        }
+      ]
+    },    {
+      "id": 3,
+      "nama": "Kecamatan Dlanggu",
+      "desa": [
+        {
+          "id": 1,
+          "nama": "Desa Dlanggu",
+          "koordinat": {
+            "latitude": -7.567772904234336, 
+            "longitude": 112.48110033258179
+          }
+        },
+        {
+          "id": 2,
+          "nama": "Desa Jrambe",
+          "koordinat": {
+            "latitude": -7.561646878057952, 
+            "longitude": 112.46579806527483
+          }
+        },
+        {
+          "id": 3,
+          "nama": "Desa Kalen",
+          "koordinat": {
+            "latitude": -7.5958866294907414, 
+            "longitude": 112.48804890768544 
+          }
+        },
+        {
+          "id": 4,
+          "nama": "Desa Kedunggede",
+          "koordinat": {
+            "latitude": -7.6051089364741795,  
+            "longitude": 112.49594021434125 
+          }
+        },
+        {
+          "id": 5,
+          "nama": "Desa Kedunglengkong",
+          "koordinat": {
+            "latitude": -7.545381649893699, 
+            "longitude": 112.47552575389466
+          }
+        },
+        {
+          "id": 6,
+          "nama": "Desa Mojokarang",
+          "koordinat": {
+            "latitude": -7.586800254605238,   
+            "longitude": 112.4895248011686
+          }
+        },
+        {
+          "id": 7,
+          "nama": "Desa Ngembeh",
+          "koordinat": {
+            "latitude": -7.563147552632548,  
+            "longitude": 112.491583402222
+          }
+        },
+        {
+          "id": 8,
+          "nama": "Desa Pohkecik",
+          "koordinat": {
+            "latitude": -7.5572596911244965,  
+            "longitude": 112.47641992832182
+          }
+        },
+        {
+          "id": 9,
+          "nama": "Desa Punggul",
+          "koordinat": {
+            "latitude": -7.601039090089425,  
+            "longitude": 112.48021049712332
+          }
+        },
+        {
+          "id": 10,
+          "nama": "Desa Randugenengan",
+          "koordinat": {
+            "latitude": -7.556783197886647,  
+            "longitude": 112.46376264741633
+          }
+        },
+        {
+          "id": 11,
+          "nama": "Desa Sambilawang",
+          "koordinat": {
+            "latitude": -7.558518935582378,   
+            "longitude": 112.44468627817807
+          }
+        },
+        {
+          "id": 12,
+          "nama": "Desa Segunung",
+          "koordinat": {
+            "latitude": -7.586106318983995, 
+            "longitude": 112.48365786649427
+          }
+        },
+        {
+          "id": 13,
+          "nama": "Desa Sumberkarang",
+          "koordinat": {
+            "latitude": -7.545853347982735, 
+            "longitude": 112.48151273984946
+          }
+        },
+        {
+          "id": 14,
+          "nama": "Desa Sumbersono",
+          "koordinat": {
+            "latitude": -7.573459606822188, 
+            "longitude": 112.47206956312134
+          }
+        },
+        {
+          "id": 15,
+          "nama": "Desa Talok",
+          "koordinat": {
+            "latitude": -7.58639187079449, 
+            "longitude": 112.46520755960988 
+          }
+        },
+        {
+          "id": 16,
+          "nama": "Desa Tumapel",
+          "koordinat": {
+            "latitude": -7.527683085295976, 
+            "longitude": 112.47378506399922
+          }
+        }
+      ]
+    },    {
+      "id": 4,
+      "nama": "Kecamatan Gedeg",
+      "desa": [
+        {
+          "id": 1,
+          "nama": "Desa Balongsari",
+          "koordinat": {
+            "latitude": -7.42607474589799, 
+            "longitude": 112.4233724372912
+          }
+        },
+        {
+          "id": 2,
+          "nama": "Desa Bandung",
+          "koordinat": {
+            "latitude": -7.443028486916481, 
+            "longitude": 112.39506667280648
+          }
+        },
+        {
+          "id": 3,
+          "nama": "Desa Batankrajan",
+          "koordinat": {
+            "latitude": -7.434177218392518, 
+            "longitude": 112.4168535339553 
+          }
+        },
+        {
+          "id": 4,
+          "nama": "Desa Beratwetan",
+          "koordinat": {
+            "latitude": -7.4375815735668525, 
+            "longitude": 112.37979871499348
+          }
+        },
+        {
+          "id": 5,
+          "nama": "Desa Gedeg",
+          "koordinat": {
+            "latitude": -7.455283794542819, 
+            "longitude": 112.39729682394767
+          }
+        },
+        {
+          "id": 6,
+          "nama": "Desa Gembongan",
+          "koordinat": {
+            "latitude": -7.453100842185131, 
+            "longitude": 112.3770955760209
+          }
+        },
+        {
+          "id": 7,
+          "nama": "Desa Gempolkerep",
+          "koordinat": {
+            "latitude": -7.455058265157266, 
+            "longitude": 112.38713125615638
+          }
+        },
+        {
+          "id": 8,
+          "nama": "Desa Jerukseger",
+          "koordinat": {
+            "latitude": -7.429202555245723, 
+            "longitude": 112.39982758223522
+          }
+        },
+        {
+          "id": 9,
+          "nama": "Desa Kemantren",
+          "koordinat": {
+            "latitude": -7.4513987339854335, 
+            "longitude": 112.41355314599761
+          }
+        },
+        {
+          "id": 10,
+          "nama": "Desa Ngareskidul",
+          "koordinat": {
+            "latitude": -7.451977456359242, 
+            "longitude": 112.36277432393936  
+          }
+        },
+        {
+          "id": 11,
+          "nama": "Desa Pagerluyung",
+          "koordinat": {
+            "latitude": -7.450854057912761, 
+            "longitude": 112.40562753639188  
+          }
+        },
+        {
+          "id": 12,
+          "nama": "Desa Pagerjo",
+          "koordinat": {
+            "latitude": -7.438466723144956, 
+            "longitude": 112.40858818640783 
+          }
+        },
+        {
+          "id": 13,
+          "nama": "Desa Sidoharjo",
+          "koordinat": {
+            "latitude": -7.441190182778825,  
+            "longitude": 112.43260163744456
+          }
+        },
+        {
+          "id": 14,
+          "nama": "Desa Terusan",
+          "koordinat": {
+            "latitude": -7.452300857070297, 
+            "longitude": 112.42587873779355
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nama": "Kecamatan Gondang",
+      "desa": [
+        {
+          "id": 1,
+          "nama": "Desa Bakalan",
+          "koordinat": {
+            "latitude": -7.616455750040542, 
+            "longitude": 112.50041086128088
+          }
+        },
+        {
+          "id": 6,
+          "nama": "Desa Begaganlimo",
+          "koordinat": {
+            "latitude": -7.656459682631218, 
+            "longitude": 112.47681132446907
+          }
+        },
+        {
+          "id": 7,
+          "nama": "Desa Bening",
+          "koordinat": {
+            "latitude": -7.611508717854976,  
+            "longitude": 112.45485291323243
+          }
+        },
+        {
+          "id": 3,
+          "nama": "Desa Centong",
+          "koordinat": {
+            "latitude": -7.613069814453818,  
+            "longitude": 112.51258719063546 
+          }
+        },
+        {
+          "id": 2,
+          "nama": "Desa Dilem",
+          "koordinat": {
+            "latitude": -7.652287197319353,  
+            "longitude": 112.47200580273616
+          }
+        },
+        {
+          "id": 4,
+          "nama": "Desa Gondang",
+          "koordinat": {
+            "latitude": -7.615707104078544, 
+            "longitude": 112.49174385496946
+          }
+        },
+        {
+          "id": 5,
+          "nama": "Desa Gumeng",
+          "koordinat": {
+            "latitude": -7.660883064889473,  
+            "longitude": 112.49509855963883
+          }
+        },
+        {
+          "id": 8,
+          "nama": "Desa Jatidukuh",
+          "koordinat": {
+            "latitude": -7.633049025652755, 
+            "longitude": 112.45912470657255 
+          }
+        },
+        {
+          "id": 9,
+          "nama": "Desa Kalikatir",
+          "koordinat": {
+            "latitude": -7.637642789084011, 
+            "longitude": 112.47353491394658
+          }
+        },
+        {
+          "id": 10,
+          "nama": "Desa Karangkuten",
+          "koordinat": {
+            "latitude": -7.607016768039904, 
+            "longitude": 112.45363510376338
+          }
+        },
+        {
+          "id": 11,
+          "nama": "Desa Kebontunggul",
+          "koordinat": {
+            "latitude": -7.6236231501749625, 
+            "longitude": 112.4847886007524
+          }
+        },
+        {
+          "id": 12,
+          "nama": "Desa Kemasantani",
+          "koordinat": {
+            "latitude": -7.625154443880649,  
+            "longitude": 112.4986841578631
+          }
+        },
+        {
+          "id": 13,
+          "nama": "Desa Ngembat",
+          "koordinat": {
+            "latitude": -7.653567454119295, 
+            "longitude": 112.45408113503868
+          }
+        },
+        {
+          "id": 14,
+          "nama": "Desa Padi",
+          "koordinat": {
+            "latitude": -7.627570470803101, 
+            "longitude": 112.50901147000661
+          }
+        },
+        {
+          "id": 18,
+          "nama": "Desa Pohjejer",
+          "koordinat": {
+            "latitude": -7.61279758393175, 
+            "longitude": 112.47520531597108
+          }
+        },
+        {
+          "id": 15,
+          "nama": "Desa Pugeran",
+          "koordinat": {
+            "latitude": -7.612223336762838, 
+            "longitude": 112.48459253461729
+          }
+        },
+        {
+          "id": 16,
+          "nama": "Desa Tawar",
+          "koordinat": {
+            "latitude": -7.601673983563887, 
+            "longitude": 112.45909370332294
+          }
+        },
+        {
+          "id": 17,
+          "nama": "Desa Wonoploso",
+          "koordinat": {
+            "latitude": -7.625830743143073, 
+            "longitude": 112.47550067616622 
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "nama": "Kecamatan Jatirejo",
+      "desa": [
+        {
+          "id": 1,
+          "nama": "Desa Baureno",
+          "koordinat": {
+            "latitude": -7.604150875746733, 
+            "longitude": 112.43196446288505
+          }
+        },
+        {
+          "id": 6,
+          "nama": "Desa Bleberan",
+          "koordinat": {
+            "latitude": -7.614161354915781, 
+            "longitude": 112.44200005521289
+          }
+        },
+        {
+          "id": 7,
+          "nama": "Desa Dinoyo",
+          "koordinat": {
+            "latitude": -7.592184538680568, 
+            "longitude": 112.4257767619305
+          }
+        },
+        {
+          "id": 3,
+          "nama": "Desa Dukuhrejo",
+          "koordinat": {
+            "latitude": -7.593790402927588, 
+            "longitude": 112.40824428967255
+          }
+        },
+        {
+          "id": 2,
+          "nama": "Desa Gading",
+          "koordinat": {
+            "latitude": -7.583580928674165, 
+            "longitude": 112.41141793852833
+          }
+        },
+        {
+          "id": 4,
+          "nama": "Desa Gebangsari",
+          "koordinat": {
+            "latitude": -7.595018713716654, 
+            "longitude": 112.41549094923005
+          }
+        },
+        {
+          "id": 5,
+          "nama": "Desa Jatirejo",
+          "koordinat": {
+            "latitude": -7.578287028660074, 
+            "longitude": 112.41647890774077 
+          }
+        },
+        {
+          "id": 9,
+          "nama": "Desa Jembul",
+          "koordinat": {
+            "latitude": -7.66209426155442, 
+            "longitude": 112.44438938883283
+          }
+        },
+        {
+          "id": 10,
+          "nama": "Desa Karangjeruk",
+          "koordinat": {
+            "latitude": -7.583525368382664, 
+            "longitude": 112.44965021565152
+          }
+        },
+        {
+          "id": 11,
+          "nama": "Desa Kumitir",
+          "koordinat": {
+            "latitude": -7.570801004135687, 
+            "longitude": 112.4129115359474
+          }
+        },
+        {
+          "id": 12,
+          "nama": "Desa Lebakjabung",
+          "koordinat": {
+            "latitude": -7.616817541161551, 
+            "longitude": 112.41254857854527
+          }
+        },
+        {
+          "id": 13,
+          "nama": "Desa Manting",
+          "koordinat": {
+            "latitude": -7.635780204124324, 
+            "longitude": 112.43854987500566
+          }
+        },
+        {
+          "id": 14,
+          "nama": "Desa Mojogeneng",
+          "koordinat": {
+            "latitude": -7.582861884031626, 
+            "longitude": 112.44441275739348
+          }
+        },
+        {
+          "id": 18,
+          "nama": "Desa Padangasri",
+          "koordinat": {
+            "latitude": -7.588519673744641, 
+            "longitude": 112.43776524965497
+          }
+        },
+        {
+          "id": 15,
+          "nama": "Desa Rejosari",
+          "koordinat": {
+            "latitude": -7.662075374659742, 
+            "longitude": 112.43467742428918
+          }
+        },
+        {
+          "id": 16,
+          "nama": "Desa Sumberagung",
+          "koordinat": {
+            "latitude": -7.600862453357941, 
+            "longitude": 112.4409294195571
+          }
+        },
+        {
+          "id": 17,
+          "nama": "Desa Sumberjati",
+          "koordinat": {
+            "latitude": -7.63285003965034, 
+            "longitude": 112.42531849815825
+          }
+        },
+        {
+          "id": 8,
+          "nama": "Desa Sumengko",
+          "koordinat": {
+            "latitude": -7.58163473004742, 
+            "longitude": 112.4210107271877
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -20,13 +20,13 @@
 
         <li class="sidebar-item {{ Request::is('dashboard/laporan/create') ? 'active' : '' }}">
           <a class="sidebar-link" href="/dashboard/laporan/create">
-            <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Buat Laporan Aduan</span>
+            <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Isi Formulir </span>
           </a>
         </li>
 
         <li class="sidebar-item {{ Request::is('dashboard/laporan') || Request::is('dashboard/laporan/') ? 'active' : '' }}">
           <a class="sidebar-link" href="/dashboard/laporan">
-            <i class="align-middle" data-feather="book"></i> <span class="align-middle">List Laporan Aduan Saya</span>
+            <i class="align-middle" data-feather="book"></i> <span class="align-middle">List Laporan Saya</span>
           </a>
         </li>
         
@@ -73,7 +73,7 @@
 
           <li class="sidebar-item {{ Request::is('dashboard/laporanadmin*') ? 'active' : '' }}">
             <a class="sidebar-link" href="/dashboard/laporanadmin">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan Aduan</span>
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan</span>
             </a>
           </li>
 

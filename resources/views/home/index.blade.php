@@ -125,7 +125,7 @@
           <h2 class="" style="font-weight: 1000px;">Sistem Ticketing Pelayanan Online DLH Kabupaten Mojokerto</h2>
           <div class="d-flex justify-content-center justify-content-lg-start mt-5">
             <a href="/dashboard" class="btn-get-started scrollto" ><i class="bi bi-box-arrow-in-up-right"></i> Dashboard Saya</a>
-            <a href="/dashboard" class="btn-get-started bg-success scrollto ms-3" ><i class="bi bi-pencil-square"></i> Buat Laporan</a>
+            <a href="/dashboard" class="btn-get-started bg-success scrollto ms-3" ><i class="bi bi-pencil-square"></i> Isi Formulir</a>
             
             </div>
   
@@ -133,7 +133,7 @@
           <h1>Selamat Datang Di Website si-Tipel</h1>
           <h2 class="" style="font-weight: 1000px;">Sistem Ticketing Pelayanan Online DLH Kabupaten Mojokerto</h2>
           <div class="d-flex justify-content-center justify-content-lg-start mt-5">
-            <a href="/login" class="btn-get-started scrollto"><i class="bi bi-box-arrow-in-up-right"></i> Buat Aduan</a>
+            <a href="/login" class="btn-get-started scrollto"><i class="bi bi-box-arrow-in-up-right"></i> Isi Formulir</a>
             <a href="#about" class="btn-get-started scrollto ms-3" ></i>Selengkapnya</a>
           </div>
           @endauth
