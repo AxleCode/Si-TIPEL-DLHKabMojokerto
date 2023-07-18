@@ -43,11 +43,11 @@ class LaporanImageSeeder extends Seeder
         ]);
         LaporanImage::create([
             'laporan_id' => '4',
-            'image_path' => 'laporan_images/timsam5.jpg',
+            'image_path' => 'laporan_images/timsam9.jpg',
         ]);
         LaporanImage::create([
             'laporan_id' => '4',
-            'image_path' => 'laporan_images/timsam6.jpg',
+            'image_path' => 'laporan_images/timsam10.jpg',
         ]);
     }
 }

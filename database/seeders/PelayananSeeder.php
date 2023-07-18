@@ -25,13 +25,13 @@ class PelayananSeeder extends Seeder
         ]);
         Pelayanan::create([
             'nomor' => 3,
-            'slug' => 'Buat Aduan',
-            'body' => 'Silahkan buka dashboard anda dan pada bagian kiri klik <strong>Buat Laporan Aduan</strong> kemudian silahkan isi formulir sesuai dengan perintah dan klik submit',
+            'slug' => 'Isi Formulir',
+            'body' => 'Silahkan buka dashboard anda dan pada bagian kiri sidebar klik <strong>Isi Formulit</strong> kemudian silahkan isi formulir sesuai dengan perintah dan klik submit',
         ]);
         Pelayanan::create([
             'nomor' => 4,
-            'slug' => 'Proses Aduan',
-            'body' => 'Apabila anda sudah submit laporan maka laporan akan segera diproses oleh petugas dan silahkan tunggu status laporan selanjutnya',
+            'slug' => 'Proses Pelayanan',
+            'body' => 'Apabila formulir sudah anda sudah submit maka laporan akan segera dilayani oleh petugas dan silahkan tunggu status laporan selanjutnya',
         ]);
     }
 }

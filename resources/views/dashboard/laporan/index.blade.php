@@ -31,12 +31,12 @@
                             <div class="p-3 py-5 ">
                                
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">List Laporan{{ auth()->user()->name }} </h4>
+                                    <h4 class="text-right">List Laporan {{ auth()->user()->name }} </h4>
                                 </div>
 
                                 <div class="mb-4">
                                   <a href="{{ route('laporan.create') }}" class="w-30 ms-2 mb-2 btn btn-lg btn-outline-success"> 
-                                    <span data-feather="edit" ></span> Buat Laporan</a>
+                                    <span data-feather="edit" ></span> Isi Formulir</a>
                             </div>
 
                            {{-- <table class="table table-hover my-0">
@@ -133,7 +133,7 @@
                                                   @csrf
                                                   @method('delete')
                                                   <button type="submit" class="fs-5 w-30 ms-2 mb-2 btn btn-lg btn-outline-danger mt-1" >
-                                                    <span data-feather="x-circle" ></span> Batalkan Aduan
+                                                    Batalkan Aduan
                                                   </button>
                                                 </form>
                                               @endif

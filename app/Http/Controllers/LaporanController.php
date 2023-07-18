@@ -108,20 +108,20 @@ class LaporanController extends Controller
 
             $laporan->save();
         
-            // Upload file gambar ke db laporan_images dan menggunakan foreign key laporan
-            if ($request->hasFile('imageFile')) {
-                foreach ($request->file('imageFile') as $file) {
-                    $fileName = $file->getClientOriginalName();
-                    $filePath = public_path('/laporan_images/');
-                    $file->move($filePath, $fileName);
-            
-                    // Save the image path to the database
-                    $image = new LaporanImage();
-                    $image->laporan_id = $laporan->id;
-                    $image->image_path = 'laporan_images/'.$fileName;
-                    $image->save();
-                }
+        // Upload file gambar ke db laporan_images dan menggunakan foreign key laporan
+        if ($request->hasFile('imageFile')) {
+            foreach ($request->file('imageFile') as $file) {
+                $extension = $file->getClientOriginalExtension();
+                $fileName = 'foto' . time() . '.' . $extension; // Tambahkan waktu ke nama file
+                $filePath = public_path('/laporan_images/');
+                $file->move($filePath, $fileName);
+        
+                // Tidak perlu menyimpan foto ke database pada saat ini
+        
+                // Simpan path foto ke dalam array untuk penggunaan nanti
+                $uploadedImages[] = 'laporan_images/' . $fileName;
             }
+        }
 
             // Create a new notification for client
             $notification = new Notifikasi();
@@ -147,6 +147,13 @@ class LaporanController extends Controller
             // Commit the transaction
             DB::commit();
 
+            // Simpan semua foto ke database setelah transaksi berhasil
+foreach ($uploadedImages as $imagePath) {
+    $image = new LaporanImage();
+    $image->laporan_id = $laporan->id;
+    $image->image_path = $imagePath;
+    $image->save();
+}
         return redirect()->route('laporan.index')->with('success', 'Laporan berhasil disubmit!');
         } catch (\Exception $e) {
             // An error occurred, rollback the transaction

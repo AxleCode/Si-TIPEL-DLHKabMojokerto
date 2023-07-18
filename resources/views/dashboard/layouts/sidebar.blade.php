@@ -1,4 +1,4 @@
-<nav id="sidebar" class="sidebar js-sidebar">
+<nav id="sidebar" class=" ">
   <div class="sidebar-content">
     <a class="sidebar-brand" href="/dashboard">
       
@@ -245,6 +245,35 @@
     </div>
   </nav>
 
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const sidebar = document.getElementById("sidebar");
+      const sidebarToggle = document.querySelector(".sidebar-toggle");
+  
+      sidebarToggle.addEventListener("click", function() {
+        sidebar.classList.toggle("sidebar-hidden");
+      });
+  
+      // Panggil fungsi pada saat halaman dimuat dan saat ukuran jendela berubah
+      hideSidebarOnMobile();
+      window.addEventListener("resize", hideSidebarOnMobile);
+    });
+  </script>
+  
+
+  <style>
+ @media (max-width: 992px) {
+    .sidebar {
+      display: block !important;
+    }
+  }
+    .sidebar-hidden {
+  display: none;
+}
+
+  </style>
+
   <script>
     document.addEventListener("DOMContentLoaded", function(){
     document.querySelectorAll('.sidebar .nav-link').forEach(function(element){
@@ -274,5 +303,3 @@
     }) // forEach
   }); 
   </script>
-
-  

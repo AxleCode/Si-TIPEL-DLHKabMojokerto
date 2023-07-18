@@ -1,5 +1,4 @@
 
-
 @extends('dashboard.layouts.main')
 
 <head>
