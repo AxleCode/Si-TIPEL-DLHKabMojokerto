@@ -145,13 +145,13 @@
     </div>
 
   </section><!-- End Hero -->
-    <div class="w-100 mb-5" style="height: 1px" >
+    {{-- <div class="w-100 mb-5" style="height: 1px" >
     <div class="alert bg-warning" style="height: 100px" role="alert">
        <strong><i class="bi bi-exclamation-triangle-fill"></i> Perhatian!</strong>
        <p style=" font-size: 12.5pt">Mohon maaf Website masih dalam tahap Pengembangan belum dapat melayani laporan/aduan yang sebenarnya namun silahkan uji coba website kami untuk user experience mohon isi form link berikut 
         <a href="https://www.google.com/?hl=ID" target="blank" class="link-underline-info text-light"><i class="bi bi-box-arrow-in-up-right"></i> Link Form User Experience Si-Tipel</a></p>
   </div>
-    </div>
+    </div> --}}
   <main id="main">
 
 
@@ -161,7 +161,7 @@
       <div class="container" >
         
 
-        <div class="section-title mt-3">
+        <div class="section-title">
           <h2>Sistem Pelayanan Ticketing Online <p>Dinas Lingkungan Hidup Kabupaten Mojokerto</h2>
         </div>
 
@@ -172,7 +172,7 @@
               oleh petugas DLH Kabupaten Mojokerto
             </p>
             <ul>
-              <li><i class="ri-check-double-line"></i> Laporan gangguan tumbuhan, timbulan sampah hingga limbah air dan udara</li>
+              <li><i class="ri-check-double-line"></i> Laporan gangguan tumbuhan, timbulan sampah hingga pengujian laboratorium</li>
               <li><i class="ri-check-double-line"></i> Pemantauan kondisi lingkungan sekitar Area Kabupaten Mojokerto</li>
             </ul>
           </div>
@@ -236,12 +236,12 @@
         <div class="section-title">
           <h2>Pelayanan</h2>
           <p>
-            Berikut jenis pelayanan kami
+            Berikut jenis pelayanan yang bisa diterima aplikasi kami
           </p>
         </div>
 
         
-        <div class="row">
+        <div class="row justify-content-center">
           @foreach ($category as $cate)
             <div class="col-xl-3 col-md-6 mb-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
               <div class="icon-box">

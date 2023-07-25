@@ -105,14 +105,14 @@
 
                                 <!-- Peta -->
                                 <div class="mb-2 col-lg-12">
-                                    <label for="map" class="form-label">Klik Map Untuk Mendapatkan Alamat dan Koordinat Titik Lokasi Laporan</label>
+                                    <label for="map" class="form-label">Klik pada area Map Untuk Mendapatkan Alamat Lokasi Laporan</label>
                                     <div id="map" class="col-lg-12" style="height: 500px;"></div>
                                     <div class="mt-2">
-                                        <input hidden type="text" id="coordinates" name="coordinates" class="form-control" placeholder="Koordinat" readonly>
+                                        <input type="text" id="coordinates" name="coordinates" class="form-control" placeholder="Koordinat" readonly>
                                         <input type="text" id="address" name="address" class="form-control mt-2" placeholder="Alamat">
                                     </div>
                                     <p class="mt-1"><span style="width: 14px" class="text-danger" data-feather="alert-triangle"></span>
-                                        Silahkan klik lokasi tempat laporan anda. Pastikan koordinat lokasi berada di wilayah kabupaten mojokerto dan apabila berada diluar wilayah mojokerto maka <strong class="text-danger">aduan tidak akan diproses oleh petugas</strong>. Form alamat dapat diubah silahkan tambahkan patokan atau detail lainnya</p>
+                                        Silahkan klik lokasi tempat laporan anda. Pastikan koordinat lokasi berada di wilayah kabupaten mojokerto dan apabila berada diluar wilayah mojokerto maka <strong class="text-danger">laporan tidak akan diproses oleh petugas</strong>. Form alamat dapat diubah silahkan tambahkan patokan atau detail lainnya</p>
                                 </div>
 
                                 <!-- Upload Foto -->
@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                     <p class="mt-1"><span style="width: 14px" class="text-danger " data-feather="alert-triangle">
-                                    </span><a href="" class="text-body-secondary" title="Tooltip untuk multiple upload foto"> Multiple upload foto</a> Maximal total ukuran file 5MB</p>
+                                    </span><a href="" class="text-body-secondary" title="Upload banyak foto dalam sekali upload, Tekan Ctrl+Klik foto mana saja yang dipilih"> Multiple upload foto</a> Maximal total ukuran file 5MB</p>
 
                                     <!-- Preview Foto -->
                                     <div class="mt-3">

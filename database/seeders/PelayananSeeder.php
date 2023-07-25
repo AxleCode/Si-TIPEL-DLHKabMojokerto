@@ -26,7 +26,7 @@ class PelayananSeeder extends Seeder
         Pelayanan::create([
             'nomor' => 3,
             'slug' => 'Isi Formulir',
-            'body' => 'Silahkan buka dashboard anda dan pada bagian kiri sidebar klik <strong>Isi Formulit</strong> kemudian silahkan isi formulir sesuai dengan perintah dan klik submit',
+            'body' => 'Silahkan buka dashboard anda dan pada bagian kiri sidebar klik <strong>Isi Formulir</strong> kemudian silahkan isi formulir sesuai dengan perintah dan klik submit',
         ]);
         Pelayanan::create([
             'nomor' => 4,

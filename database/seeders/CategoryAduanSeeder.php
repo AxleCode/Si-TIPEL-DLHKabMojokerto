@@ -27,15 +27,9 @@ class CategoryAduanSeeder extends Seeder
         ]);
 
         CategoryAduan::create([
-            'name' =>'Pengujian Parameter Udara',
-            'deskripsi' =>'Pengukuran berbagai parameter dan komponen dalam udara yang dapat memberikan informasi tentang tingkat polusi udara dan dampaknya terhadap lingkungan dan kesehatan masyarakat',
-            'image' =>'img/limbah-udara.jpeg',
-        ]);
-
-        CategoryAduan::create([
-            'name' =>'Pengujian Parameter Air',
-            'deskripsi' =>'Pemantauan dan pengendalian kualitas air dilakukan untuk menentukan kualitas air dalam berbagai aspek seperti kebersihan, keamanan, dan kesesuaian dengan standar lingkungan yang telah ditetapkan',
-            'image' =>'img/limbah-air.jpeg',
+            'name' =>'Pengujian Laboratorium',
+            'deskripsi' =>'Pengukuran berbagai parameter dan komponen dalam air dan udara yang dapat memberikan informasi tentang tingkat polusi beserta dampaknya terhadap lingkungan dan kesehatan masyarakat',
+            'image' =>'img/laboratorium.jpg',
         ]);
     }
 }
