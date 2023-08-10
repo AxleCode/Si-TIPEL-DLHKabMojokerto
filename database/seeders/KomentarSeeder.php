@@ -17,6 +17,8 @@ class KomentarSeeder extends Seeder
             'laporan_id' => '1',
             'komentar' => 'kami terima aduannya',
             'file' => '',
+            'petugas' => 'Zulfichar Mahmud S',
+            'transportasi' => '',
             'updated_at' => '2023-02-17 08:37:02',
             'status' => '1',
         ]);
@@ -24,6 +26,8 @@ class KomentarSeeder extends Seeder
             'laporan_id' => '1',
             'komentar' => 'survey lokasi dulu',
             'file' => '',
+            'petugas' => 'M Agung Saputra',
+            'transportasi' => 'Honda Vario',
             'updated_at' => '2023-02-18 08:37:02',
             'status' => '2',
         ]);
@@ -31,6 +35,8 @@ class KomentarSeeder extends Seeder
             'laporan_id' => '1',
             'komentar' => 'udah diangkut',
             'file' => 'sip.jpg',
+            'petugas' => 'M Agung Saputra',
+            'transportasi' => 'Truk Hino Dutro DLH Kab Mojokerto',
             'updated_at' => '2023-02-19 08:37:02',
             'status' => '3',
         ]);
@@ -39,6 +45,8 @@ class KomentarSeeder extends Seeder
             'laporan_id' => '1',
             'komentar' => 'udah bersih',
             'file' => 'bersih.jpg',
+            'petugas' => 'Zulfichar Mahmud S',
+            'transportasi' => 'Honda Supra',
             'updated_at' => '2023-02-19 10:37:02',
             'status' => '99',
         ]);

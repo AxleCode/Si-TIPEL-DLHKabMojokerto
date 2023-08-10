@@ -149,8 +149,10 @@
                 <thead>
                     <tr>
                         <th class="col-2">Waktu</th>
-                        <th class="col-6">Aktivitas</th>
-                        <th class="col-2">Status</th>
+                        <th class="col-3">Komentar</th>
+                        <th class="col-2">Petugas</th>
+                        <th class="col-2">Transportasi</th>
+                        <th class="col-1">Status</th>
                         <th class="col-2">File</th>
                     </tr>
                 </thead>
@@ -160,6 +162,8 @@
                             <tr>
                                 <td><small>[{{ date('H:i', strtotime($komen->updated_at)) }}] {{ date('d F Y', strtotime($komen->updated_at)) }}</small></td>
                                 <td>{!! $komen->komentar !!}</td>
+                                <td>{!! $komen->petugas !!}</td>
+                                <td>{!! $komen->transportasi !!}</td>
                                 @foreach ($statuses as $s)
                                 @if ($komen->status == $s->kode_status)
                                   <td><span class="badge bg-{{ $s->warna }}">{{ $s->name }}</span></td>

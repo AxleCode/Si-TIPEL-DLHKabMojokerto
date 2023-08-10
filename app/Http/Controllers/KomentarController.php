@@ -75,6 +75,7 @@ class KomentarController extends Controller
             // Update the record in the database
             $komentar->status = $validatedData['status'];
             $komentar->komentar = $validatedData['komentar'];
+            $komentar->transportasi = $request->transportasi;
         
             // Save the file to storage
             if ($request->hasFile('file')) {
@@ -117,19 +118,21 @@ class KomentarController extends Controller
 
         try {
             $komentar = Komentar::find($id);
-            $filePath = public_path('/komentar_file/' . $komentar->file);
-            if (file_exists($filePath)) {
+            $filePath = public_path('komentar_file\\' . $komentar->file); // C:\path\ke\project\public\komentar_file\nama_file.ext
+            if (file_exists($filePath) && is_file($filePath)) {
                 unlink($filePath);
             }
+            else {
     
             $komentar->delete();
             DB::commit();   
+            }
             toast('Komentar telah dihapus', 'success')->autoClose(5000)->width('320px');
             return redirect()->back();
         } catch (\Exception $e) {
             DB::rollBack();
             $errorMessage = $e->getMessage();
-            toast('Gagal hapus komentar', 'error')->autoClose(5000)->width('320px');
+            toast( $errorMessage)->autoClose(5000)->width('320px');
             return redirect()->back()->withInput();
         }
     }

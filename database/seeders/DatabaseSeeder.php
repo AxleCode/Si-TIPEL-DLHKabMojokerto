@@ -57,6 +57,39 @@ class DatabaseSeeder extends Seeder
             'active' => false
         ]);
 
+        User::create([
+            'name' => 'Riska Wastyaningrum',
+            'email' => 'riska@gmail.com',
+            'password' => bcrypt('password'),
+            'alamatpemohon' => 'Dinas Lingkungan Hidup',
+            'nohp' => '12345',
+            'email_verified_at' => now(),
+            'role' => 'admin',
+            'active' => true
+        ]);
+
+        User::create([
+            'name' => 'Zulfichar Machmud S',
+            'email' => 'zul@gmail.com',
+            'password' => bcrypt('password'),
+            'alamatpemohon' => 'Dinas Lingkungan Hidup',
+            'nohp' => '08523157921',
+            'email_verified_at' => now(),
+            'role' => 'petugas',
+            'active' => true
+        ]);
+
+        User::create([
+            'name' => 'M Agung Saputra',
+            'email' => 'agung@gmail.com',
+            'password' => bcrypt('password'),
+            'alamatpemohon' => 'Dinas Lingkungan Hidup',
+            'nohp' => '08228449100',
+            'email_verified_at' => now(),
+            'role' => 'surveyor',
+            'active' => true
+        ]);
+
         Pengumuman::create([
 
             'judul' => 'Aplikasi Si-TIPEL versi 1.0',

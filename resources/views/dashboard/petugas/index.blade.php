@@ -42,11 +42,11 @@
                             <div class="p-3 py-5">
                                
                                 <div class="d-flex justify-content-between align-items-center ms-2 ">
-                                    <strong><h2 class="text-right">List Semua Laporan </h2></strong>
+                                    <strong><h2 class="">List Laporan</h2></strong>
                                 </div>
-
+                
                                 <div class="mb-3 col-lg-10">
-                                  <label for="filterStatus" class="form-label">Filter Pengaduan</label>
+                                  <label for="filterStatus" class="form-label ">Filter Pengaduan</label>
                                   <select class="form-control" id="filterStatus">
                                       <option value="all">Semua Status</option>
                                       @foreach($statuses as $status)
@@ -69,7 +69,7 @@
                                     }
                                 });
                             </script>
-                
+
                                 <table class="table table-hover my-0">
                                   <thead>
                                     <tr>
@@ -94,16 +94,8 @@
                                         @endif
                                       @endforeach
                                       <td class="d-none d-md-table-cell">
-                                          <a href="{{ route('laporanadmin.edit',$lapor->id) }}" class="badge bg-primary">
+                                          <a href="{{ route('petugas.edit',$lapor->id) }}" class="badge bg-primary">
                                               <span data-feather="edit" ></span> Tindakan </a>
-
-                                              <form action="{{ route('laporanadmin.destroy', $lapor->id) }}" method="POST" class="delete-form d-inline"  data-lapor-id="{{ $lapor->id }}">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="badge bg-danger border-0 " >
-                                                  <span data-feather="x-circle" ></span> Hapus Aduan
-                                                </button>
-                                              </form>
 
                                       </td>
                                     </tr>

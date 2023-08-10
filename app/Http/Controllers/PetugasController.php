@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\User;
 use App\Models\Status;
 use App\Models\Laporan;
@@ -9,20 +12,16 @@ use App\Models\Komentar;
 use Illuminate\View\View;
 use App\Models\Notifikasi;
 use App\Models\LaporanImage;
-use Illuminate\Http\Request;
 use App\Models\CategoryAduan;
-use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
 use Intervention\Image\Facades\Image;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class AdminLaporanController extends Controller
+class PetugasController extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      */
@@ -39,8 +38,7 @@ class AdminLaporanController extends Controller
                     ->where('status', true)
                     ->count();
 
-
-        return view('dashboard.laporanadmin.index', compact('category','laporan','statuses', 'notifikasi', 'jumlahnotif'));
+        return view('dashboard.petugas.index', compact('category','laporan','statuses', 'notifikasi', 'jumlahnotif'));
     }
 
     /**
@@ -132,7 +130,6 @@ class AdminLaporanController extends Controller
             }
             // Commit the transaction
             DB::commit();
-
         
         toast('Laporan berhasil diupdate','success')->autoClose(5000)->width('320px');
         return redirect()->back();
@@ -142,12 +139,11 @@ class AdminLaporanController extends Controller
         return redirect()->back()->with('error', 'Error submitting laporan: ' . $e->getMessage());
     }
     }
-    
 
     /**
      * Display the specified resource.
      */
-    public function show(Laporan $laporan)
+    public function show(string $id)
     {
         //
     }
@@ -155,7 +151,7 @@ class AdminLaporanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Laporan $laporan, $id)
+    public function edit(string $id)
     {
         $laporan = Laporan::find($id);
         $user = User::find($laporan->user_id);
@@ -172,8 +168,8 @@ class AdminLaporanController extends Controller
             ->where('status', true)
             ->count();
         
-        if(auth()->user()->role === 'admin' || auth()->user()->id == $laporan->user_id || auth()->user()->role === 'surveyor' || auth()->user()->role === 'petugas') {
-            return view('dashboard.laporanadmin.edit', compact('laporan','userName','statuses','images','komentar', 'notifikasi', 'jumlahnotif'));
+        if(auth()->user()->role === 'admin' || auth()->user()->role === 'petugas') {
+            return view('dashboard.petugas.edit', compact('laporan','userName','statuses','images','komentar', 'notifikasi', 'jumlahnotif'));
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -182,78 +178,16 @@ class AdminLaporanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Laporan $laporan, $id)
+    public function update(Request $request, string $id)
     {
-        $request->validate([
-            'status' => 'required',
-            'komentar' => 'required',
-            'file' => 'nullable|mimes:jpeg,jpg,png,pdf|max:1048'
-        ]);
-
-         // Start a new transaction
-         DB::beginTransaction();
-
-            try {
-        
-                $laporan = Laporan::find($id);
-                $laporan->status = $request->status;
-            
-                if ($request->hasFile('file')) {
-                    $image = $request->file('file');
-                    $filename = time() . '.' . $image->getClientOriginalExtension();
-                    $path = public_path('komentar_file/' . $filename);
-                    Image::make($image->getRealPath())->resize(600, 400)->save($path);
-                    $laporan->image = $filename;
-                }
-            
-                $laporan->save();
-            
-                $komentar = new Komentar;
-                $komentar->laporan_id = $laporan->id;
-                $komentar->user_id = auth()->user()->id;
-                $komentar->komentar = $request->komentar;
-            
-                $komentar->save();
-                // Commit the transaction
-                DB::commit();
-            return back()->with('success', 'Laporan Aduan berhasil diperbaharui');
-    } catch (\Exception $e) {
-        // An error occurred, rollback the transaction
-        DB::rollBack();
-        return redirect()->back()->with('error', 'Update laporan Error: ' . $e->getMessage());
-    }
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Laporan $laporan, $id)
+    public function destroy(string $id)
     {
-        // Start a new transaction
-        DB::beginTransaction();
-
-        try {
-
-            $laporan = Laporan::findOrFail($id);
-            // Delete the laporan images from the disk
-            foreach ($laporan->laporanImages as $image) {
-                unlink(public_path($image->image_path));
-            }        
-            
-            // Delete the laporan record from the database
-            $laporan->delete();
-
-            // Delete the laporan images from the database
-            $laporan->laporanImages()->delete();
-            // Commit the transaction
-            DB::commit();           
-            return redirect()->back()->with('success', 'Laporan berhasil dihapus');
-        } catch (\Exception $e) {
-            // An error occurred, rollback the transaction
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Hapus laporan Error: ' . $e->getMessage());
-        }
+        //
     }
-    
 }

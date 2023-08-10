@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('laporan_id');
             $table->text('komentar');
             $table->string('file');
+            $table->string('petugas');
+            $table->string('transportasi')->nullable();;
             $table->integer('status');
             $table->timestamps();
         });

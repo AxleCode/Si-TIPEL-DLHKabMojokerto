@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreLaporanRequest;
 use App\Http\Requests\UpdateLaporanRequest;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
+use App\Models\User;
 
 class LaporanController extends Controller
 {
@@ -133,16 +134,48 @@ class LaporanController extends Controller
                 $notification->link = '/dashboard/laporan/'.$laporan->id;
                 $notification->save();
 
-                // Create a new notification for admin
-                $notification = new Notifikasi();
-                $notification->user_id = 1;
-                $notification->judul = 'Laporan Baru Dibuat';
-                $notification->pesan = 'Laporan dengan Nomor tiket '.$laporan->nomor_tiket.' telah dibuat Mohon tindak lanjutnya';
-                $notification->status = true;
-                $notification->logo = 'clipboard'; 
-                $notification->textlogo = 'text-warning'; 
-                $notification->link = '/dashboard/laporanadmin/'.$laporan->id.'/edit';
-                $notification->save();
+                $adminRoles = ['admin']; // Daftar role yang dianggap sebagai admin atau petugas
+
+                $petugasUsers = User::where(function ($query) use ($adminRoles) {
+                    foreach ($adminRoles as $role) {
+                        $query->orWhere('role', $role);
+                    }
+                })->get();
+
+                foreach ($petugasUsers as $petugasUser) {
+                    $petugasNotification = new Notifikasi();
+                    $petugasNotification->user_id = $petugasUser->id;
+                    $petugasNotification->judul = 'Laporan Baru Dibuat';
+                    $petugasNotification->pesan = 'Laporan dengan Nomor tiket '.$laporan->nomor_tiket.' telah dibuat Mohon tindak lanjutnya';
+                    $petugasNotification->status = true;
+                    $petugasNotification->logo = 'clipboard'; 
+                    $petugasNotification->textlogo = 'text-warning'; 
+                    $petugasNotification->link = '/dashboard/laporanadmin/'.$laporan->id.'/edit';
+                    $petugasNotification->save();
+                }
+
+                $petugasRoles = ['petugas']; // Daftar role yang dianggap sebagai petugas atau petugas
+
+                $petugasUsers = User::where(function ($query) use ($petugasRoles) {
+                    foreach ($petugasRoles as $role) {
+                        $query->orWhere('role', $role);
+                    }
+                })->get();
+
+                foreach ($petugasUsers as $petugasUser) {
+                    $petugasNotification = new Notifikasi();
+                    $petugasNotification->user_id = $petugasUser->id;
+                    $petugasNotification->judul = 'Laporan Baru Dibuat';
+                    $petugasNotification->pesan = 'Laporan dengan Nomor tiket '.$laporan->nomor_tiket.' telah dibuat Mohon tindak lanjutnya';
+                    $petugasNotification->status = true;
+                    $petugasNotification->logo = 'clipboard'; 
+                    $petugasNotification->textlogo = 'text-warning'; 
+                    $petugasNotification->link = '/dashboard/petugas/'.$laporan->id.'/edit';
+                    $petugasNotification->save();
+                }
+
+
+
                 // Commit the transaction
                 DB::commit();
 
@@ -159,7 +192,6 @@ class LaporanController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Error submitting laporan: ' . $e->getMessage());
         }
-            
     }
 
     /**

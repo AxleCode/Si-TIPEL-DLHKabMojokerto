@@ -20,6 +20,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     
 </head>
+
 @section('container')
 
       @if(session()->has('loginError'))
@@ -44,7 +45,7 @@
                     </div>
                 @endif
 
-            <a href="/dashboard/laporanadmin" class="w-30  mb-3 btn btn-lg btn-outline-primary" >
+            <a href="/dashboard/petugas" class="w-30  mb-3 btn btn-lg btn-outline-primary" >
                 <span data-feather="arrow-left"></span> Kembali
             </a>
             <a href="" class="w-30 ms-2 mb-3 btn btn-lg btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal">
@@ -72,7 +73,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             
-                            <form action="{{ route('laporanadmin.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('petugas.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="laporan_id" value="{{ $laporan->id }}">
                             <div class="modal-body">
@@ -393,10 +394,21 @@
                                             @enderror
                                         </div> 
 
+                                        <!-- Transportasi -->
+                                        <div class="mb-4 col-lg-10">
+                                            <label for="transportasi">Transportasi (Status : Survey Lokasi dan Eksekusi Lokasi)</label>
+                                            <input type="text" name="transportasi" class="mt-2 form-control rounded-top @error('transportasi') is-invalid @enderror" id="transportasi" placeholder="Masukkan Transportasi" value="{{ old('transportasi', $komen->transportasi) }}">
+                                            @error('transportasi')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
                                           <!-- File -->
                                           <div class="col-lg-10">
                                             <label class="form-label" for="name">Ubah File</label>
-                                            <input type="file" name="file" placeholder="Ganti file" class="mt-1 form-control rounded-top @error('file') is-invalid @enderror" id="file" required>
+                                            <input type="file" name="file" placeholder="Ganti file" class="mt-1 form-control rounded-top @error('file') is-invalid @enderror" id="file">
                                             <p style="font-size: 12px" class="mt-1">*Jangan isi file jika ingin menggunakan file sebelumnya</p>
                                             @error('file')
                                             <div class="invalid-feedback">
@@ -435,7 +447,7 @@
                 @else
                     <tbody>
                         <tr>
-                            <td colspan="4" class="text-center">Belum ada komentar petugas</td>
+                            <td colspan="8" class="text-center">Belum ada komentar petugas</td>
                         </tr>
                     </tbody>
                 @endif
