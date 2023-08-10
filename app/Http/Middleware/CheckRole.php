@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class IsAdmin
+class CheckRole
 {
     /**
      * Handle an incoming request.
@@ -14,12 +14,20 @@ class IsAdmin
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
-        if(auth()->guest() || !auth()->user()->is_admin)
-        {
-            abort(403);
+        if (!auth()->check()) {
+            return redirect('/login');
         }
-        return $next($request);
+    
+        $user = auth()->user();
+    
+        foreach ($roles as $role) {
+            if ($user->role === $role) {
+                return $next($request);
+            }
+        }
+    
+        abort(403, 'Unauthorized');
     }
 }

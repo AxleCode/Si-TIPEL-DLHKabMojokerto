@@ -104,7 +104,7 @@
 								                    </div>
                                           <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                              <button  id="submit" type="submit" name="submit_type" value="password" class="btn btn-primary">Tambah Kategori</button>
+                                              <button  id="submit" type="submit" name="submit_type" value="password" class="btn btn-primary">Tambah Pengumuman</button>
                                           </div>
                                         </form>
                                       </div>

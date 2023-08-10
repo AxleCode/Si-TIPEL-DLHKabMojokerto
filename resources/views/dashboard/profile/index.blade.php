@@ -25,7 +25,7 @@
 <div class="container rounded bg-white  ">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5 mb-3" width="150px" src="/img/user.png"><span class="font-weight-bold">{{ auth()->user()->name }}</span><span class="text-black-50">{{ auth()->user()->email }}</span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5 mb-3" width="150px" src="/img/user.png"><span class="font-weight-bold">{{ auth()->user()->name }}</span><span class="text-black-50"></span><span> </span></div>
         </div>
         <div class="col-md-5 border-right">
             
@@ -39,19 +39,17 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
-
-                
                   
                 <form method="POST" action="/dashboard/profile" enctype="multipart/form-data" id="profile-form">
                     @csrf
                 <!-- Email input -->
           <div class="form-outline mb-4 form-floating">
-            <input disabled type="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="email" required value="{{ auth()->user()->email }} " id="email-input" @if(old('enable_disable', 0)) disabled @endif/>
-            <label class="form-label"  for="email">Email</label>
+            <input hidden disabled type="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="email" required value="{{ auth()->user()->email }} " id="email-input" @if(old('enable_disable', 0)) disabled @endif/>
+            <label hidden class="form-label"  for="email">Email</label>
 
             <div class="form-check mt-1">
-                <input class="form-check-input" type="checkbox" name="enable_disable" id="enable-disable-checkbox" value="1" >
-                <label class="form-check-label" for="enable-disable-checkbox">
+                <input hidden class="form-check-input" type="checkbox" name="enable_disable" id="enable-disable-checkbox" value="1" >
+                <label hidden class="form-check-label" for="enable-disable-checkbox">
                     Centang disini untuk ubah email
                 </label>
             </div>

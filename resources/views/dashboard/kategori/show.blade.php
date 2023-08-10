@@ -43,7 +43,7 @@
                               <table class="table table-hover my-0">
                                 <thead>
                                   <tr>
-                                    <th class="">ID Laporan</th>
+                                    <th class="">Nomor Tiket Laporan</th>
                                     <th class="d-none d-xl-table-cell">Nama Laporan</th>
                                     <th>Status</th>
                                     <th>Dibuat Pada</th>
@@ -52,7 +52,7 @@
                                 <tbody>
                                   @foreach ($laporans as $lapo)
                                   <tr>
-                                    <td class="col-2">{{ $lapo->id }}</td>
+                                    <td class="col-2">{{ $lapo->nomor_tiket }}</td>
                                     <td>{!! Str::limit($lapo->judul, 40) !!}</td>
                                     <td><span class="badge bg-{{ $lapo->warna }}">{{ $lapo->name }}</span></td>
 

@@ -153,7 +153,7 @@
             <div class="modal-dialog modal-lm">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><span data-feather="grid"></span> Tambah Pelayanan</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"><span data-feather="grid"></span> Tambah Alur Pelayanan</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="{{ route('buat-pelayanan') }}" method="POST" enctype="multipart/form-data">
@@ -163,7 +163,7 @@
 
                                 <!-- Nomor Pelayanan -->
                                 <div class="mb-4 col-lg-8">
-                                  <label for="nomor" class="form-label">Nomor Pelayanan</label>
+                                  <label for="nomor" class="form-label">Nomor Alur Pelayanan</label>
                                   <select class="form-select" name="nomor" id="nomor">
                                     @for ($i = 1; $i <= 5; $i++)
                                       @if (!in_array($i, $nomor_pelayanan))
@@ -176,7 +176,7 @@
                                 <!-- Slug Pelayanan -->
                                 <div class="form-outline mt-3 form-floating col-lg-10">
                                     <input type="text" name="slug" class="mt-3 form-control rounded-top rounded-top @error('slug') is-invalid @enderror" id="slug" placeholder="Nama Kategori" required value="{{ old('slug') }}">
-                                    <label class="form-label" for="slug">Masukkan Slug Pelayanan</label>
+                                    <label class="form-label" for="slug">Masukkan Judul Alur Pelayanan</label>
                                     @error('slug')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -187,7 +187,7 @@
                                 <!-- Body Pelayanan -->
                                 <div class="form-outline mt-3 form-floating col-lg-10">
                                     <input type="text" name="body" class="mt-3 form-control rounded-top rounded-top @error('body') is-invalid @enderror"id="body" placeholder="Nama Kategori" required value="{{ old('body') }}">
-                                    <label class="form-label" for="body">Masukkan Body Pelayanan</label>
+                                    <label class="form-label" for="body">Masukkan Body Alur Pelayanan</label>
                                     @error('body')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -198,7 +198,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button id="submitpelayanan" type="submit" class="btn btn-primary">Tambah Pelayanan</button>
+                            <button id="submitpelayanan" type="submit" class="btn btn-primary">Tambah Alur Pelayanan</button>
                         </div>
                     </form>
                 </div>

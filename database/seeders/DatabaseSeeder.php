@@ -42,8 +42,8 @@ class DatabaseSeeder extends Seeder
             'alamatpemohon' => 'Dinas Lingkungan Hidup',
             'nohp' => '12345',
             'email_verified_at' => now(),
-            'is_admin' => '1'
-
+            'role' => 'admin', // Peran pengguna
+            'active' => true // Atur status akun
         ]);
 
         User::create([
@@ -53,11 +53,9 @@ class DatabaseSeeder extends Seeder
             'alamatpemohon' => 'Dinas Lingkungan Hidup',
             'nohp' => '12345',
             'email_verified_at' => now(),
-            'is_admin' => '0'
+            'role' => 'user',
+            'active' => false
         ]);
-
-
-        User::factory(3)->create();
 
         Pengumuman::create([
 

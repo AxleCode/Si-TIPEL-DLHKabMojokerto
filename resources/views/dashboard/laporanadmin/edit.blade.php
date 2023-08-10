@@ -48,7 +48,7 @@
                 <span data-feather="arrow-left"></span> Kembali
             </a>
             <a href="" class="w-30 ms-2 mb-3 btn btn-lg btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                <span data-feather="edit"></span> Update Laporan Aduan
+                <span data-feather="edit"></span> Update Laporan
             </a>
             @foreach ($statuses as $status)
                 @if ($laporan->status == $status->kode_status)
@@ -58,7 +58,7 @@
             @endforeach
 
             <div class="d-flex justify-content-between align-items-center">
-                <p class="h3 mb-1 fs-1 fw-bold">Laporan Aduan {{ $userName }} </p>
+                <p class="h3 mb-1 fs-1 fw-bold">Laporan {{ $userName }} </p>
             </div>                    
               
                 
@@ -68,7 +68,7 @@
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel">Update Laporan Aduan</h5>
+                                <h5 class="modal-title" id="editModalLabel">Update Laporan</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             
@@ -95,7 +95,7 @@
                                     </div>
 
                                     <div class="mb-3 col-lg-10">
-                                        <label for="file" class="form-label">Upload File PDF/Gambar (Jika ada) </label>
+                                        <label for="file" class="form-label">Upload Gambar (Jika ada) </label>
                                         <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file" accept=".pdf, .jpg, .jpeg, .png">
                                         <p>*<small>Format jpeg,jpg,png,pdf Max ukuran file 1MB</small></p>
                                         @error('file')
@@ -120,7 +120,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <button type="submit" class="btn btn-primary">Kirim Komentar</button>
                             </div>
                         </form>
                         </div>
@@ -225,7 +225,7 @@
                         <th class="col-2">Waktu</th>
                         <th class="d-none d-xl-table-cell">Aktivitas</th>
                         <th class="d-none d-sm-table-cell">Status</th>
-                        <th class="d-none d-sm-table-cell text-center">Aksi</th>
+                        <th class="d-none d-sm-table-cell">Aksi</th>
                     </tr>
                 </thead>
                 @if(count($komentar) > 0)

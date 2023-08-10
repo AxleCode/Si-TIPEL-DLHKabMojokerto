@@ -27,6 +27,26 @@ class UserController extends Controller
         return view('dashboard.user.index', compact('notifikasi', 'jumlahnotif','users'));
     }
 
+    public function status(Request $request, User $user)
+    {
+        try {
+            $validateData = $request->validate([
+                'active' => 'required|boolean',
+            ]);
+    
+            $newStatus = $validateData['active'];
+            $user->update(['active' => $newStatus]);
+    
+            toast('Status pengguna telah diperbarui', 'success')->autoClose(5000)->width('320px');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            $errorMessage = $e->getMessage();
+            toast($errorMessage, 'error')->autoClose(5000)->width('320px');
+            return redirect()->back()->withInput();
+        }
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */

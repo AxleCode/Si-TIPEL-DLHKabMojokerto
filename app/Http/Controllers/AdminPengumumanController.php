@@ -20,14 +20,14 @@ class AdminPengumumanController extends Controller
      */
     public function index()
     {
-        $pengumumans = Pengumuman::paginate(10);
+        $pengumumans = Pengumuman::orderBy('updated_at', 'desc')->paginate(10);
         // foreach ($pengumumans as $pengumuman) {
         //     $pengumuman->judul = Str::limit($pengumuman->judul, 50);
         // }
         $user = Auth::user();
         $notifikasi = Notifikasi::where('user_id', $user->id)
                     ->orderByDesc('created_at')
-                    ->paginate(15);;
+                    ->paginate(15);
         $jumlahnotif = Notifikasi::where('user_id', $user->id)
                     ->where('status', true)
                     ->count();

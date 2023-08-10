@@ -8,6 +8,7 @@
     </a>
     <div style=" overflow-y: 100px;">
       <ul class="sidebar-nav">
+        @if(auth()->user()->role == 'admin' || auth()->user()->role == 'user')
         <li class="sidebar-header">
           User Pages
         </li>
@@ -53,7 +54,7 @@
             <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Website si-TIPEL</span>
           </a>
         </li>
-
+        @endif
 
         
         {{-- <li class="sidebar-item has-submenu">
@@ -66,8 +67,7 @@
         </li> --}}
 
         
-
-        @can('admin')
+        @if(auth()->user()->role == 'admin')
         <li class="sidebar-header">
           Administator
 
@@ -113,8 +113,7 @@
             <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Setting Website</span>
           </a>
         </li>
-
-        @endcan
+        @endif
 
         <li class="sidebar-item {{ Request::is('dashboard/profile') ? 'active' : '' }}">
           <a class="sidebar-link" href="/dashboard/profile">

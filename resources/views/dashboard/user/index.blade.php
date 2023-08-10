@@ -49,15 +49,14 @@
                                     <h4 class="text-right">User Setting</h4>
                                 </div>
 
-
-
                                 <table class="table table-hover my-0">
                                   <thead>
                                     <tr>
                                       <th class="col-1 text-center">ID</th>
                                       <th class="col-3 ">Nama User</th>
                                       <th class="col-2">Email</th>
-                                      <th class="col-3 ">Telpon</th>
+                                      <th class="col-2 ">Telpon</th>
+                                      <th class="col-1 ">Status</th>
                                       <th class="col-3 ">Aksi</th>
                                     </tr>
                                   </thead>
@@ -70,12 +69,44 @@
                                       <td class="">{{ $user->email }}</td>
                                       <td class="">{{ $user->nohp }}</td>
                                       <td class="">
-                                        <form action="{{ route('user.destroy', $user) }}" method="POST" class="delete-form d-inline" >
-                                          @csrf
-                                          @method('delete')
-                                          <button type="submit" class="badge bg-danger border-0 n" >
-                                            <span data-feather="delete" ></span> Hapus</button>
-                                        </form>
+                                        <span class="badge {{ $user->active ? 'bg-success' : 'bg-danger' }}">
+                                          {{ $user->active ? 'Active' : 'Nonactive' }}
+                                      </span>
+                                      </td>
+                                      <td class="">
+                                        <button type="submit" class="badge bg-warning border-0 " data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}" >
+                                          <span data-feather="edit" ></span> Edit</button>    
+                                          <!-- Edit Modal -->
+                                          <div class="modal fade" id="editModal{{ $user->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="editModalLabel"> <span data-feather="grid" ></span><strong> Nama Kategori</strong></h5>
+                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form action="{{ route('user.status', $user->id) }}" method="POST" enctype="multipart/form-data">
+                                                  @csrf
+                                                  @method('PUT')
+                                                  <div class="modal-body">
+                                                    <div class="ms-3">
+                                        
+                                                      <div class="form-group">
+                                                        <label for="active" class="mb-2">Status</label>
+                                                        <select class="form-control" id="active" name="active">
+                                                            <option value="1" {{ $user->active ? 'selected' : '' }}>Aktifkan</option>
+                                                            <option value="0" {{ !$user->active ? 'selected' : '' }}>Nonaktifkan</option>
+                                                        </select>
+                                                    </div>
+                                              </div>
+                                            </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                  </div>
+                                                </form>
+                                              </div>
+                                            </div>
+                                          </div>                              
                                       </td>
                                     </tr>
                                   </tbody>
@@ -95,6 +126,7 @@
     </main>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+    
     <script>
       // Delete confirmation with SweetAlert2
       $('.delete-form').on('submit', function(e) {

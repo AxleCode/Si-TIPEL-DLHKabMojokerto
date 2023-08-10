@@ -44,7 +44,7 @@
                                 <thead>
                                   <tr>
 
-                                    <th class="d-none d-sm-table-cell">ID Laporan</th>
+                                    <th class="d-none d-sm-table-cell">Nomor Tiket Laporan</th>
                                     <th class="d-none d-xl-table-cell">Nama Laporan</th>
                                     <th >Kategori</th>
                                     <th>Dibuat Pada</th>
@@ -53,7 +53,7 @@
                                 <tbody>
                                   @foreach ($laporans as $lapo)
                                   <tr>
-                                    <td>{{ $lapo->id }}</td>
+                                    <td>{{ $lapo->nomor_tiket }}</td>
                                     <td>{!! Str::limit($lapo->judul, 60) !!}</td>
                                     <td>{{ $lapo->name }}</td>
                                     <td>{{ $lapo->created_at->format('d F Y ') }}</td>

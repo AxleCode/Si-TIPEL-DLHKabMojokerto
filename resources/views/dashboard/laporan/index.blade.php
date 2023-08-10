@@ -125,15 +125,15 @@
                                             <a href="{{ route('laporan.show',$lapor->id) }}" class="fs-5 w-30 ms-2 mb-2 btn btn-lg btn-outline-primary">
                                               <span ></span> Lihat Detail
                                               </a>
-                                              @if ($lapor->status == '0')
+                                              @if ($lapor->status == '0' || $lapor->status == '100')
                                                 <form action="{{ route('laporan.destroy', $lapor->id) }}" method="POST" class="delete-form d-inline" 
                                                   data-bs-toggle="tooltip" data-bs-placement="top"
                                                   data-bs-custom-class="custom-tooltip"
-                                                  data-bs-title="Anda hanya dapat membatalkan aduan saat berada di status Dalam Antrian">
+                                                  data-bs-title="Anda hanya dapat membatalkan laporan saat berada di status Dalam Antrian dan Ditolak">
                                                   @csrf
                                                   @method('delete')
                                                   <button type="submit" class="fs-5 w-30 ms-2 mb-2 btn btn-lg btn-outline-danger mt-1" >
-                                                    Batalkan Aduan
+                                                    Batalkan Laporan
                                                   </button>
                                                 </form>
                                               @endif

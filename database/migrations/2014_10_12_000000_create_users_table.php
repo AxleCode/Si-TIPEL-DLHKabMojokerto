@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('password');
             $table->string('alamatpemohon');
             $table->string('nohp');
-            $table->boolean('is_admin')->default(false);
+            $table->string('role'); // Kolom untuk peran pengguna
+            $table->boolean('active')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
         });
     }
     

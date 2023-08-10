@@ -30,7 +30,7 @@ class LaporanSeeder extends Seeder
             'category_aduan_id' =>'1',
             'user_id' =>'2',
             'nama' => 'xander',
-            'nomor_tiket' => 2806202321,
+            'nomor_tiket' => 2806202311,
             'telpon' => '08587392109',
             'email' => 'xander@gmail.com',
             'judul' =>'ranting pohon besar melebihi garis pembatas jalan ',

@@ -108,7 +108,7 @@
                                     <label for="map" class="form-label">Klik pada area Map Untuk Mendapatkan Alamat Lokasi Laporan</label>
                                     <div id="map" class="col-lg-12" style="height: 500px;"></div>
                                     <div class="mt-2">
-                                        <input type="text" id="coordinates" name="coordinates" class="form-control" placeholder="Koordinat" readonly>
+                                        <input hidden type="text" id="coordinates" name="coordinates" class="form-control" placeholder="Koordinat" readonly>
                                         <input type="text" id="address" name="address" class="form-control mt-2" placeholder="Alamat">
                                     </div>
                                     <p class="mt-1"><span style="width: 14px" class="text-danger" data-feather="alert-triangle"></span>
@@ -161,54 +161,54 @@
 
                                     // Menampilkan preview foto saat dipilih
                                     function readURL(input) {
-    if (input.files && input.files.length > 0) {
-        var totalSize = 0;
+                                    if (input.files && input.files.length > 0) {
+                                        var totalSize = 0;
 
-        for (var i = 0; i < input.files.length; i++) {
-            totalSize += input.files[i].size;
-        }
+                                        for (var i = 0; i < input.files.length; i++) {
+                                            totalSize += input.files[i].size;
+                                        }
 
-        var maxSize = 5 * 1024 * 1024; // 5MB
+                                        var maxSize = 5 * 1024 * 1024; // 5MB
 
-        if (totalSize > maxSize) {
-            Swal.fire({
-                title: 'Peringatan!',
-                text: 'Total ukuran file melebihi batas 5MB.',
-                icon: 'warning',
-                confirmButtonText: 'OK'
-            });
-            input.value = ''; // Hapus file yang diunggah
-            return;
-        }
+                                        if (totalSize > maxSize) {
+                                            Swal.fire({
+                                                title: 'Peringatan!',
+                                                text: 'Total ukuran file melebihi batas 5MB.',
+                                                icon: 'warning',
+                                                confirmButtonText: 'OK'
+                                            });
+                                            input.value = ''; // Hapus file yang diunggah
+                                            return;
+                                        }
 
-        // Hapus foto-foto yang sudah ada di preview image sebelumnya
-        var previewImages = document.querySelectorAll("#previewContainer img");
-        previewImages.forEach(function(image) {
-            image.remove();
-        });
+                                        // Hapus foto-foto yang sudah ada di preview image sebelumnya
+                                        var previewImages = document.querySelectorAll("#previewContainer img");
+                                        previewImages.forEach(function(image) {
+                                            image.remove();
+                                        });
 
-        // Ambil daftar foto yang ada di preview image
-        var previewContainer = document.getElementById("previewContainer");
-        var fileInput = document.getElementById("images");
-        var files = fileInput.files;
+                                        // Ambil daftar foto yang ada di preview image
+                                        var previewContainer = document.getElementById("previewContainer");
+                                        var fileInput = document.getElementById("images");
+                                        var files = fileInput.files;
 
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            var reader = new FileReader();
+                                        for (var i = 0; i < files.length; i++) {
+                                            var file = files[i];
+                                            var reader = new FileReader();
 
-            reader.onload = function(e) {
-                var previewImage = document.createElement("img");
-                previewImage.className = "col-lg-3";
-                previewImage.style.marginBottom = "10px";
-                previewImage.src = e.target.result;
+                                            reader.onload = function(e) {
+                                                var previewImage = document.createElement("img");
+                                                previewImage.className = "col-lg-3";
+                                                previewImage.style.marginBottom = "10px";
+                                                previewImage.src = e.target.result;
 
-                previewContainer.appendChild(previewImage);
-            }
+                                                previewContainer.appendChild(previewImage);
+                                            }
 
-            reader.readAsDataURL(file);
-        }
-    }
-}
+                                            reader.readAsDataURL(file);
+                                        }
+                                    }
+                                }
 
                                     // Menjalankan fungsi saat ada perubahan pada input file
                                     document.getElementById("images").addEventListener("change", function() {

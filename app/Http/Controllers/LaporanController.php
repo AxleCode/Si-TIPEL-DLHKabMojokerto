@@ -108,16 +108,15 @@ class LaporanController extends Controller
 
             $laporan->save();
         
-            // Upload file gambar ke db laporan_images dan menggunakan foreign key laporan
+            $uploadedImages = [];
+            // Upload file gambar ke folder laporan_images dan menggunakan unique name
             if ($request->hasFile('imageFile')) {
-                foreach ($request->file('imageFile') as $file) {
+                foreach ($request->file('imageFile') as $index => $file) {
                     $extension = $file->getClientOriginalExtension();
-                    $fileName = 'foto' . time() . '.' . $extension; // Tambahkan waktu ke nama file
+                    $fileName = 'foto' . now()->format('YmdHis'). $index . '.' . $extension; // Tambahkan waktu dan index ke nama file untuk membuatnya unik
                     $filePath = public_path('/laporan_images/');
                     $file->move($filePath, $fileName);
-            
-                    // Tidak perlu menyimpan foto ke database pada saat ini
-            
+
                     // Simpan path foto ke dalam array untuk penggunaan nanti
                     $uploadedImages[] = 'laporan_images/' . $fileName;
                 }
@@ -147,7 +146,7 @@ class LaporanController extends Controller
                 // Commit the transaction
                 DB::commit();
 
-                // Simpan semua foto ke database setelah transaksi berhasil
+        // Simpan semua foto ke database setelah transaksi berhasil
         foreach ($uploadedImages as $imagePath) {
             $image = new LaporanImage();
             $image->laporan_id = $laporan->id;

@@ -38,7 +38,6 @@
                  
                  // get the category data for the current marker
                  var laporData = {!! json_encode($lapor) !!};
-                
                  var categoryData = {!! json_encode($lapor->categoryAduan) !!};
 
                  var laporKomen = {!! json_encode($komentar->where('laporan_id', $lapor->id)->where('status', 99)->first()) !!};
@@ -66,7 +65,6 @@
                      @endif
 
                      tooltipContent += '</div></div>';
-
              
                  // add the tooltip to the marker with the HTML content
                  marker.bindTooltip(tooltipContent, {className: 'custom-tooltip-class'});
@@ -92,12 +90,9 @@
                     width: calc(100% / 2); /* divide into 4 columns */
                 }
 
-                
-
                 </style>
 								</div>
 								<div class="me-3 ms-4 mt-3 mb-3">
-									
 								</div>
 							</div>
 						</div>
