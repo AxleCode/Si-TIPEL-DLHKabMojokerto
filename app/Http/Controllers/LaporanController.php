@@ -79,6 +79,7 @@ class LaporanController extends Controller
             'category' => 'required|exists:category_aduans,id',
             'body' => 'required',
             'coordinates' => 'required',
+            'posisi' => 'required',
             'address' => 'required',
             'imageFile.*' => 'image|max:5000|required', // Max size of each image is 5 MB
         ]);
@@ -105,6 +106,7 @@ class LaporanController extends Controller
             $laporan->user_id = auth()->id(); 
             $laporan->status = 0; 
             $laporan->coordinates = $request->input('coordinates');
+            $laporan->posisi = $request->input('posisi');
             $laporan->address = $request->input('address');
 
             $laporan->save();

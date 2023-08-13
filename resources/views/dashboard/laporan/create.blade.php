@@ -108,12 +108,141 @@
                                     <label for="map" class="form-label">Klik pada area Map Untuk Mendapatkan Alamat Lokasi Laporan</label>
                                     <div id="map" class="col-lg-12" style="height: 500px;"></div>
                                     <div class="mt-2">
-                                        <input hidden type="text" id="coordinates" name="coordinates" class="form-control" placeholder="Koordinat" readonly>
+                                        <label for="coordinates">Koordinat</label>
+                                        <input type="text" id="coordinates" name="coordinates" class="form-control" placeholder="Koordinat" readonly>
+                                        <label for="posisi">Posisi</label>
+                                        <input type="text" id="posisi" name="posisi" class="form-control" placeholder="Posisi" readonly>
                                         <input type="text" id="address" name="address" class="form-control mt-2" placeholder="Alamat">
                                     </div>
                                     <p class="mt-1"><span style="width: 14px" class="text-danger" data-feather="alert-triangle"></span>
-                                        Silahkan klik lokasi tempat laporan anda. Pastikan koordinat lokasi berada di wilayah kabupaten mojokerto dan apabila berada diluar wilayah mojokerto maka <strong class="text-danger">laporan tidak akan diproses oleh petugas</strong>. Form alamat dapat diubah silahkan tambahkan patokan atau detail lainnya</p>
+                                        Silahkan klik lokasi tempat laporan Anda. Pastikan koordinat lokasi berada di wilayah kabupaten mojokerto dan apabila berada diluar wilayah mojokerto maka <strong class="text-danger">laporan tidak akan diproses oleh petugas</strong>. Form alamat dapat diubah silahkan tambahkan patokan atau detail lainnya</p>
                                 </div>
+
+                                <script>
+                                    var mymap = L.map('map').setView([-7.520188637328168, 112.55842759283786], 30);
+                                    var gpsMarker;
+                                    var clickedMarker;
+                                
+                                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+                                        maxZoom: 18,
+                                    }).addTo(mymap);
+                                
+                                    // Tambahkan layer satelit
+                                    var satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                                        attribution: '&copy; <a href="https://www.arcgis.com/">ArcGIS</a> contributors',
+                                        maxZoom: 18,
+                                    });
+                                
+                                    // Menambahkan opsi satelit pada peta
+                                    var baseLayers = {
+                                        'OpenStreetMap': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                            attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+                                            maxZoom: 18,
+                                        }),
+                                        'Satellite': satelliteLayer,
+                                    };
+                                
+                                    L.control.layers(baseLayers).addTo(mymap);
+                                
+                                    // Panggil fungsi getLocation saat halaman dimuat
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // Tampilkan pesan panduan untuk pengguna
+                                        var allowLocation = confirm("Si-Tipel perlu mengakses lokasi Anda. Silakan klik OK lalu izinkan akses lokasi di dialog browser Anda.");
+                                
+                                        if (allowLocation) {
+                                            getLocation(); // Meminta izin akses lokasi
+                                        } else {
+                                            history.back(); // Kembali ke halaman sebelumnya
+                                        }
+                                    });
+                                
+                                    function getLocation() {
+                                        if (navigator.geolocation) {
+                                            // Memanggil fungsi showPosition saat mendapatkan posisi
+                                            navigator.geolocation.watchPosition(showPosition);
+                                        } else {
+                                            alert("Geolocation is not supported by this browser.");
+                                        }
+                                    }
+                                
+                                    function showPosition(position) {
+                                        var latitude = position.coords.latitude;
+                                        var longitude = position.coords.longitude;
+
+                                        // Memanggil fungsi updateMap untuk memperbarui peta dengan lokasi GPS pengguna
+                                        updateMap({ koordinat: { latitude: latitude, longitude: longitude } });
+
+                                        // Hapus marker lama lokasi GPS pengguna jika ada
+                                        if (gpsMarker) {
+                                            mymap.removeLayer(gpsMarker);
+                                        }
+
+                                        // Tambahkan marker untuk lokasi GPS pengguna dengan ikon titik
+                                        gpsMarker = L.circleMarker([latitude, longitude], { color: 'blue', radius: 5 }).addTo(mymap);
+
+                                        // Tambahkan label "Lokasi Anda Sekarang" di samping marker
+                                        gpsMarker.bindTooltip("Lokasi Anda Sekarang", { permanent: true, direction: 'right' });
+
+                                        // Memperbarui nilai input posisi dengan koordinat pengguna
+                                        document.getElementById("posisi").value = latitude + ', ' + longitude;
+                                    }
+                                
+                                    // Fungsi untuk memperbarui peta dengan klik pin
+                                    function updateMap(selectedDesa) {
+                                        if (clickedMarker) {
+                                            mymap.removeLayer(clickedMarker);
+                                        }
+                                
+                                        var lat = selectedDesa.koordinat.latitude;
+                                        var lng = selectedDesa.koordinat.longitude;
+                                
+                                        clickedMarker = L.marker([lat, lng], { draggable: true }).addTo(mymap);
+                                        mymap.setView([lat, lng], 15);
+                                
+                                        // Memperbarui koordinat saat pin dipindahkan
+                                        clickedMarker.on('dragend', function(event) {
+                                            var marker = event.target;
+                                            var position = marker.getLatLng();
+                                            var lat = position.lat;
+                                            var lng = position.lng;
+                                
+                                            document.getElementById("posisi").value = lat + ', ' + lng;
+                                            getAddress(lat, lng);
+                                        });
+                                
+                                        // Memperbarui alamat saat peta diklik
+                                        mymap.on('click', function(event) {
+                                            var lat = event.latlng.lat;
+                                            var lng = event.latlng.lng;
+
+                                            clickedMarker.setLatLng([lat, lng]);
+                                            document.getElementById("coordinates").value = lat + ', ' + lng;
+                                            getAddress(lat, lng);
+                                        });
+                                
+                                        getAddress(lat, lng);
+                                    }
+                                
+                                    function getAddress(lat, lng) {
+                                        axios
+                                            .get('https://nominatim.openstreetmap.org/reverse', {
+                                                params: {
+                                                    lat: lat,
+                                                    lon: lng,
+                                                    format: 'json',
+                                                },
+                                            })
+                                            .then(function(response) {
+                                                var address = response.data.display_name;
+                                                console.log("Alamat yang diterima:", address); // Tambahkan ini
+                                                document.getElementById("address").value = address;
+                                            })
+                                            .catch(function(error) {
+                                                console.log("Error:", error); // Tambahkan ini
+                                            });
+                                    }
+                                </script>                                 
 
                                 <!-- Upload Foto -->
                                 <div class="col-lg-11 mb-4">
@@ -298,95 +427,6 @@
         });
     });
 
-    var mymap = L.map('map').setView([-7.520188637328168, 112.55842759283786], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-        maxZoom: 18,
-    }).addTo(mymap);
-
-    // Tambahkan layer satelit
-    var satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: '&copy; <a href="https://www.arcgis.com/">ArcGIS</a> contributors',
-        maxZoom: 18,
-    });
-
-    // Menambahkan opsi satelit pada peta
-    var baseLayers = {
-        'OpenStreetMap': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-            maxZoom: 18,
-        }),
-        'Satellite': satelliteLayer,
-    };
-
-    L.control.layers(baseLayers).addTo(mymap);
-
-    // Menambahkan keterangan pada opsi satelit
-    var layerControl = $('.leaflet-control-layers-selector');
-    layerControl.each(function() {
-        var input = $(this);
-        var label = input.next('span');
-        var labelText = label.html();
-        if (labelText === 'Satellite') {
-            label.attr('title', 'Tampilkan peta satelit');
-        }
-    });
-
-    var marker;
-
-    function updateMap(selectedDesa) {
-        if (marker) {
-            mymap.removeLayer(marker);
-        }
-
-        var lat = selectedDesa.koordinat.latitude;
-        var lng = selectedDesa.koordinat.longitude;
-
-        marker = L.marker([lat, lng], { draggable: true }).addTo(mymap);
-        mymap.setView([lat, lng], 15);
-
-        // Memperbarui koordinat saat pin dipindahkan
-        marker.on('dragend', function(event) {
-            var marker = event.target;
-            var position = marker.getLatLng();
-            var lat = position.lat;
-            var lng = position.lng;
-
-            $('#coordinates').val(lat + ', ' + lng);
-            getAddress(lat, lng);
-        });
-
-        // Memperbarui alamat saat peta diklik
-        mymap.on('click', function(event) {
-            var lat = event.latlng.lat;
-            var lng = event.latlng.lng;
-
-            marker.setLatLng([lat, lng]);
-            $('#coordinates').val(lat + ', ' + lng);
-            getAddress(lat, lng);
-        });
-    }
-
-    function getAddress(lat, lng) {
-        axios
-            .get('https://nominatim.openstreetmap.org/reverse', {
-                params: {
-                    lat: lat,
-                    lon: lng,
-                    format: 'json',
-                },
-            })
-            .then(function(response) {
-                var address = response.data.display_name;
-                $('#address').val(address);
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
-    }
-
-    // End js untuk map
 
     // JS untuk konfirmasi sebelum submit
     document.getElementById('laporan-form').addEventListener('submit', function(e) {
@@ -405,5 +445,7 @@
             }
         });
     });
+
+
 </script>
 @endsection

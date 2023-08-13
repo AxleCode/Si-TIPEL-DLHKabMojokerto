@@ -97,7 +97,7 @@
                                           <a href="{{ route('laporanadmin.edit',$lapor->id) }}" class="badge bg-primary">
                                               <span data-feather="edit" ></span> Tindakan </a>
 
-                                              <form action="{{ route('laporanadmin.destroy', $lapor->id) }}" method="POST" class="delete-form d-inline"  data-lapor-id="{{ $lapor->id }}">
+                                              <form action="{{ route('laporanadmin.destroy', $lapor->id) }}" method="POST" class="delete-form d-inline"  data-lapor-id="{{ $lapor->nomor_tiket }}">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="badge bg-danger border-0 " >

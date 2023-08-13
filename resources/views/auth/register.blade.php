@@ -61,6 +61,28 @@
             @enderror  
           </div>
 
+          {{-- <!-- Role input -->
+          <div class="form-outline mb-4 form-floating">
+            <input  type="text" name="role" class="form-control form-control-lg @error('role') is-invalid @enderror" placeholder="role" required value="user"/>
+            <label class="form-label" for="role">Role</label>
+            @error('role')
+            <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror  
+          </div>
+
+          <!-- active input -->
+          <div class="form-outline mb-4 form-floating">
+            <input type="text" name="active" class="form-control form-control-lg @error('active') is-invalid @enderror" placeholder="active" required value="true"/>
+            <label class="form-label" for="active">active</label>
+            @error('active')
+            <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror  
+          </div> --}}
+
           <!-- No HP input -->
           <div class="form-outline mb-4 form-floating">
             <input type="number" name="nohp" class="form-control form-control-lg @error('nohp') is-invalid @enderror"  placeholder="nohp" required value="{{ old('nohp') }}"/>

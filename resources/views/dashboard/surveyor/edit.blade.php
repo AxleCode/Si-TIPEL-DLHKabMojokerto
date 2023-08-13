@@ -48,9 +48,27 @@
             <a href="/dashboard/surveyor" class="w-30  mb-3 btn btn-lg btn-outline-primary" >
                 <span data-feather="arrow-left"></span> Kembali
             </a>
-            <a href="" class="w-30 ms-2 mb-3 btn btn-lg btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal">
+            <a href="#" class="w-30 ms-2 mb-3 btn btn-lg btn-outline-warning" onclick="openCameraModal()">
                 <span data-feather="edit"></span> Update Laporan
             </a>
+            <script>
+                // Fungsi untuk membuka modal dan mengakses kamera
+                function openCameraModal() {
+                    // Buka modal
+                    $('#editModal').modal('show');
+                    
+                    // Mengakses kamera saat halaman dimuat
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(stream => {
+                            const webcamPreview = document.getElementById('webcam-preview');
+                            webcamPreview.srcObject = stream;
+                        })
+                        .catch(error => {
+                            console.error('Error accessing webcam:', error);
+                        });
+                }
+            </script>
+
             @foreach ($statuses as $status)
                 @if ($laporan->status == $status->kode_status)
                     <span class="w-30 mb-3 ms-2 btn btn-lg btn-outline-primary text-white bg-{{ $status->warna }}">{{ $status->name }}</span>
@@ -60,88 +78,198 @@
 
             <div class="d-flex justify-content-between align-items-center">
                 <p class="h3 mb-1 fs-1 fw-bold">Laporan {{ $userName }} </p>
-            </div>                    
-              
-                
+            </div>      
 
-                <!-- Edit Modal -->
-                <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel">Update Laporan</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               <!-- Edit Modal -->
+               <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Update Laporan</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                        <form action="{{ route('surveyor.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="laporan_id" value="{{ $laporan->id }}">
+                        <div class="modal-body">
+
+                            <!-- Status -->
+                            <div class="mb-3 col-lg-10">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
+                                    @foreach($statuses as $status)
+                                        @if ($status->kode_status == 2)
+                                            <option value="{{ $status->kode_status }}" class="bg-{{ $status->warna }} text-white"  {{ $laporan->status == $status->kode_status ? 'selected' : '' }}>
+                                                {{ $status->name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                @error('status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            
-                            <form action="{{ route('petugas.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="laporan_id" value="{{ $laporan->id }}">
-                            <div class="modal-body">
 
-                                <!-- Status -->
-                                <div class="mb-3 col-lg-10">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
-                                        @foreach($statuses as $status)
-                                            @if ($status->kode_status == 2)
-                                                <option value="{{ $status->kode_status }}" class="bg-{{ $status->warna }} text-white"  {{ $laporan->status == $status->kode_status ? 'selected' : '' }}>
-                                                    {{ $status->name }}
-                                                </option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @error('status')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
+                            <!-- Input foto menggunakan webcam -->
+                            <div class="mb-3 col-lg-10">
+                                <label for="webcam-photo" class="form-label">Ambil Foto (Wajib) </label>
+                                <video id="webcam-preview" style="max-width: 100%;" autoplay playsinline></video>
+                                <button type="button" id="capture-button" class="btn btn-primary">Ambil Foto</button>
+                                <input type="hidden" id="webcam-photo" name="webcam_photo"> <!-- Menambahkan name="webcam_photo" di sini -->
+
+                                <p>*<small>Tekan tombol ambil foto </small></p>
+                            </div>
+
+                            <script>
+                                const webcamPreview = document.getElementById('webcam-preview');
+                                const captureButton = document.getElementById('capture-button');
+                                const webcamPhotoInput = document.getElementById('webcam-photo');
+
+                                
+                                // Mengakses webcam saat halaman dimuat
+                                navigator.mediaDevices.getUserMedia({ video: true })
+                                    .then(stream => {
+                                        webcamPreview.srcObject = stream;
+                                    })
+                                    .catch(error => {
+                                        console.error('Error accessing webcam:', error);
+                                    });
+
+                                // Mengambil foto dari webcam
+                                captureButton.addEventListener('click', () => {
+                                    const canvas = document.createElement('canvas');
+                                    const context = canvas.getContext('2d');
+                                    canvas.width = webcamPreview.videoWidth;
+                                    canvas.height = webcamPreview.videoHeight;
+                                    context.drawImage(webcamPreview, 0, 0, canvas.width, canvas.height);
+                                    const webcamPhotoDataUrl = canvas.toDataURL('image/jpeg'); // Anda dapat mengubah format sesuai kebutuhan
+
+                                    webcamPhotoInput.value = webcamPhotoDataUrl;
+                                    webcamPreview.pause();
+
+                                    // Menghentikan akses ke webcam
+                                    webcamPreview.srcObject.getTracks().forEach(track => track.stop());
+
+                                    captureButton.disabled = true;
+                                });
+                                
+                                // Pada saat mengirimkan formulir
+                                document.querySelector('form').addEventListener('submit', async (event) => {
+                                    // Hentikan pengiriman formulir sementara
+                                    event.preventDefault();
+
+                                    // Ubah data URL ke blob (file)
+                                    const blob = await dataURLtoBlob(webcamPhotoDataUrl);
+                                    const formData = new FormData();
+                                    formData.append('webcam_photo', blob, 'webcam_photo.jpg'); // Ubah nama file sesuai kebutuhan
+                                    // Tambahkan data lain ke dalam formData jika diperlukan
+                                    formData.append('status', document.getElementById('status').value); // Contoh
+
+                                    // Kirim formData menggunakan fetch atau library lainnya
+                                    fetch('{{ route('surveyor.store') }}', {
+                                        method: 'POST',
+                                        body: formData
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // Lakukan tindakan setelah pengiriman berhasil, misalnya tutup modal
+                                        $('#editModal').modal('hide');
+                                        // ... (lainnya)
+                                    })
+                                    .catch(error => {
+                                        console.error('Error sending form:', error);
+                                    });
+                                });
+                            </script>
+
+                            <!-- Koordinat -->
+                            <div class="mb-4 col-lg-10">
+                                <label for="koordinat_surveyor">Koordinat Surveyor</label>
+                                <input type="text" name="koordinat_surveyor" class="mt-2 form-control rounded-top @error('koordinat_surveyor') is-invalid @enderror" id="koordinat_surveyor" placeholder="Masukkan koordinat_surveyor" value="" readonly>
+                                @error('koordinat_surveyor')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <!-- Alamat -->
+                            <div class="mb-4 col-lg-10">
+                                <label for="alamat_surveyor">Alamat Surveyor</label>
+                                <input type="text" name="alamat_surveyor" class="mt-2 form-control rounded-top @error('alamat_surveyor') is-invalid @enderror" id="alamat_surveyor" placeholder="Masukkan alamat_surveyor" value="" readonly>
+                                @error('alamat_surveyor')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <script>
+                                // Fungsi untuk mendapatkan data koordinat dan alamat dari Nominatim
+                                function getCoordinatesAndAddress() {
+                                    if ("geolocation" in navigator) {
+                                        navigator.geolocation.getCurrentPosition(function(position) {
+                                            var latitude = position.coords.latitude;
+                                            var longitude = position.coords.longitude;
+                            
+                                            // Mengisi nilai input koordinat_surveyor
+                                            document.getElementById("koordinat_surveyor").value = latitude + ", " + longitude;
+                            
+                                            // Menggunakan API Nominatim untuk mendapatkan alamat dari koordinat
+                                            var url = "https://nominatim.openstreetmap.org/reverse?lat=" + latitude + "&lon=" + longitude + "&format=json";
+                                            fetch(url)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    var address = data.display_name;
+                                                    document.getElementById("alamat_surveyor").value = address;
+                                                })
+                                                .catch(error => {
+                                                    console.error("Error fetching address:", error);
+                                                });
+                                        });
+                                    } else {
+                                        alert("Geolocation tidak didukung oleh browser ini.");
+                                    }
+                                }
+                            
+                                // Memanggil fungsi saat halaman dimuat
+                                window.onload = getCoordinatesAndAddress;
+                            </script>
+
+                                <!-- Transportasi -->
+                                <div class="mb-4 col-lg-10">
+                                    <label for="transportasi">Transportasi (Status : Survey Lokasi dan Eksekusi Lokasi)</label>
+                                    <input type="text" name="transportasi" class="mt-2 form-control rounded-top @error('transportasi') is-invalid @enderror" id="transportasi" placeholder="Masukkan Transportasi" value="{{ old('transportasi') }}">
+                                    @error('transportasi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                     @enderror
                                 </div>
-                                
 
-                                    <div class="mb-3 col-lg-10">
-                                        <label for="file" class="form-label">Upload Gambar (Jika ada) </label>
-                                        <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file" accept=".pdf, .jpg, .jpeg, .png">
-                                        <p>*<small>Format jpeg,jpg,png,pdf Max ukuran file 1MB</small></p>
-                                        @error('file')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
+                                <!-- Komentar Status -->
+                                <div class="form-outline mb-4 form-floating col-lg-10">
+                                    <textarea type="name" name="komentar" style="height: 150px" class="mt-2 form-control rounded-top rounded-top @error('komentar') is-invalid @enderror" id="komentar" placeholder="" required></textarea>
+                                    <label class="form-label" for="komentar">Masukkan Komentar</label>
+                                    @error('komentar')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
                                     </div>
+                                    @enderror
+                                </div> 
 
-                                    <!-- Transportasi -->
-                                    <div class="mb-4 col-lg-10">
-                                        <label for="transportasi">Transportasi (Status : Survey Lokasi dan Eksekusi Lokasi)</label>
-                                        <input type="text" name="transportasi" class="mt-2 form-control rounded-top @error('transportasi') is-invalid @enderror" id="transportasi" placeholder="Masukkan Transportasi" value="{{ old('transportasi') }}">
-                                        @error('transportasi')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <!-- Komentar Status -->
-                                    <div class="form-outline mb-4 form-floating col-lg-10">
-                                        <textarea type="name" name="komentar" style="height: 150px" class="mt-2 form-control rounded-top rounded-top @error('komentar') is-invalid @enderror" id="komentar" placeholder="" required></textarea>
-                                        <label class="form-label" for="komentar">Masukkan Komentar</label>
-                                        @error('komentar')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div> 
-
-                                
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Kirim Komentar</button>
-                            </div>
-                        </form>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Kirim Komentar</button>
+                        </div>
+                    </form>
                     </div>
                 </div>
-
+            </div>
 
                     <p class="fs-1"><strong>{{ $laporan->judul }}</strong></p>
                     <p>Dibuat pada : <strong>{{ $laporan->created_at->format('d F Y')  }}</strong></p>
@@ -198,6 +326,8 @@
                  <div class="mb-2 col-lg-12">
                      <p class="mt-2 mb-1">Koordinat : </p>
                      <p><strong>{{ $laporan->coordinates }}</strong> </p>
+                     <p class="mt-2 mb-1">Koordinat Pelapor : </p>
+                     <p><strong>{{ $laporan->posisi }}</strong> </p>
                      <p class="mt-0 mb-1">Alamat : </p>
                      <p><strong>{{ $laporan->address }}</strong></p>
                  </div>
@@ -212,20 +342,23 @@
          </div>
 
                  <script>
-                     // initialize the map
-                     var map = L.map('map').setView([{{ $laporan->coordinates }}], 12);
-
-                     // add the tile layer
-                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-                         maxZoom: 18,
-                     }).addTo(map);
-
-                     // add a marker to the initial location
-                     var marker = L.marker([{{ $laporan->coordinates }}]).addTo(map);
-
-                     // disable click events
-                     map.doubleClickZoom.disable();
+                // Initialize the map
+                var map = L.map('map').setView([{{ $laporan->coordinates }}], 12);
+                    // Add the tile layer
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+                        maxZoom: 18,
+                    }).addTo(map);
+            
+                    // Add a marker to the initial location
+                    var marker = L.marker([{{ $laporan->coordinates }}]).addTo(map);
+                    
+                    // Add a marker for user's position with a blue circle icon
+                    var gpsMarker = L.circleMarker([{{ $laporan->posisi }}], { color: 'blue', radius: 5 }).addTo(map);
+                    gpsMarker.bindTooltip("Posisi Pelapor", { permanent: true, direction: 'right' });
+            
+                    // Disable click events
+                    map.doubleClickZoom.disable();
                  </script>
                 
             </div>
@@ -279,21 +412,23 @@
                                               <div class="modal-body">
                                                 <div class="ms-3">
 
-                                            <!-- Status komentar -->
+                                            <!-- Status -->
                                             <div class="mb-3 col-lg-10">
-                                                <label for="status" class="form-label">Status komentar</label>
-                                                <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" >
+                                                <label for="status" class="form-label">Status</label>
+                                                <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
                                                     @foreach($statuses as $status)
-                                                    <option value="{{ $status->kode_status }}" class="bg-{{ $status->warna }} text-white" {{ $komen->status == $status->kode_status ? 'selected' : '' }}>
-                                                        {{ $status->name }}
-                                                    </option>
-                                                @endforeach
+                                                        @if ($status->kode_status == 2)
+                                                            <option value="{{ $status->kode_status }}" class="bg-{{ $status->warna }} text-white"  {{ $laporan->status == $status->kode_status ? 'selected' : '' }}>
+                                                                {{ $status->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
                                                 </select>
                                                 @error('status')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
-                                                    @enderror
+                                                @enderror
                                             </div>
 
                                             <!-- komentar -->
@@ -319,7 +454,7 @@
                                             </div>
 
                                               <!-- File -->
-                                              <div class="col-lg-10">
+                                              {{-- <div class="col-lg-10">
                                                 <label class="form-label" for="name">Ubah File</label>
                                                 <input type="file" name="file" placeholder="Ganti file" class="mt-1 form-control rounded-top @error('file') is-invalid @enderror" id="file" >
                                                 <p style="font-size: 12px" class="mt-1">*Jangan isi file jika ingin menggunakan file sebelumnya</p>
@@ -328,7 +463,7 @@
                                                   {{ $message }}
                                                 </div>
                                                 @enderror
-                                              </div>
+                                              </div> --}}
                                             
                                           </div>
                                            
@@ -342,13 +477,13 @@
                                         </div>
                                       </div>
 
-                                      <!-- Delete Komentar-->
+                                      {{-- <!-- Delete Komentar-->
                                     <form action="{{ route('komentar.destroy', $komen->id) }}" method="POST" class="delete-form d-inline" >
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="badge bg-danger border-0 n" >
                                           <span data-feather="delete" ></span> Hapus</button>
-                                      </form>
+                                      </form> --}}
                                       <a href="{{ asset('komentar_file/' . $komen->file) }}" class="btn btn-sm btn-primary mt-1" download> <span data-feather="download"></span>  Download file</a>
                                 @else
                                     
@@ -369,21 +504,23 @@
                                           <div class="modal-body">
                                             <div class="ms-3">
 
-                                        <!-- Status komentar -->
+                                        <!-- Status -->
                                         <div class="mb-3 col-lg-10">
-                                            <label for="status" class="form-label">Status komentar</label>
-                                            <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" >
+                                            <label for="status" class="form-label">Status</label>
+                                            <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
                                                 @foreach($statuses as $status)
-                                                <option value="{{ $status->kode_status }}" class="bg-{{ $status->warna }} text-white" {{ $komen->status == $status->kode_status ? 'selected' : '' }}>
-                                                    {{ $status->name }}
-                                                </option>
-                                            @endforeach
+                                                    @if ($status->kode_status == 2)
+                                                        <option value="{{ $status->kode_status }}" class="bg-{{ $status->warna }} text-white"  {{ $laporan->status == $status->kode_status ? 'selected' : '' }}>
+                                                            {{ $status->name }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                             @error('status')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
-                                                @enderror
+                                            @enderror
                                         </div>
 
                                         <!-- komentar -->
@@ -523,37 +660,42 @@
     });
   </script>
 
-{{-- <script>
-    // Listen for form submission event
-    const form = document.querySelector('#profile-form');
-    const submitButton = document.querySelector('#profile-submit');
-    form.addEventListener('submit', function(e) {
-      // Prevent the default form submission behavior
-      e.preventDefault();
-      // Display SweetAlert2 confirmation dialog
-      Swal.fire({
-        title: 'Are you sure?',
-        text: 'You are about to submit this form',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, submit it!',
-        cancelButtonText: 'No, cancel',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // If user confirms, submit the form
-          submitButton.disabled = true;
-          form.submit();
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Function to show location permission alert
+        function showLocationPermissionAlert() {
+            Swal.fire({
+                title: "Izin Lokasi Diperlukan",
+                text: "Untuk melihat posisi pelapor, izinkan akses lokasi pada perangkat Anda.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Izinkan",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Request location permission
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            // Do nothing, permission granted
+                        },
+                        function(error) {
+                            Swal.fire("Izin Ditolak", "Anda telah menolak izin lokasi.", "error");
+                        }
+                    );
+                }
+            });
         }
-      });
-    });
-  </script> --}}
 
-  
-	
+        // Check for location permission and show alert if needed
+        navigator.permissions.query({ name: "geolocation" }).then((result) => {
+            if (result.state !== "granted") {
+                showLocationPermissionAlert();
+            }
+            });
+        });
+</script>
 
-            
-
-           
 </main>
 @endsection
 

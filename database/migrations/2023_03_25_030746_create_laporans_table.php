@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('judul');
             $table->text('body');
+            $table->text('posisi');
             $table->text('coordinates');
             $table->text('address');
             $table->integer('status');

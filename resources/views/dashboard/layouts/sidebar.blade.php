@@ -13,6 +13,12 @@
           User Pages
         </li>
 
+        <li class="sidebar-item {{ Request::is('dashboard/notifikasi') ? 'active' : '' }}">
+          <a class="sidebar-link" href="/dashboard/notifikasi">
+            <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Histori Notifikasi</span>
+          </a>
+        </li>
+
         <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
           <a class="sidebar-link" href="/dashboard">
             <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
@@ -30,16 +36,10 @@
             <i class="align-middle" data-feather="book"></i> <span class="align-middle">List Laporan Saya</span>
           </a>
         </li>
-        
-        <li class="sidebar-item {{ Request::is('dashboard/notifikasi') ? 'active' : '' }}">
-          <a class="sidebar-link" href="/dashboard/notifikasi">
-            <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Histori Notifikasi</span>
-          </a>
-        </li>
 
         <li class="sidebar-item {{ Request::is('dashboard/map') ? 'active' : '' }}">
           <a class="sidebar-link" href="/dashboard/map">
-            <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+            <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps Laporan</span>
           </a>
         </li>
 {{-- 
@@ -49,11 +49,6 @@
           </a>
         </li> --}}
 
-        <li class="sidebar-item {{ Request::is('/') ? 'active' : '' }}">
-          <a class="sidebar-link" href="/" target="_blank">
-            <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Website si-TIPEL</span>
-          </a>
-        </li>
         @endif
 
         
@@ -119,6 +114,12 @@
         <li class="sidebar-header">
           Petugas
 
+          <li class="sidebar-item {{ Request::is('dashboard/notifikasi') ? 'active' : '' }}">
+            <a class="sidebar-link" href="/dashboard/notifikasi">
+              <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Histori Notifikasi</span>
+            </a>
+          </li>
+
           <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
             <a class="sidebar-link" href="/dashboard">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
@@ -130,16 +131,10 @@
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan</span>
             </a>
           </li>
-
-          <li class="sidebar-item {{ Request::is('dashboard/notifikasi') ? 'active' : '' }}">
-            <a class="sidebar-link" href="/dashboard/notifikasi">
-              <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Histori Notifikasi</span>
-            </a>
-          </li>
   
           <li class="sidebar-item {{ Request::is('dashboard/map') ? 'active' : '' }}">
             <a class="sidebar-link" href="/dashboard/map">
-              <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+              <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps Laporan</span>
             </a>
           </li>
 
@@ -149,6 +144,12 @@
         <li class="sidebar-header">
           Surveyor
 
+          <li class="sidebar-item {{ Request::is('dashboard/notifikasi') ? 'active' : '' }}">
+            <a class="sidebar-link" href="/dashboard/notifikasi">
+              <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Histori Notifikasi</span>
+            </a>
+          </li>
+          
           <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
             <a class="sidebar-link" href="/dashboard">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
@@ -158,12 +159,6 @@
           <li class="sidebar-item {{ Request::is('dashboard/surveyor*') ? 'active' : '' }}">
             <a class="sidebar-link" href="/dashboard/surveyor">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan</span>
-            </a>
-          </li>
-          
-          <li class="sidebar-item {{ Request::is('dashboard/notifikasi') ? 'active' : '' }}">
-            <a class="sidebar-link" href="/dashboard/notifikasi">
-              <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Histori Notifikasi</span>
             </a>
           </li>
 

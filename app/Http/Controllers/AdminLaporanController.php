@@ -102,7 +102,7 @@ class AdminLaporanController extends Controller
             $notification = new Notifikasi();
             $notification->user_id = $laporan->user_id;
             $notification->judul = 'Laporan Update';
-            $notification->pesan = 'Status Laporan anda dengan ID '.$laporan->id.' telah diupdate oleh petugas';
+            $notification->pesan = 'Status Laporan anda dengan ID '.$laporan->nomor_tiket.' telah diupdate oleh petugas';
             $notification->status = true;
             $notification->logo = 'clipboard'; 
             $notification->textlogo = 'text-primary'; 
@@ -112,22 +112,22 @@ class AdminLaporanController extends Controller
             if ($laporan->status == 1) {
                 $surveyorRoles = ['surveyor']; // Daftar role yang dianggap sebagai surveyor atau surveyor
 
-                $petugasUsers = User::where(function ($query) use ($surveyorRoles) {
+                $surveyorUsers = User::where(function ($query) use ($surveyorRoles) {
                     foreach ($surveyorRoles as $role) {
                         $query->orWhere('role', $role);
                     }
                 })->get();
 
-                foreach ($petugasUsers as $petugasUser) {
-                    $petugasNotification = new Notifikasi();
-                    $petugasNotification->user_id = $petugasUser->id;
-                    $petugasNotification->judul = 'Laporan Baru Dibuat';
-                    $petugasNotification->pesan = 'Laporan dengan Nomor tiket '.$laporan->nomor_tiket.' telah dibuat Mohon tindak lanjutnya';
-                    $petugasNotification->status = true;
-                    $petugasNotification->logo = 'clipboard'; 
-                    $petugasNotification->textlogo = 'text-warning'; 
-                    $petugasNotification->link = '/dashboard/petugas/'.$laporan->id.'/edit';
-                    $petugasNotification->save();
+                foreach ($surveyorUsers as $surveyorUser) {
+                    $surveyorNotification = new Notifikasi();
+                    $surveyorNotification->user_id = $surveyorUser->id;
+                    $surveyorNotification->judul = 'Laporan Baru Diupdate';
+                    $surveyorNotification->pesan = 'Laporan dengan Nomor tiket '.$laporan->nomor_tiket.' telah Diterima mohon tindak lanjutnya';
+                    $surveyorNotification->status = true;
+                    $surveyorNotification->logo = 'clipboard'; 
+                    $surveyorNotification->textlogo = 'text-warning'; 
+                    $surveyorNotification->link = '/dashboard/surveyor/'.$laporan->id.'/edit';
+                    $surveyorNotification->save();
                 }
             }
             // Commit the transaction

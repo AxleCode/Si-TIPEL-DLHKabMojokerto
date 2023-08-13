@@ -119,8 +119,8 @@ class PetugasController extends Controller
                 foreach ($petugasUsers as $petugasUser) {
                     $petugasNotification = new Notifikasi();
                     $petugasNotification->user_id = $petugasUser->id;
-                    $petugasNotification->judul = 'Laporan Baru Dibuat';
-                    $petugasNotification->pesan = 'Laporan dengan Nomor tiket '.$laporan->nomor_tiket.' telah dibuat Mohon tindak lanjutnya';
+                    $petugasNotification->judul = 'Laporan Update';
+                    $petugasNotification->pesan = 'Laporan dengan Nomor tiket '.$laporan->nomor_tiket.' telah diupdate';
                     $petugasNotification->status = true;
                     $petugasNotification->logo = 'clipboard'; 
                     $petugasNotification->textlogo = 'text-warning'; 
@@ -160,11 +160,11 @@ class PetugasController extends Controller
         $images = LaporanImage::where('laporan_id', $laporan->id)->get();
         $komentar = Komentar::with('status')->where('laporan_id', $laporan->id)->orderBy('updated_at', 'desc')->get();
         
-        $notifikasi = Notifikasi::where('user_id', 1)
+        $notifikasi = Notifikasi::where('user_id', 4)
         ->orderByDesc('created_at')
         ->paginate(15);
     
-        $jumlahnotif = Notifikasi::where('user_id', 1)
+        $jumlahnotif = Notifikasi::where('user_id', 4)
             ->where('status', true)
             ->count();
         

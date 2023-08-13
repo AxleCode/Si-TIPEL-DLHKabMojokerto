@@ -106,6 +106,61 @@
                                             @enderror
                                     </div>
 
+                                    
+                            <!-- Koordinat -->
+                            <div class="mb-4 col-lg-10">
+                                <label for="koordinat_surveyor">Koordinat Surveyor</label>
+                                <input type="text" name="koordinat_surveyor" class="mt-2 form-control rounded-top @error('koordinat_surveyor') is-invalid @enderror" id="koordinat_surveyor" placeholder="Masukkan koordinat_surveyor" value="" readonly>
+                                @error('koordinat_surveyor')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <!-- Alamat -->
+                            <div class="mb-4 col-lg-10">
+                                <label for="alamat_surveyor">Alamat Surveyor</label>
+                                <input type="text" name="alamat_surveyor" class="mt-2 form-control rounded-top @error('alamat_surveyor') is-invalid @enderror" id="alamat_surveyor" placeholder="Masukkan alamat_surveyor" value="" readonly>
+                                @error('alamat_surveyor')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <script>
+                                // Fungsi untuk mendapatkan data koordinat dan alamat dari Nominatim
+                                function getCoordinatesAndAddress() {
+                                    if ("geolocation" in navigator) {
+                                        navigator.geolocation.getCurrentPosition(function(position) {
+                                            var latitude = position.coords.latitude;
+                                            var longitude = position.coords.longitude;
+                            
+                                            // Mengisi nilai input koordinat_surveyor
+                                            document.getElementById("koordinat_surveyor").value = latitude + ", " + longitude;
+                            
+                                            // Menggunakan API Nominatim untuk mendapatkan alamat dari koordinat
+                                            var url = "https://nominatim.openstreetmap.org/reverse?lat=" + latitude + "&lon=" + longitude + "&format=json";
+                                            fetch(url)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    var address = data.display_name;
+                                                    document.getElementById("alamat_surveyor").value = address;
+                                                })
+                                                .catch(error => {
+                                                    console.error("Error fetching address:", error);
+                                                });
+                                        });
+                                    } else {
+                                        alert("Geolocation tidak didukung oleh browser ini.");
+                                    }
+                                }
+                            
+                                // Memanggil fungsi saat halaman dimuat
+                                window.onload = getCoordinatesAndAddress;
+                            </script>
+
                                     <!-- Transportasi -->
                                     <div class="mb-4 col-lg-10">
                                         <label for="transportasi">Transportasi (Status : Survey Lokasi dan Eksekusi Lokasi)</label>
@@ -195,6 +250,8 @@
                  <div class="mb-2 col-lg-12">
                      <p class="mt-2 mb-1">Koordinat : </p>
                      <p><strong>{{ $laporan->coordinates }}</strong> </p>
+                     <p class="mt-2 mb-1">Koordinat Pelapor : </p>
+                     <p><strong>{{ $laporan->posisi }}</strong> </p>
                      <p class="mt-0 mb-1">Alamat : </p>
                      <p><strong>{{ $laporan->address }}</strong></p>
                  </div>
@@ -208,22 +265,25 @@
              
          </div>
 
-                 <script>
-                     // initialize the map
-                     var map = L.map('map').setView([{{ $laporan->coordinates }}], 12);
-
-                     // add the tile layer
-                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-                         maxZoom: 18,
-                     }).addTo(map);
-
-                     // add a marker to the initial location
-                     var marker = L.marker([{{ $laporan->coordinates }}]).addTo(map);
-
-                     // disable click events
-                     map.doubleClickZoom.disable();
-                 </script>
+         <script>
+            // Initialize the map
+            var map = L.map('map').setView([{{ $laporan->coordinates }}], 12);
+            // Add the tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+                maxZoom: 18,
+            }).addTo(map);
+    
+            // Add a marker to the initial location
+            var marker = L.marker([{{ $laporan->coordinates }}]).addTo(map);
+            
+            // Add a marker for user's position with a blue circle icon
+            var gpsMarker = L.circleMarker([{{ $laporan->posisi }}], { color: 'blue', radius: 5 }).addTo(map);
+            gpsMarker.bindTooltip("Posisi Pelapor", { permanent: true, direction: 'right' });
+    
+            // Disable click events
+            map.doubleClickZoom.disable();
+        </script>
                 
             </div>
         </form>
@@ -554,11 +614,41 @@
     });
   </script> --}}
 
-  
-	
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Function to show location permission alert
+        function showLocationPermissionAlert() {
+            Swal.fire({
+                title: "Izin Lokasi Diperlukan",
+                text: "Untuk melihat posisi pelapor, izinkan akses lokasi pada perangkat Anda.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Izinkan",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Request location permission
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            // Do nothing, permission granted
+                        },
+                        function(error) {
+                            Swal.fire("Izin Ditolak", "Anda telah menolak izin lokasi.", "error");
+                        }
+                    );
+                }
+            });
+        }
 
-            
-
+        // Check for location permission and show alert if needed
+        navigator.permissions.query({ name: "geolocation" }).then((result) => {
+            if (result.state !== "granted") {
+                showLocationPermissionAlert();
+            }
+            });
+        });
+</script>
            
 </main>
 @endsection

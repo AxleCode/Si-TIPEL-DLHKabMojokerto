@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('alamatpemohon');
             $table->string('nohp');
-            $table->string('role'); // Kolom untuk peran pengguna
+            $table->string('role')->default('user'); // Kolom untuk peran pengguna
             $table->boolean('active')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

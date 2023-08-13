@@ -27,6 +27,9 @@
 	<!-- Leaflet -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
 	<!-- Axios JavaScript -->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<!-- Font Awesome -->

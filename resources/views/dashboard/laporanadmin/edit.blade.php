@@ -192,8 +192,10 @@
                  <div id="map" class="col-lg-12" style="height: 400px;"></div>
 
                  <div class="mb-2 col-lg-12">
-                     <p class="mt-2 mb-1">Koordinat : </p>
+                     <p class="mt-2 mb-1">Koordinat yang dilaporankan : </p>
                      <p><strong>{{ $laporan->coordinates }}</strong> </p>
+                     <p class="mt-2 mb-1">Koordinat Pelapor : </p>
+                     <p><strong>{{ $laporan->posisi }}</strong> </p>
                      <p class="mt-0 mb-1">Alamat : </p>
                      <p><strong>{{ $laporan->address }}</strong></p>
                  </div>
@@ -204,25 +206,27 @@
           
                  <button type="submit"  class="w-150 btn btn-lg btn-outline-primary mt-3"> <span class="" data-feather="map" ></span> Lihat Google Maps</button>
              </a>
-             
          </div>
 
-                 <script>
-                     // initialize the map
-                     var map = L.map('map').setView([{{ $laporan->coordinates }}], 12);
-
-                     // add the tile layer
-                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-                         maxZoom: 18,
-                     }).addTo(map);
-
-                     // add a marker to the initial location
-                     var marker = L.marker([{{ $laporan->coordinates }}]).addTo(map);
-
-                     // disable click events
-                     map.doubleClickZoom.disable();
-                 </script>
+         <script>
+            // Initialize the map
+            var map = L.map('map').setView([{{ $laporan->coordinates }}], 12);
+            // Add the tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+                maxZoom: 18,
+            }).addTo(map);
+    
+            // Add a marker to the initial location
+            var marker = L.marker([{{ $laporan->coordinates }}]).addTo(map);
+            
+            // Add a marker for user's position with a blue circle icon
+            var gpsMarker = L.circleMarker([{{ $laporan->posisi }}], { color: 'blue', radius: 5 }).addTo(map);
+            gpsMarker.bindTooltip("Posisi Pelapor", { permanent: true, direction: 'right' });
+    
+            // Disable click events
+            map.doubleClickZoom.disable();
+        </script>
                 
             </div>
         </form>
@@ -238,6 +242,7 @@
                         <th class="d-none d-sm-table-cell">Status</th>
                         <th class="col-2">Petugas</th>
                         <th class="col-2">Transportasi</th>
+                        <th class="col-2">Posisi Petugas</th>
                         <th class="d-none d-sm-table-cell">Aksi</th>
                     </tr>
                 </thead>
@@ -254,6 +259,7 @@
                               @endforeach        
                               <td>{!! $komen->petugas !!}</td>
                               <td>{!! $komen->transportasi !!}</td>                   
+                              <td>{!! $komen->alamat_petugas !!}, {!! $komen->koordinat_petugas !!}</td>                   
                                 <td class="">
                                     @if ($komen->file)
                                     
@@ -435,7 +441,7 @@
                 @else
                     <tbody>
                         <tr>
-                            <td colspan="4" class="text-center">Belum ada komentar petugas</td>
+                            <td colspan="6" class="text-center">Belum ada komentar petugas</td>
                         </tr>
                     </tbody>
                 @endif

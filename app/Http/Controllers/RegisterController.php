@@ -28,7 +28,9 @@ class RegisterController extends Controller
             'email' => 'required|email:dns|unique:users',
             'password' => 'required|min:8|max:255',
             'alamatpemohon' => 'required|max:255',
-            'nohp' => 'required|max:20'
+            'nohp' => 'required|max:20',
+            'role' => 'required',
+            'active' => 'required',
         ]);
         // $validateData['password'] = bcrypt($validateData['password']);
         $validateData['password'] = Hash::make($validateData['password']);
@@ -38,6 +40,5 @@ class RegisterController extends Controller
         // session()->flash('success', "Registration successfull! Please login!");
 
         return redirect('/login')->with('success', "Registration successfull! Please login!");
-    
     }
 }

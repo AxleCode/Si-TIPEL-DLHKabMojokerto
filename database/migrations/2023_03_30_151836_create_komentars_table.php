@@ -17,7 +17,9 @@ return new class extends Migration
             $table->text('komentar');
             $table->string('file');
             $table->string('petugas');
-            $table->string('transportasi')->nullable();;
+            $table->string('transportasi')->nullable();
+            $table->string('alamat_petugas')->nullable();
+            $table->string('koordinat_petugas')->nullable();
             $table->integer('status');
             $table->timestamps();
         });
