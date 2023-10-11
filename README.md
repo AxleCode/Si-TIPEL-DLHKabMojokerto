@@ -10,3 +10,8 @@
 ## Tentang Website Ini
 
 Ini adalah website dari Skripsi/Tugas Akhir saya selama menempuh pendidikan S1 Rekayasa Perangkat Lunak
+
+Teknologi :
+- Laravel 10
+- PHP 8+
+- Bootstrap 5
