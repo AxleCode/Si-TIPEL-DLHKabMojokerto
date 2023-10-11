@@ -10,6 +10,7 @@
 ## Tentang Website Ini
 
 Ini adalah website dari Skripsi/Tugas Akhir saya selama menempuh pendidikan S1 Rekayasa Perangkat Lunak
+Terdapat dataset JSON kacamatan dan desa yang ada di kabupaten mojokerto beserta koordinat latitute longtitude buatan sendiri 
 
 Teknologi :
 - Laravel 10
